@@ -1,0 +1,37 @@
+# OS Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor Files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+*.sublime-*
+
+# Temporary Files
+/tmp/
+*.tmp
+*.log
+*.bak
+
+# Node modules (if any JS build tools added later)
+node_modules/
+package-lock.json
+
+# Build artifacts
+dist/
+build/
+*.min.js
+*.min.css
+
+# Backup files
+*.backup
+*backup*
+
+# Test files
+test/
+tests/
+*.test.html
