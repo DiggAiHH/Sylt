@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #F8F9FA;
+  --foreground: #0A2540;
+  --deep-sea-blue: #0A2540;
+  --rich-gold: #C9A962;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: "Georgia", "Times New Roman", serif;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
