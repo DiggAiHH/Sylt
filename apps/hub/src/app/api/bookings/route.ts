@@ -4,9 +4,11 @@ import type { ApiResponse, Booking } from '@blumsylt/shared';
 import { bookingRequestSchema, bookingIdSchema, validateRequest } from '@/lib/validation';
 import { ApiError, ErrorCode, handleError, logError } from '@/lib/errors';
 import { checkRateLimit, getClientIdentifier, getRateLimitHeaders } from '@/lib/rate-limit';
+import { createCheckoutSession, isStripeConfigured } from '@/lib/stripe';
 
 // Mock bookings storage - in production, this would be a database
-const bookings: Map<string, Booking> = new Map();
+// Exported for use by other modules (e.g., webhooks)
+export const bookings: Map<string, Booking> = new Map();
 
 /**
  * Generate cryptographically secure booking ID
@@ -104,12 +106,53 @@ export async function POST(request: NextRequest) {
       action: 'CREATE_BOOKING'
     });
 
+    // Create Stripe Checkout Session for payment
+    const checkoutResult = await createCheckoutSession({
+      bookingId,
+      propertyName: `Unterkunft ${propertyId}`, // Would come from property data in production
+      guestEmail: guestEmail.toLowerCase().trim(),
+      guestName: sanitizeString(guestName),
+      checkIn: checkInDate,
+      checkOut: checkOutDate,
+      nights,
+      totalPrice,
+      currency: 'eur',
+    });
+
+    if (!checkoutResult.success || !checkoutResult.checkoutUrl) {
+      // Log payment session creation failure
+      logError(new Error('Failed to create checkout session'), {
+        bookingId,
+        error: checkoutResult.error,
+      });
+      
+      // Still return booking but with fallback checkout URL
+      // In production, you might want to fail the booking creation instead
+      const fallbackUrl = isStripeConfigured()
+        ? `/booking/error?booking_id=${bookingId}`
+        : `/checkout/${bookingId}`;
+
+      return NextResponse.json<ApiResponse<{ booking: Booking; paymentUrl: string }>>({
+        success: true,
+        data: {
+          booking,
+          paymentUrl: fallbackUrl,
+        },
+        message: isStripeConfigured()
+          ? 'Buchung erstellt, aber Zahlungssitzung konnte nicht erstellt werden.'
+          : 'Buchung erfolgreich erstellt. Zahlung ist im Entwicklungsmodus simuliert.',
+      }, { headers: getRateLimitHeaders(rateLimit) });
+    }
+
+    // Update booking with Stripe session ID for tracking
+    booking.stripePaymentIntentId = checkoutResult.sessionId;
+    bookings.set(bookingId, booking);
+
     return NextResponse.json<ApiResponse<{ booking: Booking; paymentUrl: string }>>({
       success: true,
       data: {
         booking,
-        // In production, this would be a Stripe checkout URL
-        paymentUrl: `/checkout/${bookingId}`,
+        paymentUrl: checkoutResult.checkoutUrl,
       },
       message: 'Buchung erfolgreich erstellt. Bitte fahren Sie mit der Zahlung fort.',
     }, { headers: getRateLimitHeaders(rateLimit) });
