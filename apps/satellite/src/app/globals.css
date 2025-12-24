@@ -6,6 +6,11 @@
   --font-cormorant: 'Cormorant Garamond', serif;
   --font-inter: 'Inter', sans-serif;
   
+  /* Brand-specific colors - overridden by brand config */
+  --brand-primary: #2d7a99;
+  --brand-secondary: #f5f0e8;
+  --brand-accent: #55514a;
+  
   /* Accessibility: High contrast colors for better readability */
   --color-text-primary: #2d2a26;
   --color-text-secondary: #4a4640;
@@ -74,21 +79,6 @@ p {
   background: #7a766d;
 }
 
-/* Date input styling - larger touch target */
-input[type="date"]::-webkit-calendar-picker-indicator {
-  cursor: pointer;
-  opacity: 0.8;
-  padding: 4px;
-  min-width: 24px;
-  min-height: 24px;
-}
-
-input[type="date"]::-webkit-calendar-picker-indicator:hover {
-  opacity: 1;
-  background-color: rgba(45, 122, 153, 0.1);
-  border-radius: 4px;
-}
-
 /* Focus styles - high visibility for keyboard navigation */
 input:focus, select:focus, textarea:focus, button:focus {
   outline: 3px solid var(--color-focus-ring);
@@ -145,6 +135,22 @@ button:focus-visible {
   
   .luxury-shadow-lg {
     box-shadow: 0 8px 60px -15px rgba(0, 0, 0, 0.15);
+  }
+  
+  .brand-primary {
+    color: var(--brand-primary);
+  }
+  
+  .bg-brand-primary {
+    background-color: var(--brand-primary);
+  }
+  
+  .brand-secondary {
+    color: var(--brand-secondary);
+  }
+  
+  .bg-brand-secondary {
+    background-color: var(--brand-secondary);
   }
   
   /* Accessibility utilities */

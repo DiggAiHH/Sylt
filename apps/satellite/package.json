@@ -1,9 +1,9 @@
 {
-  "name": "@blumsylt/hub",
+  "name": "@blumsylt/satellite",
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3000",
+    "dev": "next dev -p 3001",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -13,13 +13,9 @@
     "@blumsylt/shared": "*",
     "@blumsylt/ui": "*",
     "framer-motion": "^10.18.0",
-    "ical-generator": "^6.0.1",
-    "ical.js": "^1.5.0",
     "next": "14.2.35",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "stripe": "^14.14.0",
-    "zod": "^3.23.8"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@types/node": "^20",

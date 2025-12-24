@@ -1,3 +1,4 @@
+export * from './components';
 // Components
 export { HeroVideo } from './components/HeroVideo';
 export { Container } from './components/Container';

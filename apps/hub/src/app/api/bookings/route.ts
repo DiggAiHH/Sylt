@@ -1,95 +1,182 @@
-import { NextResponse } from 'next/server';
-import type { Booking, BookingRequest } from '@sylt/types';
+import { NextRequest, NextResponse } from 'next/server';
+import { randomBytes } from 'crypto';
+import type { ApiResponse, Booking } from '@blumsylt/shared';
+import { bookingRequestSchema, bookingIdSchema, validateRequest } from '@/lib/validation';
+import { ApiError, ErrorCode, handleError, logError } from '@/lib/errors';
+import { checkRateLimit, getClientIdentifier, getRateLimitHeaders } from '@/lib/rate-limit';
 
-// In-memory storage for demo purposes
+// Mock bookings storage - in production, this would be a database
 const bookings: Map<string, Booking> = new Map();
 
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const bookingId = searchParams.get('id');
-
-  if (bookingId) {
-    const booking = bookings.get(bookingId);
-    if (!booking) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: {
-            code: 'NOT_FOUND',
-            message: 'Booking not found',
-          },
-        },
-        { status: 404 }
-      );
-    }
-    return NextResponse.json({ success: true, data: booking });
-  }
-
-  return NextResponse.json({
-    success: true,
-    data: Array.from(bookings.values()),
-  });
+/**
+ * Generate cryptographically secure booking ID
+ */
+function generateBookingId(): string {
+  const timestamp = Date.now();
+  const randomPart = randomBytes(6).toString('hex');
+  return `booking_${timestamp}_${randomPart}`;
 }
 
-export async function POST(request: Request) {
-  try {
-    const body: BookingRequest = await request.json();
+/**
+ * Sanitize string input to prevent XSS
+ */
+function sanitizeString(input: string): string {
+  return input
+    .trim()
+    .replace(/[<>]/g, '') // Remove potential HTML tags
+    .substring(0, 200);    // Limit length
+}
 
-    // Validate required fields
-    if (!body.propertyId || !body.guestName || !body.guestEmail || !body.checkIn || !body.checkOut) {
+export async function POST(request: NextRequest) {
+  const clientId = getClientIdentifier(request);
+  const rateLimit = checkRateLimit(clientId, 'bookings');
+  
+  if (!rateLimit.allowed) {
+    return NextResponse.json(
+      new ApiError(ErrorCode.RATE_LIMIT_EXCEEDED).toResponse(),
+      { status: 429, headers: getRateLimitHeaders(rateLimit) }
+    );
+  }
+
+  try {
+    const body = await request.json();
+    
+    // Validate input with Zod schema
+    const validation = validateRequest(bookingRequestSchema, body);
+    
+    if (!validation.success) {
+      return NextResponse.json<ApiResponse<null>>({
+        success: false,
+        error: validation.errors.join('; '),
+      }, { status: 400, headers: getRateLimitHeaders(rateLimit) });
+    }
+
+    const { propertyId, checkIn, checkOut, guests, guestName, guestEmail } = validation.data;
+
+    // Parse and validate dates
+    const checkInDate = new Date(checkIn);
+    const checkOutDate = new Date(checkOut);
+
+    // Calculate nights and price
+    const nights = Math.ceil(
+      (checkOutDate.getTime() - checkInDate.getTime()) / (1000 * 60 * 60 * 24)
+    );
+    
+    // Validate minimum stay (1 night) and maximum stay (30 nights)
+    if (nights < 1 || nights > 30) {
+      return NextResponse.json<ApiResponse<null>>({
+        success: false,
+        error: 'Aufenthaltsdauer muss zwischen 1 und 30 Nächten liegen.',
+      }, { status: 400, headers: getRateLimitHeaders(rateLimit) });
+    }
+
+    const pricePerNight = 250; // Would come from property data in production
+    const totalPrice = nights * pricePerNight;
+
+    // Create booking with secure ID
+    const bookingId = generateBookingId();
+    const now = new Date();
+    
+    const booking: Booking = {
+      id: bookingId,
+      propertyId,
+      guestName: sanitizeString(guestName),
+      guestEmail: guestEmail.toLowerCase().trim(),
+      checkIn: checkInDate,
+      checkOut: checkOutDate,
+      guests,
+      totalPrice,
+      currency: 'EUR',
+      status: 'pending',
+      createdAt: now,
+      updatedAt: now,
+    };
+
+    // Store booking
+    bookings.set(bookingId, booking);
+
+    // Log successful booking creation (for audit trail)
+    logError(new Error('Booking created'), { 
+      bookingId, 
+      propertyId, 
+      checkIn, 
+      checkOut,
+      action: 'CREATE_BOOKING'
+    });
+
+    return NextResponse.json<ApiResponse<{ booking: Booking; paymentUrl: string }>>({
+      success: true,
+      data: {
+        booking,
+        // In production, this would be a Stripe checkout URL
+        paymentUrl: `/checkout/${bookingId}`,
+      },
+      message: 'Buchung erfolgreich erstellt. Bitte fahren Sie mit der Zahlung fort.',
+    }, { headers: getRateLimitHeaders(rateLimit) });
+
+  } catch (error) {
+    const apiError = handleError(error);
+    logError(apiError, { endpoint: 'bookings', method: 'POST' });
+    
+    return NextResponse.json(
+      apiError.toResponse(),
+      { status: apiError.httpStatus }
+    );
+  }
+}
+
+export async function GET(request: NextRequest) {
+  const clientId = getClientIdentifier(request);
+  const rateLimit = checkRateLimit(clientId, 'bookings');
+  
+  if (!rateLimit.allowed) {
+    return NextResponse.json(
+      new ApiError(ErrorCode.RATE_LIMIT_EXCEEDED).toResponse(),
+      { status: 429, headers: getRateLimitHeaders(rateLimit) }
+    );
+  }
+
+  try {
+    const { searchParams } = new URL(request.url);
+    const bookingId = searchParams.get('id');
+    
+    if (!bookingId) {
+      return NextResponse.json<ApiResponse<null>>({
+        success: false,
+        error: 'Buchungs-ID fehlt',
+      }, { status: 400, headers: getRateLimitHeaders(rateLimit) });
+    }
+
+    // Validate booking ID format to prevent injection
+    const idValidation = bookingIdSchema.safeParse(bookingId);
+    if (!idValidation.success) {
+      return NextResponse.json<ApiResponse<null>>({
+        success: false,
+        error: 'Ungültige Buchungs-ID',
+      }, { status: 400, headers: getRateLimitHeaders(rateLimit) });
+    }
+
+    const booking = bookings.get(bookingId);
+    
+    if (!booking) {
       return NextResponse.json(
-        {
-          success: false,
-          error: {
-            code: 'VALIDATION_ERROR',
-            message: 'Missing required fields',
-          },
-        },
-        { status: 400 }
+        new ApiError(ErrorCode.BOOKING_NOT_FOUND).toResponse(),
+        { status: 404, headers: getRateLimitHeaders(rateLimit) }
       );
     }
 
-    // Create booking
-    const booking: Booking = {
-      id: `booking-${Date.now()}`,
-      propertyId: body.propertyId,
-      guestName: body.guestName,
-      guestEmail: body.guestEmail,
-      checkIn: new Date(body.checkIn),
-      checkOut: new Date(body.checkOut),
-      roomType: body.roomType,
-      guests: body.guests,
-      totalPrice: 0, // Would be calculated based on availability
-      currency: 'EUR',
-      status: 'pending',
-      source: 'direct',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
+    return NextResponse.json<ApiResponse<Booking>>({
+      success: true,
+      data: booking,
+    }, { headers: getRateLimitHeaders(rateLimit) });
 
-    // Calculate total price (mock)
-    // Ensure minimum 1 night for valid bookings (same-day checkout not allowed)
-    const nights = Math.max(
-      1,
-      Math.round(
-        (booking.checkOut.getTime() - booking.checkIn.getTime()) / (1000 * 60 * 60 * 24)
-      )
-    );
-    booking.totalPrice = nights * 350; // Mock price
-
-    bookings.set(booking.id, booking);
-
-    return NextResponse.json({ success: true, data: booking }, { status: 201 });
-  } catch {
+  } catch (error) {
+    const apiError = handleError(error);
+    logError(apiError, { endpoint: 'bookings', method: 'GET' });
+    
     return NextResponse.json(
-      {
-        success: false,
-        error: {
-          code: 'INVALID_REQUEST',
-          message: 'Invalid request body',
-        },
-      },
-      { status: 400 }
+      apiError.toResponse(),
+      { status: apiError.httpStatus }
     );
   }
 }

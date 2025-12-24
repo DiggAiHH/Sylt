@@ -1,328 +1,117 @@
-import {
-  HeroVideo,
-  Container,
-  Button,
-  AnimatedSection,
-  Heading,
-  Text,
-  Navigation,
-  Footer,
-  ParallaxSection,
-  Testimonials,
-  Stats,
-} from '@sylt/ui';
-import { colors } from '@sylt/config';
 import Link from 'next/link';
+import { brands } from '@blumsylt/shared';
 
-// Navigation items
-const navItems = [
-  { label: 'Unterkünfte', href: '/properties' },
-  { label: 'Über Uns', href: '/about' },
-  { label: 'Erlebnisse', href: '/experiences' },
-  { label: 'Kontakt', href: '/contact' },
-];
-
-// Footer columns
-const footerColumns = [
-  {
-    title: 'Unterkünfte',
-    links: [
-      { label: 'Sylt Rooms', href: 'https://syltrooms.de' },
-      { label: 'Privat Homes', href: 'https://privathomes.de' },
-      { label: 'Long Island House', href: 'https://longislandhouse.de' },
-      { label: 'Auster Appartements', href: 'https://auster-appartements.de' },
-      { label: 'Beach Home', href: 'https://beach-home.de' },
-    ],
-  },
-  {
-    title: 'Service',
-    links: [
-      { label: 'Buchung', href: '/booking' },
-      { label: 'Stornierung', href: '/cancellation' },
-      { label: 'FAQ', href: '/faq' },
-      { label: 'Geschenkgutscheine', href: '/gift-cards' },
-    ],
-  },
-  {
-    title: 'Kontakt',
-    links: [
-      { label: 'Anfahrt', href: '/directions' },
-      { label: 'Newsletter', href: '/newsletter' },
-      { label: 'Karriere', href: '/careers' },
-      { label: 'Presse', href: '/press' },
-    ],
-  },
-];
-
-// Property types for showcase
-const propertyTypes = [
-  {
-    title: 'Sylt Rooms',
-    description: '10 exklusive Hotelzimmer mit Blick auf die Dünen',
-    image: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800',
-    href: 'https://syltrooms.de',
-  },
-  {
-    title: 'Privat Homes',
-    description: 'Luxuriöse Ferienhäuser für gehobene Ansprüche',
-    image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800',
-    href: 'https://privathomes.de',
-  },
-  {
-    title: 'Long Island House',
-    description: 'Hampton-Style Eleganz trifft Sylter Charme',
-    image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800',
-    href: 'https://longislandhouse.de',
-  },
-  {
-    title: 'Auster Appartements',
-    description: 'Moderne Apartments im Herzen der Insel',
-    image: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800',
-    href: 'https://auster-appartements.de',
-  },
-  {
-    title: 'Beach Home',
-    description: 'Direkt am Strand – Nordsee pur',
-    image: 'https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?w=800',
-    href: 'https://beach-home.de',
-  },
-];
-
-export default function HomePage() {
+export default function HubHomePage() {
   return (
-    <main>
-      {/* Navigation */}
-      <Navigation
-        logo={
-          <span className="font-heading text-2xl text-white">
-            BLUM<span className="text-sand-400">SYLT</span>
-          </span>
-        }
-        items={navItems}
-        transparent={true}
-      />
-
+    <main className="min-h-screen">
       {/* Hero Section */}
-      <HeroVideo
-        videoSrc="/videos/sylt-waves.mp4"
-        posterSrc="/images/sylt-hero.jpg"
-        title="Willkommen auf Sylt"
-        subtitle="Erleben Sie zeitlose Eleganz an der Nordsee"
-        height="full"
-      >
-        <Button size="lg" variant="outline">
-          Unterkünfte entdecken
-        </Button>
-      </HeroVideo>
-
-      {/* Introduction Section */}
-      <section className="luxury-section luxury-gradient">
-        <Container>
-          <AnimatedSection className="text-center max-w-3xl mx-auto">
-            <Text variant="accent" className="text-nordsee-500 mb-4">
-              Quiet Luxury
-            </Text>
-            <Heading as="h2" size="xl" className="mb-6">
-              Exklusive Unterkünfte für unvergessliche Momente
-            </Heading>
-            <Text variant="lead" className="mb-8">
-              Von eleganten Hotelzimmern bis hin zu weitläufigen Ferienhäusern –
-              unsere handverlesenen Unterkünfte verbinden nordische Ästhetik mit
-              modernem Luxus. Entdecken Sie die Schönheit Sylts in einer Atmosphäre
-              vollkommener Entspannung.
-            </Text>
-          </AnimatedSection>
-        </Container>
+      <section className="relative h-[60vh] bg-gradient-to-br from-nordsee-900 via-nordsee-700 to-reetdach-800 flex items-center justify-center">
+        <div className="absolute inset-0 bg-black/20" />
+        <div className="relative z-10 text-center px-4">
+          <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl text-white mb-4 tracking-wide">
+            Blum Sylt Hotels
+          </h1>
+          <p className="font-sans text-lg md:text-xl text-white/90 max-w-2xl mx-auto mb-8">
+            Zentrale Buchungsplattform für exklusive Unterkünfte auf Sylt
+          </p>
+        </div>
       </section>
 
-      {/* Property Types Section */}
-      <section className="luxury-section bg-white">
-        <Container>
-          <AnimatedSection className="text-center mb-16">
-            <Text variant="accent" className="text-nordsee-500 mb-4">
-              Unsere Häuser
-            </Text>
-            <Heading as="h2" size="xl">
-              Fünf einzigartige Welten
-            </Heading>
-          </AnimatedSection>
+      {/* Brands Grid */}
+      <section className="py-20 md:py-32 bg-sand-50">
+        <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-7xl">
+          <div className="text-center mb-16">
+            <h2 className="font-serif text-4xl md:text-5xl text-reetdach-900 mb-4">
+              Unsere Marken
+            </h2>
+            <p className="text-reetdach-600 max-w-2xl mx-auto">
+              Entdecken Sie unsere exklusive Auswahl an Ferienunterkünften auf der wunderschönen Insel Sylt.
+            </p>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {propertyTypes.map((property, index) => (
-              <AnimatedSection
-                key={property.title}
-                animation="slideUp"
-                delay={index * 0.1}
+            {Object.values(brands).map((brand) => (
+              <Link
+                key={brand.id}
+                href={`/properties?brand=${brand.id}`}
+                className="group block bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300"
               >
-                <Link
-                  href={property.href}
-                  className="group block relative overflow-hidden rounded-lg aspect-[4/5]"
-                  target="_blank"
+                <div 
+                  className="h-48 flex items-center justify-center"
+                  style={{ backgroundColor: brand.secondaryColor }}
                 >
-                  <div
-                    className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                    style={{ backgroundImage: `url(${property.image})` }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/20 to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-8">
-                    <h3 className="font-heading text-2xl text-white mb-2">
-                      {property.title}
-                    </h3>
-                    <p className="font-body text-sand-200 text-sm">
-                      {property.description}
-                    </p>
-                    <div className="mt-4 inline-flex items-center text-sand-300 text-sm font-body tracking-wide group-hover:text-white transition-colors">
-                      Entdecken
-                      <svg
-                        className="ml-2 w-4 h-4 transform group-hover:translate-x-1 transition-transform"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M17 8l4 4m0 0l-4 4m4-4H3"
-                        />
-                      </svg>
-                    </div>
+                  <h3 
+                    className="font-serif text-2xl md:text-3xl transition-transform group-hover:scale-105"
+                    style={{ color: brand.primaryColor }}
+                  >
+                    {brand.name}
+                  </h3>
+                </div>
+                <div className="p-6">
+                  <p className="text-sm text-reetdach-500 mb-2">{brand.tagline}</p>
+                  <p className="text-reetdach-600">{brand.description}</p>
+                  <div className="mt-4 flex items-center text-nordsee-600 font-medium">
+                    <span>Unterkünfte entdecken</span>
+                    <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
                   </div>
-                </Link>
-              </AnimatedSection>
+                </div>
+              </Link>
             ))}
           </div>
-        </Container>
+        </div>
       </section>
 
       {/* Features Section */}
-      <ParallaxSection
-        backgroundImage="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1920"
-        overlay
-        overlayOpacity={0.6}
-        className="luxury-section"
-      >
-        <Container>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <AnimatedSection animation="slideInLeft">
-              <Text variant="accent" className="text-sand-300 mb-4">
-                Unser Versprechen
-              </Text>
-              <Heading as="h2" size="xl" className="text-white mb-6">
-                Mehr als nur Übernachten
-              </Heading>
-              <Text className="text-sand-200 mb-8">
-                Bei BLUM Sylt Hotels bedeutet Gastfreundschaft, dass jeder Moment
-                zu einem besonderen Erlebnis wird. Von der ersten Buchung bis zum
-                letzten Sonnenuntergang am Strand – wir kümmern uns um jedes Detail.
-              </Text>
-              <Button variant="outline">Mehr erfahren</Button>
-            </AnimatedSection>
-
-            <AnimatedSection animation="slideInRight" className="grid grid-cols-2 gap-6">
-              {[
-                { icon: '🏖️', title: 'Strandnähe', desc: 'Wenige Schritte zum Meer' },
-                { icon: '🍽️', title: 'Kulinarik', desc: 'Regionale Spezialitäten' },
-                { icon: '🧖', title: 'Wellness', desc: 'Entspannung pur' },
-                { icon: '🚴', title: 'Aktivitäten', desc: 'Erlebnisse vor Ort' },
-              ].map((feature) => (
-                <div
-                  key={feature.title}
-                  className="bg-white/10 backdrop-blur-lg p-6 rounded-lg text-center"
-                >
-                  <span className="text-4xl mb-4 block">{feature.icon}</span>
-                  <h4 className="font-heading text-lg text-white mb-1">
-                    {feature.title}
-                  </h4>
-                  <p className="font-body text-sm text-sand-300">{feature.desc}</p>
-                </div>
-              ))}
-            </AnimatedSection>
-          </div>
-        </Container>
-      </ParallaxSection>
-
-      {/* Stats Section */}
-      <section className="luxury-section bg-white">
-        <Container>
-          <Stats
-            stats={[
-              { value: '5', label: 'Einzigartige Häuser' },
-              { value: '50', suffix: '+', label: 'Unterkünfte' },
-              { value: '15', label: 'Jahre Erfahrung' },
-              { value: '98', suffix: '%', label: 'Zufriedene Gäste' },
-            ]}
-          />
-        </Container>
-      </section>
-
-      {/* Testimonials Section */}
-      <Testimonials
-        testimonials={[
-          {
-            id: '1',
-            name: 'Familie Schmidt',
-            location: 'Hamburg',
-            text: 'Ein unvergesslicher Urlaub! Das Strandhaus war traumhaft und der Service erstklassig. Wir kommen definitiv wieder.',
-            rating: 5,
-          },
-          {
-            id: '2',
-            name: 'Dr. Michael Weber',
-            location: 'München',
-            text: 'Die perfekte Mischung aus Luxus und nordischer Gemütlichkeit. Das Long Island House hat alle Erwartungen übertroffen.',
-            rating: 5,
-          },
-          {
-            id: '3',
-            name: 'Anna & Thomas K.',
-            location: 'Berlin',
-            text: 'Sylt Rooms bietet alles, was man für einen entspannten Kurzurlaub braucht. Besonders das Frühstück war hervorragend!',
-            rating: 5,
-          },
-        ]}
-        subtitle="Erfahrungen und Bewertungen unserer Gäste"
-      />
-
-      {/* CTA Section */}
-      <section className="luxury-section bg-nordsee-500">
-        <Container>
-          <AnimatedSection className="text-center">
-            <Heading as="h2" size="xl" className="text-white mb-6">
-              Bereit für Ihren Sylt-Urlaub?
-            </Heading>
-            <Text className="text-nordsee-100 mb-8 max-w-2xl mx-auto">
-              Kontaktieren Sie uns für eine persönliche Beratung oder buchen Sie
-              direkt Ihre Traumunterkunft online.
-            </Text>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="secondary" size="lg">
-                Jetzt buchen
-              </Button>
-              <Link href="/contact">
-                <Button variant="ghost" size="lg" className="text-white hover:bg-nordsee-400">
-                  Kontakt aufnehmen
-                </Button>
-              </Link>
+      <section className="py-20 md:py-32 bg-white">
+        <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-7xl">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-nordsee-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg className="w-8 h-8 text-nordsee-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+              </div>
+              <h3 className="font-serif text-2xl text-reetdach-900 mb-3">Sichere Zahlung</h3>
+              <p className="text-reetdach-600">Verschlüsselte Zahlungsabwicklung mit Stripe für maximale Sicherheit.</p>
             </div>
-          </AnimatedSection>
-        </Container>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-sand-200 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg className="w-8 h-8 text-sand-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <h3 className="font-serif text-2xl text-reetdach-900 mb-3">Echtzeit-Verfügbarkeit</h3>
+              <p className="text-reetdach-600">Aktuelle Verfügbarkeiten durch automatische Kalender-Synchronisation.</p>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-reetdach-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg className="w-8 h-8 text-reetdach-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 className="font-serif text-2xl text-reetdach-900 mb-3">Beste Preisgarantie</h3>
+              <p className="text-reetdach-600">Direktbuchung garantiert den besten verfügbaren Preis.</p>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Footer */}
-      <Footer
-        logo={
-          <span className="font-heading text-2xl text-white">
-            BLUM<span className="text-sand-400">SYLT</span>
-          </span>
-        }
-        columns={footerColumns}
-        socialLinks={{
-          instagram: 'https://instagram.com/blumsylt',
-          facebook: 'https://facebook.com/blumsylt',
-          pinterest: 'https://pinterest.com/blumsylt',
-        }}
-      />
+      <footer className="bg-reetdach-900 text-white py-12">
+        <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-7xl">
+          <div className="text-center">
+            <h4 className="font-serif text-2xl mb-4">Blum Sylt Hotels</h4>
+            <p className="text-reetdach-300 mb-6">Exklusive Unterkünfte auf Deutschlands schönster Insel</p>
+            <p className="text-sm text-reetdach-400">
+              © {new Date().getFullYear()} Blum Sylt Hotels. Alle Rechte vorbehalten.
+            </p>
+          </div>
+        </div>
+      </footer>
     </main>
   );
 }
