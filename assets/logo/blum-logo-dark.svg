@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- © 2025 BLUM Fisch-Spezialitäten - Dark Background Version -->
+<svg width="400" height="200" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .brand-text { font-family: 'Georgia', serif; font-weight: bold; font-size: 48px; fill: #FFFFFF; }
+      .subtitle-text { font-family: 'Arial', sans-serif; font-size: 16px; fill: #D4A853; letter-spacing: 2px; }
+      .lobster { fill: #D4A853; }
+      .fish { fill: #E8F4F8; opacity: 0.8; }
+      .wave { fill: #E8F4F8; }
+    </style>
+  </defs>
+  
+  <!-- Wave background decoration -->
+  <path class="wave" d="M 0 100 Q 50 90, 100 100 T 200 100 T 300 100 T 400 100 L 400 120 L 0 120 Z" opacity="0.2"/>
+  
+  <!-- Lobster/Crab icon -->
+  <g class="lobster" transform="translate(50, 60)">
+    <!-- Body -->
+    <ellipse cx="20" cy="20" rx="15" ry="20"/>
+    <!-- Claws -->
+    <path d="M 5 15 L -5 10 L -10 12 L -8 15 L -5 13 Z"/>
+    <path d="M 35 15 L 45 10 L 50 12 L 48 15 L 45 13 Z"/>
+    <!-- Antennae -->
+    <line x1="15" y1="5" x2="10" y2="-5" stroke="#D4A853" stroke-width="2"/>
+    <line x1="25" y1="5" x2="30" y2="-5" stroke="#D4A853" stroke-width="2"/>
+    <!-- Tail segments -->
+    <rect x="16" y="40" width="8" height="6" rx="2"/>
+    <rect x="14" y="46" width="12" height="6" rx="2"/>
+    <rect x="12" y="52" width="16" height="6" rx="2"/>
+  </g>
+  
+  <!-- BLUM text -->
+  <text x="120" y="90" class="brand-text">BLUM</text>
+  
+  <!-- Subtitle -->
+  <text x="120" y="115" class="subtitle-text">FISCH-SPEZIALITÄTEN</text>
+  
+  <!-- Small fish decorations -->
+  <g class="fish" transform="translate(320, 70)">
+    <ellipse cx="0" cy="0" rx="20" ry="8"/>
+    <path d="M -20 0 L -30 -5 L -30 5 Z"/>
+    <circle cx="10" cy="-2" r="2" fill="white"/>
+  </g>
+  
+  <g class="fish" transform="translate(340, 95) scale(0.7)">
+    <ellipse cx="0" cy="0" rx="20" ry="8"/>
+    <path d="M -20 0 L -30 -5 L -30 5 Z"/>
+    <circle cx="10" cy="-2" r="2" fill="white"/>
+  </g>
+  
+  <!-- Origin marker - Sylt -->
+  <text x="120" y="135" style="font-family: Arial, sans-serif; font-size: 12px; fill: #E8F4F8; font-style: italic;">Sylt</text>
+</svg>
