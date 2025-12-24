@@ -1,4 +1,5 @@
 {
+  "name": "blumsylt-hub-spoke",
   "name": "blum-auf-sylt",
   "version": "0.1.0",
   "private": true,
@@ -26,6 +27,7 @@
   "name": "blumsylthotels-hub-spoke",
   "version": "1.0.0",
   "private": true,
+  "description": "Hub & Spoke Architecture für Sylt Luxus-Hotels",
   "workspaces": [
     "apps/*",
     "packages/*"
@@ -45,33 +47,4 @@
   "engines": {
     "node": ">=18.17.0"
   }
-  "name": "sylt-luxury-hotels",
-  "version": "1.0.0",
-  "private": true,
-  "description": "Hub & Spoke Architecture für Sylt Luxus-Hotels",
-  "workspaces": [
-    "apps/*",
-    "apps/satellites/*",
-    "packages/*"
-  ],
-  "scripts": {
-    "dev": "turbo run dev",
-    "build": "turbo run build",
-    "lint": "turbo run lint",
-    "type-check": "turbo run type-check",
-    "dev:hub": "npm run dev --workspace=@sylt/hub",
-    "dev:syltrooms": "npm run dev --workspace=@sylt/syltrooms",
-    "dev:privathomes": "npm run dev --workspace=@sylt/privathomes",
-    "dev:longislandhouse": "npm run dev --workspace=@sylt/longislandhouse",
-    "dev:auster-appartements": "npm run dev --workspace=@sylt/auster-appartements",
-    "dev:beach-home": "npm run dev --workspace=@sylt/beach-home"
-  },
-  "devDependencies": {
-    "turbo": "^2.0.0",
-    "typescript": "^5.3.0"
-  },
-  "engines": {
-    "node": ">=18"
-  },
-  "packageManager": "npm@10.0.0"
 }

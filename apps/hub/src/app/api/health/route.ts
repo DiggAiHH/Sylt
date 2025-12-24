@@ -38,10 +38,10 @@ async function checkDatabase(): Promise<{ status: 'pass' | 'fail' | 'warn'; mess
       message: 'In-memory store operational',
       duration: Math.round(performance.now() - start),
     };
-  } catch (error) {
+  } catch (err) {
     return {
       status: 'fail',
-      message: error instanceof Error ? error.message : 'Database check failed',
+      message: err instanceof Error ? err.message : 'Database check failed',
       duration: Math.round(performance.now() - start),
     };
   }
@@ -58,7 +58,7 @@ async function checkExternalServices(): Promise<{ status: 'pass' | 'fail' | 'war
       message: 'External services reachable',
       duration: Math.round(performance.now() - start),
     };
-  } catch (error) {
+  } catch {
     return {
       status: 'warn',
       message: 'External service check failed',

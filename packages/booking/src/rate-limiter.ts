@@ -93,7 +93,8 @@ export class RateLimiter {
     // Buckets inactive for 2 full refill cycles are considered stale
     const expiryTime = this.config.refillTimeMs * 2;
 
-    for (const [identifier, bucket] of this.buckets.entries()) {
+    const entries = Array.from(this.buckets.entries());
+    for (const [identifier, bucket] of entries) {
       if (now - bucket.lastRefill > expiryTime) {
         this.buckets.delete(identifier);
       }

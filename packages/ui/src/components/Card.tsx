@@ -9,6 +9,7 @@ interface CardProps {
   className?: string;
   variant?: 'default' | 'elevated' | 'glass';
   hover?: boolean;
+  onClick?: () => void;
 }
 
 export function Card({
@@ -16,6 +17,7 @@ export function Card({
   className,
   variant = 'default',
   hover = true,
+  onClick,
 }: CardProps) {
   const variants = {
     default: 'bg-white border border-sand-200',
@@ -27,6 +29,7 @@ export function Card({
     <motion.div
       whileHover={hover ? { y: -4, boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.15)' } : undefined}
       transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+      onClick={onClick}
       className={cn(
         'rounded-lg overflow-hidden',
         variants[variant],

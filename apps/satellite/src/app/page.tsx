@@ -60,8 +60,8 @@ export default function SatelliteHomePage() {
         {/* Hero Section with Video or Image */}
         {brand.heroVideo ? (
           <HeroVideo
-            src={brand.heroVideo}
-            poster="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1920"
+            videoSrc={brand.heroVideo}
+            posterSrc="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1920"
             title={brand.name}
             subtitle={brand.tagline}
           >
