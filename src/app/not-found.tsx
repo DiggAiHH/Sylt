@@ -5,7 +5,7 @@
  */
 
 import Link from "next/link";
-import { NAVIGATION } from "@/lib/constants";
+import { NAV_BRANDS } from "@/lib/constants";
 
 export default function NotFound() {
   return (
@@ -72,7 +72,7 @@ export default function NotFound() {
         <div className="border-t border-sand-dark/20 pt-8">
           <p className="text-sm text-reetdach-light mb-4">Unsere Marken:</p>
           <div className="flex flex-wrap justify-center gap-3">
-            {NAVIGATION.slice(1).map((item) => (
+            {NAV_BRANDS.slice(1).map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
