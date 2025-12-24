@@ -186,46 +186,80 @@
             box-sizing: border-box;
         }
         
+        /* 
+         * SENIORENFREUNDLICHE CSS-VARIABLEN
+         * Größere Schriften, bessere Kontraste, optimierte Abstände
+         */
         :root {
+            /* Farben mit hohem Kontrast (WCAG AA konform) */
             --primary-color: #1a4a6e;
             --secondary-color: #2c7da0;
-            --accent-color: #e07b53;
+            --accent-color: #c45a2c; /* Dunkler für besseren Kontrast */
             --sand-color: #f5e6d3;
-            --text-color: #2d3748;
+            --text-color: #1a1a1a; /* Dunkler für besseren Kontrast */
             --light-gray: #f7fafc;
+            --focus-color: #ff6b35; /* Deutlicher Fokus-Indikator */
+            
+            /* Seniorenfreundliche Schriftgrößen */
+            --font-size-base: 1.125rem; /* 18px Basis */
+            --font-size-large: 1.25rem; /* 20px */
+            --font-size-xlarge: 1.5rem; /* 24px */
+            --font-size-xxlarge: 2rem; /* 32px */
+            --font-size-small: 1rem; /* 16px */
+            
+            /* Optimierte Abstände */
+            --line-height: 1.8;
+            --spacing-small: 0.75rem;
+            --spacing-medium: 1.5rem;
+            --spacing-large: 2.5rem;
+            
+            /* Mindestklickgröße für Touch/Maus (44px WCAG) */
+            --min-touch-target: 44px;
+        }
+        
+        /* Globaler Fokus-Stil für Tastaturnavigation */
+        /* Fokus-Stil für Tastaturnavigation (WCAG 2.1 konform) */
+        *:focus-visible {
+            outline: 3px solid var(--focus-color);
+            outline-offset: 2px;
         }
         
         body {
             font-family: 'Georgia', 'Times New Roman', serif;
-            line-height: 1.7;
+            font-size: var(--font-size-base);
+            line-height: var(--line-height);
             color: var(--text-color);
             background-color: var(--light-gray);
+            /* Bessere Lesbarkeit */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
         
         /* Header */
         header {
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
-            padding: 3rem 1rem;
+            padding: var(--spacing-large) var(--spacing-medium);
             text-align: center;
         }
         
         header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
+            font-size: var(--font-size-xxlarge);
+            margin-bottom: var(--spacing-small);
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            letter-spacing: 0.02em; /* Bessere Lesbarkeit */
         }
         
         header .subtitle {
-            font-size: 1.2rem;
+            font-size: var(--font-size-large);
             font-style: italic;
-            opacity: 0.9;
+            opacity: 1; /* Volle Sichtbarkeit für bessere Lesbarkeit */
         }
         
-        /* Navigation */
+        /* Navigation - Seniorenfreundlich mit großen Klickbereichen */
         nav {
             background-color: var(--sand-color);
-            padding: 1rem;
+            padding: var(--spacing-medium);
             position: sticky;
             top: 0;
             z-index: 100;
@@ -237,171 +271,318 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 1rem;
+            gap: var(--spacing-small);
             max-width: 1200px;
             margin: 0 auto;
         }
         
+        /* Große, gut klickbare Navigationselemente (min 44px Höhe) */
         nav a {
             color: var(--primary-color);
             text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            transition: background-color 0.3s;
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: var(--font-size-base);
+            font-weight: 600;
+            min-height: var(--min-touch-target);
+            display: inline-flex;
+            align-items: center;
+            border: 2px solid transparent;
         }
         
         nav a:hover {
             background-color: var(--primary-color);
             color: white;
+            transform: translateY(-2px); /* Subtile Hover-Animation */
+        }
+        
+        /* Aktiver Link-Zustand */
+        nav a:active {
+            transform: translateY(0);
         }
         
         /* Main Content */
         main {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 2rem 1rem;
+            padding: var(--spacing-large) var(--spacing-medium);
         }
         
-        /* Sections */
+        /* Sections - Größere Abstände für bessere Lesbarkeit */
         section {
-            margin-bottom: 3rem;
+            margin-bottom: var(--spacing-large);
             background: white;
-            border-radius: 10px;
-            padding: 2rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            padding: var(--spacing-large);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
         }
         
         section h2 {
             color: var(--primary-color);
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 3px solid var(--accent-color);
+            font-size: var(--font-size-xlarge);
+            margin-bottom: var(--spacing-medium);
+            padding-bottom: var(--spacing-small);
+            border-bottom: 4px solid var(--accent-color); /* Dickerer Rand für bessere Sichtbarkeit */
         }
         
-        /* Recipe Cards */
+        /* Recipe Cards - Seniorenfreundlich mit größerer Schrift */
         .recipe-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: var(--spacing-large);
         }
         
         .recipe-card {
             background: var(--light-gray);
-            border-radius: 10px;
-            padding: 1.5rem;
-            border-left: 4px solid var(--accent-color);
+            border-radius: 12px;
+            padding: var(--spacing-medium);
+            border-left: 5px solid var(--accent-color); /* Dickerer Rand */
+            transition: box-shadow 0.3s ease;
+        }
+        
+        /* Hover-Effekt für bessere Interaktivität */
+        .recipe-card:hover {
+            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
         }
         
         .recipe-card h3 {
             color: var(--primary-color);
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
+            font-size: var(--font-size-large);
+            margin-bottom: var(--spacing-small);
+            line-height: 1.4;
         }
         
         .recipe-meta {
             display: flex;
-            gap: 1rem;
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-            color: #666;
+            flex-wrap: wrap;
+            gap: var(--spacing-medium);
+            margin-bottom: var(--spacing-medium);
+            font-size: var(--font-size-base);
+            color: #333; /* Dunklerer Text für besseren Kontrast */
+            font-weight: 500;
         }
         
         .recipe-meta span {
             display: flex;
             align-items: center;
-            gap: 0.3rem;
+            gap: 0.4rem;
+            background: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            border: 1px solid #ddd;
         }
         
         .recipe-card h4 {
-            color: var(--secondary-color);
-            margin: 1rem 0 0.5rem;
-            font-size: 1rem;
+            color: var(--primary-color); /* Dunklerer Farbton für besseren Kontrast */
+            margin: var(--spacing-medium) 0 var(--spacing-small);
+            font-size: var(--font-size-base);
+            font-weight: 700;
         }
         
         .recipe-card ul, .recipe-card ol {
-            margin-left: 1.5rem;
+            margin-left: var(--spacing-medium);
+            font-size: var(--font-size-base);
         }
         
         .recipe-card li {
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
         }
         
         .recipe-tip {
             background: var(--sand-color);
-            padding: 0.8rem;
-            border-radius: 5px;
-            margin-top: 1rem;
+            padding: var(--spacing-medium);
+            border-radius: 8px;
+            margin-top: var(--spacing-medium);
             font-style: italic;
-            font-size: 0.95rem;
+            font-size: var(--font-size-base);
+            border-left: 4px solid var(--accent-color);
         }
         
-        /* Badge for new recipes */
+        /* Badge for new recipes - Größer für bessere Sichtbarkeit */
         .badge-new {
             background: var(--accent-color);
             color: white;
-            padding: 0.2rem 0.6rem;
-            border-radius: 15px;
-            font-size: 0.75rem;
-            margin-left: 0.5rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: var(--font-size-small);
+            font-weight: 700;
+            margin-left: 0.75rem;
             vertical-align: middle;
+            letter-spacing: 0.05em;
         }
         
-        /* Info boxes */
+        /* Info boxes - Größere Abstände und Schrift */
         .info-box {
             background: var(--sand-color);
-            padding: 1.5rem;
-            border-radius: 10px;
-            margin: 1.5rem 0;
+            padding: var(--spacing-large);
+            border-radius: 12px;
+            margin: var(--spacing-large) 0;
         }
         
         .info-box h4 {
             color: var(--primary-color);
-            margin-bottom: 0.8rem;
+            margin-bottom: var(--spacing-medium);
+            font-size: var(--font-size-large);
         }
         
         .info-box ul {
-            margin-left: 1.5rem;
+            margin-left: var(--spacing-medium);
+            font-size: var(--font-size-base);
         }
         
-        /* Shop list */
+        .info-box li {
+            margin-bottom: 0.6rem;
+            line-height: 1.7;
+        }
+        
+        /* Shop list - Größere Karten */
         .shop-list {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-medium);
+            margin-top: var(--spacing-medium);
         }
         
         .shop-card {
             background: white;
-            padding: 1rem;
-            border-radius: 8px;
-            border: 1px solid #ddd;
+            padding: var(--spacing-medium);
+            border-radius: 10px;
+            border: 2px solid #ddd;
+            transition: border-color 0.3s ease;
+        }
+        
+        .shop-card:hover {
+            border-color: var(--accent-color);
         }
         
         .shop-card h5 {
             color: var(--primary-color);
-            margin-bottom: 0.5rem;
+            margin-bottom: var(--spacing-small);
+            font-size: var(--font-size-base);
         }
         
-        /* Footer */
+        .shop-card p {
+            font-size: var(--font-size-base);
+            line-height: 1.6;
+        }
+        
+        /* Footer - Größere Schrift */
         footer {
             background: var(--primary-color);
             color: white;
             text-align: center;
-            padding: 2rem;
-            margin-top: 3rem;
+            padding: var(--spacing-large);
+            margin-top: var(--spacing-large);
+            font-size: var(--font-size-base);
         }
         
-        /* Responsive Design */
+        footer p {
+            margin-bottom: 0.5rem;
+        }
+        
+        /* 
+         * ZURÜCK NACH OBEN BUTTON
+         * Wichtig für lange Seiten und ältere Nutzer
+         */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 56px;
+            height: 56px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .back-to-top:hover {
+            background: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+        
+        .back-to-top:focus {
+            outline: 3px solid var(--focus-color);
+            outline-offset: 3px;
+        }
+        
+        /* Schriftgrößen-Umschalter für Senioren */
+        .font-size-controls {
+            position: fixed;
+            top: 50%;
+            right: 1rem;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            z-index: 1000;
+            background: white;
+            padding: 0.75rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+        
+        .font-size-btn {
+            background: var(--sand-color);
+            border: 2px solid var(--primary-color);
+            border-radius: 8px;
+            width: 44px;
+            height: 44px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .font-size-btn:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        /* Schriftgrößen-Klassen für JavaScript-Umschaltung */
+        body.font-large {
+            --font-size-base: 1.3rem;
+            --font-size-large: 1.5rem;
+            --font-size-xlarge: 1.75rem;
+            --font-size-xxlarge: 2.25rem;
+        }
+        
+        body.font-small {
+            --font-size-base: 1rem;
+            --font-size-large: 1.15rem;
+            --font-size-xlarge: 1.35rem;
+            --font-size-xxlarge: 1.75rem;
+        }
+        
+        /* Responsive Design - Angepasst für Senioren */
         @media (max-width: 768px) {
             header h1 {
-                font-size: 1.8rem;
+                font-size: var(--font-size-xlarge);
             }
             
             nav ul {
                 flex-direction: column;
-                align-items: center;
+                align-items: stretch;
+            }
+            
+            nav a {
+                text-align: center;
+                width: 100%;
+                justify-content: center;
             }
             
             .recipe-grid {
@@ -409,13 +590,27 @@
             }
             
             section {
-                padding: 1rem;
+                padding: var(--spacing-medium);
+            }
+            
+            /* Schriftgrößen-Kontrolle auf Mobilgeräten unten */
+            .font-size-controls {
+                top: auto;
+                bottom: 5rem;
+                right: 0.5rem;
+            }
+            
+            .back-to-top {
+                bottom: 1rem;
+                right: 1rem;
+                width: 50px;
+                height: 50px;
             }
         }
         
         /* Print Styles */
         @media print {
-            nav {
+            nav, .back-to-top, .font-size-controls {
                 display: none;
             }
             
@@ -1332,9 +1527,9 @@
     
     <footer role="contentinfo" itemscope itemtype="https://schema.org/Organization">
         <p>🐟 <span itemprop="name">Sylter Fisch-Kochbuch</span> - 30 Traditionelle Rezepte 🐟</p>
-        <p style="margin-top: 0.5rem; opacity: 0.8;">Mit Liebe aus <span itemprop="areaServed">Nordfriesland</span></p>
-        <p style="margin-top: 1rem; font-size: 0.9rem;">© <time datetime="2024">2024</time> <span itemprop="legalName">BLUM Fisch-Spezialitäten</span></p>
-        <address style="font-style: normal; margin-top: 1rem; font-size: 0.85rem; opacity: 0.7;">
+        <p style="margin-top: 0.5rem;">Mit Liebe aus <span itemprop="areaServed">Nordfriesland</span></p>
+        <p style="margin-top: 1rem;">© <time datetime="2024">2024</time> <span itemprop="legalName">BLUM Fisch-Spezialitäten</span></p>
+        <address style="font-style: normal; margin-top: 1rem;">
             <span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
                 <span itemprop="addressLocality">Sylt</span>, 
                 <span itemprop="addressRegion">Schleswig-Holstein</span>, 
@@ -1342,5 +1537,85 @@
             </span>
         </address>
     </footer>
+    
+    <!-- Schriftgrößen-Kontrolle für Senioren -->
+    <div class="font-size-controls" role="group" aria-label="Schriftgröße anpassen">
+        <button class="font-size-btn" id="font-large-btn" aria-label="Schrift vergrößern" title="Schrift vergrößern">A+</button>
+        <button class="font-size-btn" id="font-normal-btn" aria-label="Normale Schriftgröße" title="Normale Schriftgröße">A</button>
+        <button class="font-size-btn" id="font-small-btn" aria-label="Schrift verkleinern" title="Schrift verkleinern">A-</button>
+    </div>
+    
+    <!-- Zurück nach oben Button -->
+    <button class="back-to-top" id="back-to-top-btn" aria-label="Zurück nach oben" title="Zurück zum Seitenanfang">
+        ↑
+    </button>
+    
+    <!-- JavaScript für Barrierefreiheit -->
+    <script>
+        /**
+         * Schriftgröße ändern - wichtig für ältere Nutzer
+         * Speichert die Einstellung im localStorage
+         */
+        function changeFontSize(size) {
+            const body = document.body;
+            // Entferne alle Schriftgrößen-Klassen
+            body.classList.remove('font-large', 'font-small');
+            
+            // Füge entsprechende Klasse hinzu
+            if (size === 'large') {
+                body.classList.add('font-large');
+            } else if (size === 'small') {
+                body.classList.add('font-small');
+            }
+            
+            // Speichere Einstellung
+            try {
+                localStorage.setItem('fontSize', size);
+            } catch (e) {
+                // localStorage nicht verfügbar - ignorieren
+            }
+        }
+        
+        /**
+         * Sanftes Scrollen nach oben
+         */
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+        
+        /**
+         * Lade gespeicherte Schriftgröße beim Seitenaufruf
+         */
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                const savedSize = localStorage.getItem('fontSize');
+                if (savedSize) {
+                    changeFontSize(savedSize);
+                }
+            } catch (e) {
+                // localStorage nicht verfügbar - ignorieren
+            }
+            
+            // Zeige/verstecke "Zurück nach oben" Button basierend auf Scroll-Position
+            const backToTopBtn = document.querySelector('.back-to-top');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 300) {
+                    backToTopBtn.style.opacity = '1';
+                    backToTopBtn.style.visibility = 'visible';
+                } else {
+                    backToTopBtn.style.opacity = '0';
+                    backToTopBtn.style.visibility = 'hidden';
+                }
+            });
+            
+            // Initial verstecken
+            backToTopBtn.style.opacity = '0';
+            backToTopBtn.style.visibility = 'hidden';
+            backToTopBtn.style.transition = 'opacity 0.3s, visibility 0.3s';
+        });
+    </script>
 </body>
 </html>
