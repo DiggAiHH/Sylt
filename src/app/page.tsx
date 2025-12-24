@@ -110,7 +110,7 @@ export default function Home() {
               <p>Eidumweg 13</p>
               <p>25980 Sylt</p>
               <p className="mt-4">
-                <a href="tel:+4917240088​46" className="text-nordsee hover:text-nordsee-dark">
+                <a href="tel:+4917240088846" className="text-nordsee hover:text-nordsee-dark">
                   0172-4008846
                 </a>
               </p>

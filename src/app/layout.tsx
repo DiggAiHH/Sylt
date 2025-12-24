@@ -76,7 +76,7 @@ function Footer() {
               <p>Eidumweg 13</p>
               <p>25980 Sylt</p>
               <p className="mt-4">
-                <a href="tel:+4917240088​46" className="hover:text-white transition-colors">
+                <a href="tel:+4917240088846" className="hover:text-white transition-colors">
                   0172-4008846
                 </a>
               </p>

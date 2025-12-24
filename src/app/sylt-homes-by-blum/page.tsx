@@ -95,7 +95,7 @@ export default function SyltHomesByBlumPage() {
             <address className="not-italic text-reetdach space-y-1">
               <p>Eidumweg 13, 25980 Sylt</p>
               <p>
-                <a href="tel:+4917240088​46" className="text-nordsee hover:text-nordsee-dark">
+                <a href="tel:+4917240088846" className="text-nordsee hover:text-nordsee-dark">
                   0172-4008846
                 </a>
                 {" | "}
