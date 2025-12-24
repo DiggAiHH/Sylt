@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import type { ApiResponse, ICalEvent } from '@blumsylt/shared';
 
 // Helper to parse iCal data (simplified)
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function parseICalData(icalData: string): ICalEvent[] {
   const events: ICalEvent[] = [];
   const lines = icalData.split('\n').map(line => line.trim());

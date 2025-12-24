@@ -1,6 +1,7 @@
 'use client';
 
-import { Container, Heading, Text, Button } from '@sylt/ui';
+import { useEffect } from 'react';
+import { Container, Heading, Text, Button } from '@blumsylt/ui';
 
 export default function Error({
   error,
@@ -9,6 +10,11 @@ export default function Error({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  useEffect(() => {
+    // Log error to monitoring service
+    console.error('Application error:', error);
+  }, [error]);
+
   return (
     <main className="min-h-screen flex items-center justify-center bg-gradient-beach">
       <Container className="text-center py-20">

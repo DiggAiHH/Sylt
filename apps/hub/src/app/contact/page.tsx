@@ -7,7 +7,7 @@ import {
   Footer,
   AnimatedSection,
   JsonLd,
-} from '@sylt/ui';
+} from '@blumsylt/ui';
 import { generateLocalBusinessSchema } from '@sylt/config';
 import { Metadata } from 'next';
 

@@ -1,16 +1,23 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, type HTMLMotionProps } from 'framer-motion';
 import { cn } from '../utils/cn';
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+type MotionButtonProps = HTMLMotionProps<'button'>;
+
+interface ButtonProps {
   variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
   size?: 'sm' | 'md' | 'lg' | 'xl';
   children: React.ReactNode;
   isLoading?: boolean;
   /** Optional icon to display before text */
   icon?: React.ReactNode;
+  className?: string;
+  disabled?: boolean;
+  onClick?: () => void;
+  type?: 'button' | 'submit' | 'reset';
+  style?: React.CSSProperties;
 }
 
 /**
@@ -31,7 +38,9 @@ export function Button({
   isLoading,
   disabled,
   icon,
-  ...props
+  onClick,
+  type = 'button',
+  style,
 }: ButtonProps) {
   // Check for reduced motion preference
   const [reducedMotion, setReducedMotion] = useState(false);
@@ -124,7 +133,7 @@ export function Button({
     </svg>
   );
 
-  const motionProps = reducedMotion
+  const motionProps: MotionButtonProps = reducedMotion
     ? {}
     : {
         whileHover: { scale: 1.02 },
@@ -138,7 +147,9 @@ export function Button({
       disabled={disabled || isLoading}
       aria-busy={isLoading}
       aria-disabled={disabled || isLoading}
-      {...props}
+      onClick={onClick}
+      type={type}
+      style={style}
     >
       {isLoading ? (
         <>

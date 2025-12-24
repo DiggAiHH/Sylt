@@ -169,16 +169,25 @@ interface HeroImageProps extends Omit<OptimizedImageProps, 'priority' | 'loading
   overlay?: boolean;
   /** Overlay opacity (0-1) */
   overlayOpacity?: number;
+  /** Title text */
+  title?: string;
+  /** Subtitle text */
+  subtitle?: string;
+  /** Children rendered on top of the image */
+  children?: React.ReactNode;
 }
 
 export function HeroImage({
   overlay = true,
   overlayOpacity = 0.4,
   className,
+  title,
+  subtitle,
+  children,
   ...props
 }: HeroImageProps) {
   return (
-    <div className={cn('relative w-full h-full', className)}>
+    <div className={cn('relative w-full h-screen', className)}>
       <OptimizedImage
         {...props}
         fill
@@ -192,6 +201,20 @@ export function HeroImage({
           style={{ opacity: overlayOpacity }}
         />
       )}
+      {/* Content overlay */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center text-white z-10">
+        {title && (
+          <h1 className="text-5xl md:text-7xl font-heading text-center mb-4 text-shadow-lg">
+            {title}
+          </h1>
+        )}
+        {subtitle && (
+          <p className="text-xl md:text-2xl font-body text-center mb-8 text-shadow-md max-w-2xl px-4">
+            {subtitle}
+          </p>
+        )}
+        {children}
+      </div>
     </div>
   );
 }
