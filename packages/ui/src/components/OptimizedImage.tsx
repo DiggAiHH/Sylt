@@ -164,7 +164,7 @@ OptimizedImage.displayName = 'OptimizedImage';
  * Hero Image component with priority loading
  * Optimized for Largest Contentful Paint (LCP)
  */
-interface HeroImageProps extends Omit<OptimizedImageProps, 'priority' | 'loading'> {
+interface HeroImageProps extends Omit<OptimizedImageProps, 'priority' | 'loading' | 'height'> {
   /** Optional overlay gradient */
   overlay?: boolean;
   /** Overlay opacity (0-1) */
@@ -175,6 +175,8 @@ interface HeroImageProps extends Omit<OptimizedImageProps, 'priority' | 'loading
   subtitle?: string;
   /** Children rendered on top of the image */
   children?: React.ReactNode;
+  /** Height of the hero section */
+  heroHeight?: 'full' | 'screen' | 'large' | 'medium';
 }
 
 export function HeroImage({
@@ -184,10 +186,18 @@ export function HeroImage({
   title,
   subtitle,
   children,
+  heroHeight = 'screen',
   ...props
 }: HeroImageProps) {
+  const heightClasses = {
+    full: 'h-full',
+    screen: 'h-screen',
+    large: 'h-[85vh]',
+    medium: 'h-[70vh]',
+  };
+
   return (
-    <div className={cn('relative w-full h-screen', className)}>
+    <div className={cn('relative w-full', heightClasses[heroHeight], className)}>
       <OptimizedImage
         {...props}
         fill
@@ -204,12 +214,12 @@ export function HeroImage({
       {/* Content overlay */}
       <div className="absolute inset-0 flex flex-col items-center justify-center text-white z-10">
         {title && (
-          <h1 className="text-5xl md:text-7xl font-heading text-center mb-4 text-shadow-lg">
+          <h1 className="text-5xl md:text-7xl font-heading text-center mb-4 drop-shadow-lg">
             {title}
           </h1>
         )}
         {subtitle && (
-          <p className="text-xl md:text-2xl font-body text-center mb-8 text-shadow-md max-w-2xl px-4">
+          <p className="text-xl md:text-2xl font-body text-center mb-8 drop-shadow-md max-w-2xl px-4">
             {subtitle}
           </p>
         )}
