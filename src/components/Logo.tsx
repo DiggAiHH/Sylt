@@ -49,7 +49,8 @@ export default function Logo({
           </linearGradient>
         </defs>
         
-        {/* Filled background circle */}
+        {/* Filled background circle with fallback color */}
+        <circle cx="60" cy="60" r="58" fill="#0A2540" />
         <circle cx="60" cy="60" r="58" fill="url(#logoGradient)" />
         
         {/* Inner decorative ring - Rich Gold */}

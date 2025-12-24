@@ -40,7 +40,7 @@ export default function Navigation() {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2 hover:bg-deep-sea-blue-700 rounded-lg transition-colors"
+            className="md:hidden p-2 hover:bg-deep-sea-blue-700 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-rich-gold focus:ring-offset-2 focus:ring-offset-deep-sea-blue"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label={isMenuOpen ? "Menü schließen" : "Menü öffnen"}
             aria-expanded={isMenuOpen}
