@@ -22,5 +22,11 @@ export { FeatureGrid } from './components/FeatureGrid';
 export { Badge } from './components/Badge';
 export { Accordion } from './components/Accordion';
 
+// Error Handling
+export { ErrorBoundary, withErrorBoundary, AsyncBoundary } from './components/ErrorBoundary';
+
+// Hooks
+export { useFetch, useLazyFetch, useDebounce } from './hooks';
+
 // Utilities
 export { cn } from './utils/cn';

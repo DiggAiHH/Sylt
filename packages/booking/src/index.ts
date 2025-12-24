@@ -4,6 +4,27 @@ export { StripeService } from './stripe';
 export { ICalService } from './ical';
 export { AvailabilityService } from './availability';
 
+// Rate Limiting
+export { 
+  RateLimiter, 
+  getGlobalRateLimiter, 
+  getClientIdentifier 
+} from './rate-limiter';
+
+// Caching
+export { 
+  CacheService, 
+  getCache 
+} from './cache';
+
+// Logging
+export { 
+  logger, 
+  createRequestLogger, 
+  generateRequestId,
+  type LogLevel 
+} from './logger';
+
 // Validation utilities
 export {
   validateBookingRequest,

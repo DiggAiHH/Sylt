@@ -120,6 +120,10 @@ Shared UI components with the "Quiet Luxury" design system:
 - `FeatureGrid` - Feature grid layout
 - `Badge` - Status and label badges
 - `Accordion` - Expandable FAQ sections
+- `ErrorBoundary` - React error boundary with fallback UI
+- `AsyncBoundary` - Combined error + suspense boundary
+- `useFetch` - Data fetching hook with caching and retry
+- `useDebounce` - Debounced value hook
 
 ### @sylt/booking
 Booking utilities and API clients:
@@ -129,6 +133,9 @@ Booking utilities and API clients:
 - `AvailabilityService` - Availability management
 - `validateBookingRequest` - Booking validation utilities
 - `formatPrice`, `formatDate` - Formatting helpers
+- `RateLimiter` - Token bucket rate limiting
+- `CacheService` - In-memory caching with TTL
+- `logger` - Structured logging service
 
 ### @sylt/config
 Design system tokens and configuration:
@@ -155,6 +162,16 @@ Shared TypeScript types:
 | `/api/availability` | GET | Check availability |
 | `/api/bookings` | GET/POST | Manage bookings |
 | `/api/payments` | GET/POST | Payment intents |
+| `/api/health` | GET/HEAD | Health check for monitoring |
+
+## 🛡️ Security Features
+
+- **Rate Limiting**: Token bucket algorithm (100 req/min per client)
+- **CORS**: Configured for satellite domains only
+- **Request Tracing**: X-Request-ID headers for debugging
+- **Security Headers**: X-Content-Type-Options, X-Frame-Options, etc.
+- **Input Validation**: Comprehensive validation for all API inputs
+- **HTML Sanitization**: XSS prevention utilities
 
 ## 🌐 Environment Variables
 
