@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sylter Fisch-Kochbuch - 30 Traditionelle Rezepte</title>
+    <style>
+        /* Reset und Basis-Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-color: #1a4a6e;
+            --secondary-color: #2c7da0;
+            --accent-color: #e07b53;
+            --sand-color: #f5e6d3;
+            --text-color: #2d3748;
+            --light-gray: #f7fafc;
+        }
+        
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            line-height: 1.7;
+            color: var(--text-color);
+            background-color: var(--light-gray);
+        }
+        
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        header .subtitle {
+            font-size: 1.2rem;
+            font-style: italic;
+            opacity: 0.9;
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: var(--sand-color);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        nav a {
+            color: var(--primary-color);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        
+        nav a:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        /* Main Content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        /* Sections */
+        section {
+            margin-bottom: 3rem;
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        section h2 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--accent-color);
+        }
+        
+        /* Recipe Cards */
+        .recipe-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .recipe-card {
+            background: var(--light-gray);
+            border-radius: 10px;
+            padding: 1.5rem;
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        .recipe-card h3 {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .recipe-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .recipe-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        
+        .recipe-card h4 {
+            color: var(--secondary-color);
+            margin: 1rem 0 0.5rem;
+            font-size: 1rem;
+        }
+        
+        .recipe-card ul, .recipe-card ol {
+            margin-left: 1.5rem;
+        }
+        
+        .recipe-card li {
+            margin-bottom: 0.3rem;
+        }
+        
+        .recipe-tip {
+            background: var(--sand-color);
+            padding: 0.8rem;
+            border-radius: 5px;
+            margin-top: 1rem;
+            font-style: italic;
+            font-size: 0.95rem;
+        }
+        
+        /* Badge for new recipes */
+        .badge-new {
+            background: var(--accent-color);
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            margin-left: 0.5rem;
+            vertical-align: middle;
+        }
+        
+        /* Info boxes */
+        .info-box {
+            background: var(--sand-color);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+        
+        .info-box h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.8rem;
+        }
+        
+        .info-box ul {
+            margin-left: 1.5rem;
+        }
+        
+        /* Shop list */
+        .shop-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .shop-card {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+        
+        .shop-card h5 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .recipe-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            section {
+                padding: 1rem;
+            }
+        }
+        
+        /* Print Styles */
+        @media print {
+            nav {
+                display: none;
+            }
+            
+            header {
+                background: none;
+                color: black;
+                padding: 1rem;
+            }
+            
+            section {
+                box-shadow: none;
+                border: 1px solid #ccc;
+                page-break-inside: avoid;
+            }
+            
+            .recipe-card {
+                page-break-inside: avoid;
+                border: 1px solid #ccc;
+            }
+            
+            body {
+                font-size: 11pt;
+                background: white;
+            }
+            
+            a {
+                text-decoration: none;
+                color: black;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🐟 Sylter Fisch-Kochbuch</h1>
+        <p class="subtitle">30 Traditionelle Rezepte von der Nordsee - Für die ganze Familie</p>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="#klassiker">Klassiker</a></li>
+            <li><a href="#matjes">Matjes</a></li>
+            <li><a href="#krabben">Krabben</a></li>
+            <li><a href="#raeucherfisch">Räucherfisch</a></li>
+            <li><a href="#suppen">Suppen</a></li>
+            <li><a href="#tapas">Nordsee-Tapas</a></li>
+            <li><a href="#schnell">Schnelle Gerichte</a></li>
+            <li><a href="#ferienwohnung">Ferienwohnungs-Tipps</a></li>
+        </ul>
+    </nav>
+    
+    <main>
+        <!-- Klassische Rezepte -->
+        <section id="klassiker">
+            <h2>Sylter Klassiker</h2>
+            <div class="recipe-grid">
+                
+                <article class="recipe-card">
+                    <h3>1. Sylter Scholle Finkenwerder Art</h3>
+                    <div class="recipe-meta">
+                        <span>⏱️ 35 Min</span>
+                        <span>👥 4 Portionen</span>
+                    </div>
+                    <h4>Zutaten:</h4>
+                    <ul>
+                        <li>4 Schollen (küchenfertig, je ca. 300g)</li>
+                        <li>200g Speck, gewürfelt</li>
+                        <li>2 Zwiebeln, in Ringen</li>
+                        <li>4 EL Butter</li>
+                        <li>Mehl zum Wenden</li>
+                        <li>Salz, Pfeffer, Zitronensaft</li>
+                    </ul>
+                    <h4>Zubereitung:</h4>
+                    <ol>
+                        <li>Schollen waschen, trockentupfen, salzen und in Mehl wenden.</li>
+                        <li>Speck in einer großen Pfanne knusprig braten, herausnehmen.</li>
+                        <li>Butter zugeben, Schollen von jeder Seite 4-5 Min braten.</li>
+                        <li>Zwiebeln goldbraun rösten, mit Speck über dem Fisch servieren.</li>
+                    </ol>
+                    <p class="recipe-tip">💡 Tipp: Dazu passen Bratkartoffeln und ein frischer Gurkensalat.</p>
+                </article>
+                
+                <article class="recipe-card">
+                    <h3>2. Nordfriesischer Kabeljau</h3>
+                    <div class="recipe-meta">
+                        <span>⏱️ 40 Min</span>
+                        <span>👥 4 Portionen</span>
+                    </div>
+                    <h4>Zutaten:</h4>
+                    <ul>
+                        <li>800g Kabeljaufilet</li>
+                        <li>500g Kartoffeln</li>
+                        <li>200ml Sahne</li>
+                        <li>1 Bund Dill</li>
+                        <li>2 EL Senf</li>
+                        <li>Salz, Pfeffer</li>
+                    </ul>
+                    <h4>Zubereitung:</h4>
+                    <ol>
+                        <li>Kartoffeln kochen und in Scheiben schneiden.</li>
+                        <li>Sahne mit Senf und gehacktem Dill verrühren.</li>
+                        <li>Fisch in Auflaufform legen, Kartoffeln dazu.</li>
+                        <li>Sahnesoße darüber geben, bei 180°C 25 Min backen.</li>
+                    </ol>
+                    <p class="recipe-tip">💡 Norddeutscher Klassiker - einfach und lecker!</p>
+                </article>
+                
+                <article class="recipe-card">
+                    <h3>3. Gedünsteter Steinbutt</h3>
+                    <div class="recipe-meta">
+                        <span>⏱️ 30 Min</span>
+                        <span>👥 4 Portionen</span>
+                    </div>
+                    <h4>Zutaten:</h4>
+                    <ul>
+                        <li>4 Steinbuttfilets (je 180g)</li>
+                        <li>200ml Weißwein</li>
+                        <li>200ml Fischfond</li>
+                        <li>2 Schalotten</li>
+                        <li>100g Butter</li>
+                        <li>1 Bund Petersilie</li>
+                    </ul>
+                    <h4>Zubereitung:</h4>
+                    <ol>
+                        <li>Schalotten fein würfeln und in Butter anschwitzen.</li>
+                        <li>Mit Wein und Fond ablöschen.</li>
+                        <li>Fischfilets einlegen, zugedeckt 12 Min dünsten.</li>
+                        <li>Mit Petersilie bestreuen und servieren.</li>
+                    </ol>
+                </article>
+                
+                <article class="recipe-card">
+                    <h3>4. Sylter Rotbarsch mit Senfkruste</h3>
+                    <div class="recipe-meta">
+                        <span>⏱️ 35 Min</span>
+                        <span>👥 4 Portionen</span>
+                    </div>
+                    <h4>Zutaten:</h4>
+                    <ul>
+                        <li>4 Rotbarschfilets</li>
+                        <li>3 EL mittelscharfer Senf</li>
+                        <li>100g Semmelbrösel</li>
+                        <li>50g Butter (weich)</li>
+                        <li>2 EL frische Kräuter (Dill, Petersilie)</li>
+                    </ul>
+                    <h4>Zubereitung:</h4>
+                    <ol>
+                        <li>Filets mit Senf bestreichen.</li>
+                        <li>Butter mit Semmelbröseln und Kräutern mischen.</li>
+                        <li>Kruste auf den Fisch drücken.</li>
+                        <li>Bei 200°C Oberhitze 15-20 Min goldbraun backen.</li>
+                    </ol>
+                </article>
+                
+                <article class="recipe-card">
+                    <h3>5. Gebratener Seelachs Hausfrauen Art</h3>
+                    <div class="recipe-meta">
+                        <span>⏱️ 25 Min</span>
+                        <span>👥 4 Portionen</span>
+                    </div>
+                    <h4>Zutaten:</h4>
+                    <ul>
+                        <li>600g Seelachsfilet</li>
+                        <li>3 Zwiebeln</li>
+                        <li>4 Gewürzgurken</li>
+                        <li>200g Schmand</li>
+                        <li>1 EL Kapern</li>
+                        <li>Paprikapulver, Salz</li>
+                    </ul>
+                    <h4>Zubereitung:</h4>
+                    <ol>
+                        <li>Fisch in Portionsstücke schneiden, würzen und braten.</li>
+                        <li>Zwiebeln in Ringen anbraten.</li>
+                        <li>Gurken würfeln, mit Schmand und Kapern mischen.</li>
+                        <li>Soße erwärmen, über den Fisch geben.</li>
+                    </ol>
+                </article>
+                
+                <article class="recipe-card">
+                    <h3>6. Dorsch in Dillsoße</h3>
+                    <div class="recipe-meta">
+                        <span>⏱️ 30 Min</span>
+                        <span>👥 4 Portionen</span>
+                    </div>
+                    <h4>Zutaten:</h4>
+                    <ul>
+                        <li>800g Dorschfilet</li>
+                        <li>1 großer Bund Dill</li>
+                        <li>250ml Sahne</li>
+                        <li>2 EL Butter</li>
+                        <li>1 EL Mehl</li>
+                        <li>Zitronensaft, Salz, Pfeffer</li>
+                    </ul>
+                    <h4>Zubereitung:</h4>
+                    <ol>
+                        <li>Fisch in Salzwasser mit etwas Dill 10 Min pochieren.</li>
+                        <li>Butter schmelzen, Mehl einrühren.</li>
+                        <li>Mit Sahne ablöschen, gehackten Dill zugeben.</li>
+                        <li>Fisch mit Soße servieren.</li>
+                    </ol>
+                </article>
+                
+                <article class="recipe-card">
+                    <h3>7. Hering nach Hausfrauenart</h3>
+                    <div class="recipe-meta">
+                        <span>⏱️ 20 Min + Marinierzeit</span>
+                        <span>👥 4 Portionen</span>
+                    </div>
+                    <h4>Zutaten:</h4>
+                    <ul>
+                        <li>8 Salzheringe (gewässert)</li>
+                        <li>2 große Zwiebeln</li>
+                        <li>3 Äpfel (säuerlich)</li>
+                        <li>300ml Schmand</li>
+                        <li>2 EL Essig</li>
+                        <li>Zucker, Pfeffer</li>
+                    </ul>
+                    <h4>Zubereitung:</h4>
+                    <ol>
+                        <li>Heringe filetieren und in Stücke schneiden.</li>
+                        <li>Zwiebeln in Ringe, Äpfel in Scheiben schneiden.</li>
+                        <li>Schmand mit Essig, Zucker und Pfeffer verrühren.</li>
+                        <li>Alles schichten, mindestens 2 Stunden ziehen lassen.</li>
+                    </ol>
+                </article>
+                
+                <article class="recipe-card">
+                    <h3>8. Gebratene Makrele mit Stachelbeeren</h3>
+                    <div class="recipe-meta">
+                        <span>⏱️ 25 Min</span>
+                        <span>👥 4 Portionen</span>
+                    </div>
+                    <h4>Zutaten:</h4>
+                    <ul>
+                        <li>4 Makrelen (küchenfertig)</li>
+                        <li>250g Stachelbeeren</li>
+                        <li>2 EL Zucker</li>
+                        <li>50g Butter</li>
+                        <li>Salz, Pfeffer</li>
+                    </ul>
+                    <h4>Zubereitung:</h4>
+                    <ol>
+                        <li>Stachelbeeren mit Zucker kurz köcheln lassen.</li>
+                        <li>Makrelen salzen und in Butter braten.</li>
+                        <li>Stachelbeersoße zum Fisch servieren.</li>
+                    </ol>
+                    <p class="recipe-tip">💡 Traditionelle norddeutsche Kombination!</p>
+                </article>
+                
+                <article class="recipe-card">
+                    <h3>9. Zander mit Spargel</h3>
+                    <div class="recipe-meta">
+                        <span>⏱️ 40 Min</span>
+                        <span>👥 4 Portionen</span>
+                    </div>
+                    <h4>Zutaten:</h4>
+                    <ul>
+                        <li>4 Zanderfilets</li>
+                        <li>500g weißer Spargel</li>
+                        <li>200g Butter</li>
+                        <li>Salz, Zucker, Zitrone</li>
+                    </ul>
+                    <h4>Zubereitung:</h4>
+                    <ol>
+                        <li>Spargel schälen und in Salzwasser mit Zucker kochen.</li>
+                        <li>Zander in Butter von beiden Seiten braten.</li>
+                        <li>Mit zerlassener Butter und Spargel servieren.</li>
+                    </ol>
+                </article>
+                
+                <article class="recipe-card">
+                    <h3>10. Backfisch mit Remoulade</h3>
+                    <div class="recipe-meta">
+                        <span>⏱️ 30 Min</span>
+                        <span>👥 4 Portionen</span>
+                    </div>
+                    <h4>Zutaten:</h4>
+                    <ul>
+                        <li>600g Seelachsfilet</li>
+                        <li>150g Mehl</li>
+                        <li>200ml Bier</li>
+                        <li>2 Eier</li>
+                        <li>Öl zum Frittieren</li>
+                        <li>Remoulade (fertig oder selbstgemacht)</li>
+                    </ul>
+                    <h4>Zubereitung:</h4>
+                    <ol>
+                        <li>Mehl, Bier und Eigelb zu glattem Teig rühren.</li>
+                        <li>Eiweiß steif schlagen und unterheben.</li>
+                        <li>Fischstücke durch den Teig ziehen, goldbraun frittieren.</li>
+                        <li>Mit Remoulade und Brötchen servieren.</li>
+                    </ol>
+                    <p class="recipe-tip">💡 Der Klassiker vom Sylter Fischstand!</p>
+                </article>
+            </div>
+        </section>
+        
+        <!-- Matjes Rezepte -->
+        <section id="matjes">
+            <h2>Matjes-Variationen <span class="badge-new">NEU</span></h2>
+            <p style="margin-bottom: 1.5rem;">Perfekt für die Ferienwohnung - schnell zubereitet und immer ein Genuss!</p>
+            <div class="recipe-grid">
+                
+                <article class="recipe-card">
+                    <h3>11. Sylter Matjessalat <span class="badge-new">NEU</span></h3>
+                    <div class="recipe-meta">
+                        <span>⏱️ 15 Min</span>
+                        <span>👥 4 Portionen</span>
+                    </div>
+                    <h4>Zutaten:</h4>
+                    <ul>
+                        <li>8 Matjesfilets</li>
+                        <li>4 hartgekochte Eier</li>
+                        <li>2 Äpfel</li>
+                        <li>1 rote Zwiebel</li>
+                        <li>200g Joghurt</li>
+                        <li>2 EL Mayonnaise</li>
+                        <li>1 Bund Schnittlauch</li>
+                    </ul>
+                    <h4>Zubereitung:</h4>
+                    <ol>
+                        <li>Matjes, Eier und Äpfel würfeln.</li>
+                        <li>Zwiebel fein hacken.</li>
+                        <li>Joghurt mit Mayo mischen, alles vermengen.</li>
+                        <li>Mit Schnittlauch bestreuen.</li>
+                    </ol>
+                    <p class="recipe-tip">💡 Ideal als leichtes Abendessen in der Ferienwohnung!</p>
+                </article>
+                
+                <article class="recipe-card">
+                    <h3>12. Matjes Hausfrauenart Deluxe <span class="badge-new">NEU</span></h3>
+                    <div class="recipe-meta">
+                        <span>⏱️ 15 Min</span>
+                        <span>👥 4 Portionen</span>
+                    </div>
+                    <h4>Zutaten:</h4>
+                    <ul>
+                        <li>8 Matjesfilets</li>
+                        <li>2 große saure Äpfel</li>
+                        <li>2 Zwiebeln</li>
+                        <li>250g Sauerrahm</li>
+                        <li>100g Crème fraîche</li>
+                        <li>Dill, Pfeffer</li>
+                    </ul>
+                    <h4>Zubereitung:</h4>
+                    <ol>
+                        <li>Äpfel und Zwiebeln in feine Scheiben schneiden.</li>
+                        <li>Sauerrahm mit Crème fraîche verrühren.</li>
+                        <li>Matjes mit Äpfeln und Zwiebeln anrichten.</li>
+                        <li>Soße darüber geben, mit Dill garnieren.</li>
+                    </ol>
+                </article>
+                
+                <article class="recipe-card">
+                    <h3>13. Matjes-Brötchen Sylter Art <span class="badge-new">NEU</span></h3>
+                    <div class="recipe-meta">
+                        <span>⏱️ 10 Min</span>
+                        <span>👥 4 Portionen</span>
+                    </div>
+                    <h4>Zutaten:</h4>
+                    <ul>
+                        <li>4 frische Brötchen</li>
+                        <li>8 Matjesfilets</li>
+                        <li>1 rote Zwiebel in Ringen</li>
+                        <li>4 EL Remoulade</li>
+                        <li>Salatblätter</li>
+                        <li>Gewürzgurken</li>
+                    </ul>
+                    <h4>Zubereitung:</h4>
+                    <ol>
+                        <li>Brötchen aufschneiden, mit Remoulade bestreichen.</li>
+                        <li>Salat, Matjes und Zwiebeln schichten.</li>
+                        <li>Mit Gurkenscheiben garnieren.</li>
+                    </ol>
+                    <p class="recipe-tip">💡 Das perfekte Strandpicknick!</p>
+                </article>
+            </div>
+        </section>
+        
+        <!-- Krabben Rezepte -->
+        <section id="krabben">
+            <h2>Nordseekrabben-Gerichte <span class="badge-new">NEU</span></h2>
+            <p style="margin-bottom: 1.5rem;">Die Königin der Nordsee - einfach und köstlich zubereitet!</p>
+            <div class="recipe-grid">
+                
+                <article class="recipe-card">
+                    <h3>14. Sylter Krabbencocktail <span class="badge-new">NEU</span></h3>
+                    <div class="recipe-meta">
+                        <span>⏱️ 15 Min</span>
+                        <span>👥 4 Portionen</span>
+                    </div>
+                    <h4>Zutaten:</h4>
+                    <ul>
+                        <li>400g Nordseekrabben (gepult)</li>
+                        <li>200g Cocktailsoße</li>
+                        <li>1 Kopf Eisbergsalat</li>
+                        <li>2 Tomaten</li>
+                        <li>1 Zitrone</li>
+                        <li>Dill zum Garnieren</li>
+                    </ul>
+                    <h4>Zubereitung:</h4>
+                    <ol>
+                        <li>Salat klein zupfen, in Gläser verteilen.</li>
+                        <li>Krabben mit Cocktailsoße mischen.</li>
+                        <li>Auf dem Salat anrichten.</li>
+                        <li>Mit Tomaten, Zitrone und Dill garnieren.</li>
+                    </ol>
+                </article>
+                
+                <article class="recipe-card">
+                    <h3>15. Krabben-Rührei <span class="badge-new">NEU</span></h3>
+                    <div class="recipe-meta">
+                        <span>⏱️ 10 Min</span>
+                        <span>👥 2 Portionen</span>
+                    </div>
+                    <h4>Zutaten:</h4>
+                    <ul>
+                        <li>4 Eier</li>
+                        <li>150g Nordseekrabben</li>
+                        <li>2 EL Butter</li>
+                        <li>2 EL Schnittlauch</li>
+                        <li>Salz, Pfeffer</li>
+                    </ul>
+                    <h4>Zubereitung:</h4>
+                    <ol>
+                        <li>Eier verquirlen, würzen.</li>
+                        <li>In Butter stocken lassen.</li>
+                        <li>Krabben unterheben.</li>
+                        <li>Mit Schnittlauch bestreuen, sofort servieren.</li>
+                    </ol>
+                    <p class="recipe-tip">💡 Das perfekte Sylter Frühstück!</p>
+                </article>
+                
+                <article class="recipe-card">
+                    <h3>16. Krabbenbrot Büsumer Art <span class="badge-new">NEU</span></h3>
+                    <div class="recipe-meta">
+                        <span>⏱️ 10 Min</span>
+                        <span>👥 4 Portionen</span>
+                    </div>
+                    <h4>Zutaten:</h4>
+                    <ul>
+                        <li>4 Scheiben Schwarzbrot</li>
+                        <li>300g Nordseekrabben</li>
+                        <li>100g Butter (weich)</li>
+                        <li>Zitronensaft</li>
+                        <li>Petersilie</li>
+                    </ul>
+                    <h4>Zubereitung:</h4>
+                    <ol>
+                        <li>Brot großzügig mit Butter bestreichen.</li>
+                        <li>Krabben darauf verteilen.</li>
+                        <li>Mit Zitronensaft beträufeln.</li>
+                        <li>Mit Petersilie garnieren.</li>
+                    </ol>
+                </article>
+            </div>
+        </section>
+        
+        <!-- Räucherfisch -->
+        <section id="raeucherfisch">
+            <h2>Räucherfisch-Spezialitäten <span class="badge-new">NEU</span></h2>
+            <div class="recipe-grid">
+                
+                <article class="recipe-card">
+                    <h3>17. Räucherlachs-Rösti <span class="badge-new">NEU</span></h3>
+                    <div class="recipe-meta">
+                        <span>⏱️ 30 Min</span>
+                        <span>👥 4 Portionen</span>
+                    </div>
+                    <h4>Zutaten:</h4>
+                    <ul>
+                        <li>600g festkochende Kartoffeln (vorgekocht)</li>
+                        <li>200g Räucherlachs</li>
+                        <li>200g Crème fraîche</li>
+                        <li>1 Bund Dill</li>
+                        <li>4 EL Butter</li>
+                        <li>Salz, Pfeffer</li>
+                    </ul>
+                    <h4>Zubereitung:</h4>
+                    <ol>
+                        <li>Kartoffeln grob raspeln, würzen.</li>
+                        <li>In Butter zu goldenen Rösti braten.</li>
+                        <li>Mit Crème fraîche und Lachs belegen.</li>
+                        <li>Mit Dill garnieren.</li>
+                    </ol>
+                </article>
+                
+                <article class="recipe-card">
+                    <h3>18. Räuchermakrelen-Salat <span class="badge-new">NEU</span></h3>
+                    <div class="recipe-meta">
+                        <span>⏱️ 15 Min</span>
+                        <span>👥 4 Portionen</span>
+                    </div>
+                    <h4>Zutaten:</h4>
+                    <ul>
+                        <li>2 Räuchermakrelen</li>
+                        <li>1 Kopf Lollo Rosso</li>
+                        <li>1 rote Zwiebel</li>
+                        <li>2 EL Meerrettich</li>
+                        <li>150g Schmand</li>
+                        <li>Zitronensaft</li>
+                    </ul>
+                    <h4>Zubereitung:</h4>
+                    <ol>
+                        <li>Makrelen zerpflücken (ohne Gräten).</li>
+                        <li>Salat waschen und anrichten.</li>
+                        <li>Schmand mit Meerrettich mischen.</li>
+                        <li>Alles zusammen servieren.</li>
+                    </ol>
+                </article>
+                
+                <article class="recipe-card">
+                    <h3>19. Räucheraal mit Rührei</h3>
+                    <div class="recipe-meta">
+                        <span>⏱️ 15 Min</span>
+                        <span>👥 2 Portionen</span>
+                    </div>
+                    <h4>Zutaten:</h4>
+                    <ul>
+                        <li>200g Räucheraal</li>
+                        <li>4 Eier</li>
+                        <li>2 EL Butter</li>
+                        <li>Schwarzbrot</li>
+                        <li>Schnittlauch</li>
+                    </ul>
+                    <h4>Zubereitung:</h4>
+                    <ol>
+                        <li>Räucheraal in Stücke schneiden.</li>
+                        <li>Cremiges Rührei zubereiten.</li>
+                        <li>Mit Aal auf Schwarzbrot servieren.</li>
+                    </ol>
+                    <p class="recipe-tip">💡 Eine norddeutsche Delikatesse!</p>
+                </article>
+            </div>
+        </section>
+        
+        <!-- Suppen -->
+        <section id="suppen">
+            <h2>Fischsuppen für größere Gruppen <span class="badge-new">NEU</span></h2>
+            <div class="recipe-grid">
+                
+                <article class="recipe-card">
+                    <h3>20. Sylter Fischsuppe <span class="badge-new">NEU</span></h3>
+                    <div class="recipe-meta">
+                        <span>⏱️ 45 Min</span>
+                        <span>👥 8 Portionen</span>
+                    </div>
+                    <h4>Zutaten:</h4>
+                    <ul>
+                        <li>1 kg gemischtes Fischfilet</li>
+                        <li>500g Kartoffeln</li>
+                        <li>3 Möhren</li>
+                        <li>1 Stange Lauch</li>
+                        <li>1,5 l Fischfond</li>
+                        <li>200ml Sahne</li>
+                        <li>1 Bund Dill</li>
+                    </ul>
+                    <h4>Zubereitung:</h4>
+                    <ol>
+                        <li>Gemüse würfeln und in Fond kochen.</li>
+                        <li>Fisch in Stücke schneiden, zugeben.</li>
+                        <li>10 Min köcheln lassen.</li>
+                        <li>Mit Sahne verfeinern, Dill zugeben.</li>
+                    </ol>
+                    <p class="recipe-tip">💡 Perfekt für einen Familienabend!</p>
+                </article>
+                
+                <article class="recipe-card">
+                    <h3>21. Nordfriesische Krabbensuppe <span class="badge-new">NEU</span></h3>
+                    <div class="recipe-meta">
+                        <span>⏱️ 35 Min</span>
+                        <span>👥 6 Portionen</span>
+                    </div>
+                    <h4>Zutaten:</h4>
+                    <ul>
+                        <li>400g Nordseekrabben</li>
+                        <li>1 l Fischfond</li>
+                        <li>200ml Weißwein</li>
+                        <li>300ml Sahne</li>
+                        <li>2 Schalotten</li>
+                        <li>Dill, Salz, Pfeffer</li>
+                    </ul>
+                    <h4>Zubereitung:</h4>
+                    <ol>
+                        <li>Schalotten anschwitzen, mit Wein ablöschen.</li>
+                        <li>Fond zugeben und aufkochen.</li>
+                        <li>Sahne einrühren, würzen.</li>
+                        <li>Krabben kurz vor dem Servieren zugeben.</li>
+                    </ol>
+                </article>
+            </div>
+        </section>
+        
+        <!-- Nordsee-Tapas -->
+        <section id="tapas">
+            <h2>Nordsee-Tapas <span class="badge-new">NEU</span></h2>
+            <p style="margin-bottom: 1.5rem;">Kleine Köstlichkeiten zum Teilen - perfekt für gesellige Abende!</p>
+            <div class="recipe-grid">
+                
+                <article class="recipe-card">
+                    <h3>22. Fischhappen-Platte <span class="badge-new">NEU</span></h3>
+                    <div class="recipe-meta">
+                        <span>⏱️ 20 Min</span>
+                        <span>👥 6 Portionen</span>
+                    </div>
+                    <h4>Zutaten:</h4>
+                    <ul>
+                        <li>100g Räucherlachs</li>
+                        <li>100g Matjes</li>
+                        <li>100g Nordseekrabben</li>
+                        <li>100g Räucherforelle</li>
+                        <li>Pumpernickel, Butter</li>
+                        <li>Meerrettich, Dill, Zitrone</li>
+                    </ul>
+                    <h4>Zubereitung:</h4>
+                    <ol>
+                        <li>Pumpernickel mit Butter bestreichen.</li>
+                        <li>Verschiedene Fischsorten darauf verteilen.</li>
+                        <li>Mit Garnituren dekorieren.</li>
+                        <li>Auf großer Platte anrichten.</li>
+                    </ol>
+                </article>
+                
+                <article class="recipe-card">
+                    <h3>23. Krabben-Avocado-Häppchen <span class="badge-new">NEU</span></h3>
+                    <div class="recipe-meta">
+                        <span>⏱️ 15 Min</span>
+                        <span>👥 4 Portionen</span>
+                    </div>
+                    <h4>Zutaten:</h4>
+                    <ul>
+                        <li>200g Nordseekrabben</li>
+                        <li>2 reife Avocados</li>
+                        <li>1 Limette</li>
+                        <li>Chiliflocken</li>
+                        <li>Toast oder Cracker</li>
+                    </ul>
+                    <h4>Zubereitung:</h4>
+                    <ol>
+                        <li>Avocados zerdrücken, mit Limettensaft mischen.</li>
+                        <li>Auf Toast verteilen.</li>
+                        <li>Krabben darauf setzen.</li>
+                        <li>Mit Chili bestreuen.</li>
+                    </ol>
+                </article>
+                
+                <article class="recipe-card">
+                    <h3>24. Mini-Fischfrikadellen <span class="badge-new">NEU</span></h3>
+                    <div class="recipe-meta">
+                        <span>⏱️ 30 Min</span>
+                        <span>👥 6 Portionen</span>
+                    </div>
+                    <h4>Zutaten:</h4>
+                    <ul>
+                        <li>500g Fischfilet (gemischt)</li>
+                        <li>1 altbackenes Brötchen</li>
+                        <li>1 Ei</li>
+                        <li>1 Zwiebel</li>
+                        <li>Petersilie, Salz, Pfeffer</li>
+                        <li>Öl zum Braten</li>
+                    </ul>
+                    <h4>Zubereitung:</h4>
+                    <ol>
+                        <li>Fisch fein hacken oder durch den Wolf drehen.</li>
+                        <li>Mit eingeweichtem Brötchen und Ei mischen.</li>
+                        <li>Kleine Bällchen formen.</li>
+                        <li>In Öl goldbraun braten.</li>
+                    </ol>
+                    <p class="recipe-tip">💡 Perfekt mit Remoulade als Dip!</p>
+                </article>
+            </div>
+        </section>
+        
+        <!-- Schnelle Gerichte -->
+        <section id="schnell">
+            <h2>Schnelle Fischgerichte</h2>
+            <p style="margin-bottom: 1.5rem;">Fertig in unter 30 Minuten - ideal für den Feierabend!</p>
+            <div class="recipe-grid">
+                
+                <article class="recipe-card">
+                    <h3>25. Schnelle Fischpfanne <span class="badge-new">NEU</span></h3>
+                    <div class="recipe-meta">
+                        <span>⏱️ 25 Min</span>
+                        <span>👥 4 Portionen</span>
+                    </div>
+                    <h4>Zutaten:</h4>
+                    <ul>
+                        <li>600g Fischfilet (Kabeljau oder Seelachs)</li>
+                        <li>400g Tiefkühl-Gemüse (Erbsen, Möhren)</li>
+                        <li>200ml Sahne</li>
+                        <li>1 Zitrone</li>
+                        <li>Dill, Salz, Pfeffer</li>
+                    </ul>
+                    <h4>Zubereitung:</h4>
+                    <ol>
+                        <li>Gemüse in der Pfanne anbraten.</li>
+                        <li>Fischwürfel zugeben, 5 Min garen.</li>
+                        <li>Sahne angießen, würzen.</li>
+                        <li>Mit Zitrone und Dill servieren.</li>
+                    </ol>
+                    <p class="recipe-tip">💡 Dazu passt Reis oder Kartoffelpüree!</p>
+                </article>
+                
+                <article class="recipe-card">
+                    <h3>26. Fisch-Wrap mit Joghurtsoße</h3>
+                    <div class="recipe-meta">
+                        <span>⏱️ 20 Min</span>
+                        <span>👥 4 Portionen</span>
+                    </div>
+                    <h4>Zutaten:</h4>
+                    <ul>
+                        <li>400g Fischfilet</li>
+                        <li>4 große Tortillas</li>
+                        <li>150g Joghurt</li>
+                        <li>1 Gurke</li>
+                        <li>Salat, Tomaten</li>
+                        <li>Gewürze nach Wahl</li>
+                    </ul>
+                    <h4>Zubereitung:</h4>
+                    <ol>
+                        <li>Fisch würzen und braten.</li>
+                        <li>Gemüse vorbereiten.</li>
+                        <li>Tortillas füllen und einrollen.</li>
+                        <li>Mit Joghurtsoße servieren.</li>
+                    </ol>
+                </article>
+                
+                <article class="recipe-card">
+                    <h3>27. Fischstäbchen Deluxe</h3>
+                    <div class="recipe-meta">
+                        <span>⏱️ 25 Min</span>
+                        <span>👥 4 Portionen</span>
+                    </div>
+                    <h4>Zutaten:</h4>
+                    <ul>
+                        <li>500g Seelachsfilet</li>
+                        <li>100g Paniermehl</li>
+                        <li>2 Eier</li>
+                        <li>100g Mehl</li>
+                        <li>Gewürze (Paprika, Salz)</li>
+                    </ul>
+                    <h4>Zubereitung:</h4>
+                    <ol>
+                        <li>Fisch in Stäbchen schneiden.</li>
+                        <li>In Mehl, Ei und Paniermehl wenden.</li>
+                        <li>In Öl goldbraun braten.</li>
+                        <li>Mit selbstgemachtem Kartoffelsalat servieren.</li>
+                    </ol>
+                    <p class="recipe-tip">💡 Kinder lieben es - Erwachsene auch!</p>
+                </article>
+                
+                <article class="recipe-card">
+                    <h3>28. Lachs mit Honig-Senf-Kruste</h3>
+                    <div class="recipe-meta">
+                        <span>⏱️ 25 Min</span>
+                        <span>👥 4 Portionen</span>
+                    </div>
+                    <h4>Zutaten:</h4>
+                    <ul>
+                        <li>4 Lachsfilets</li>
+                        <li>3 EL Senf</li>
+                        <li>2 EL Honig</li>
+                        <li>2 EL Semmelbrösel</li>
+                        <li>Salz, Pfeffer</li>
+                    </ul>
+                    <h4>Zubereitung:</h4>
+                    <ol>
+                        <li>Senf mit Honig mischen.</li>
+                        <li>Lachs damit bestreichen.</li>
+                        <li>Semmelbrösel darauf verteilen.</li>
+                        <li>Bei 200°C ca. 15 Min backen.</li>
+                    </ol>
+                </article>
+                
+                <article class="recipe-card">
+                    <h3>29. Pannfisch</h3>
+                    <div class="recipe-meta">
+                        <span>⏱️ 30 Min</span>
+                        <span>👥 4 Portionen</span>
+                    </div>
+                    <h4>Zutaten:</h4>
+                    <ul>
+                        <li>600g Fischfilet (verschiedene Sorten)</li>
+                        <li>600g Bratkartoffeln (vom Vortag)</li>
+                        <li>2 Zwiebeln</li>
+                        <li>Speck</li>
+                        <li>Senfsoße</li>
+                    </ul>
+                    <h4>Zubereitung:</h4>
+                    <ol>
+                        <li>Fisch in Stücke schneiden, braten.</li>
+                        <li>Bratkartoffeln mit Speck und Zwiebeln rösten.</li>
+                        <li>Zusammen anrichten.</li>
+                        <li>Mit Senfsoße servieren.</li>
+                    </ol>
+                    <p class="recipe-tip">💡 Hamburger Klassiker - auch auf Sylt beliebt!</p>
+                </article>
+                
+                <article class="recipe-card">
+                    <h3>30. Fischburger Sylter Art</h3>
+                    <div class="recipe-meta">
+                        <span>⏱️ 20 Min</span>
+                        <span>👥 4 Portionen</span>
+                    </div>
+                    <h4>Zutaten:</h4>
+                    <ul>
+                        <li>4 Fischfilets (paniert)</li>
+                        <li>4 Burger-Brötchen</li>
+                        <li>Remoulade</li>
+                        <li>Salat, Tomaten, Gurken</li>
+                        <li>Röstzwiebeln</li>
+                    </ul>
+                    <h4>Zubereitung:</h4>
+                    <ol>
+                        <li>Fischfilets knusprig braten.</li>
+                        <li>Brötchen toasten, mit Remoulade bestreichen.</li>
+                        <li>Mit Salat, Fisch und Gemüse belegen.</li>
+                        <li>Mit Röstzwiebeln toppen.</li>
+                    </ol>
+                </article>
+            </div>
+        </section>
+        
+        <!-- Ferienwohnung Section -->
+        <section id="ferienwohnung">
+            <h2>🏠 Kochen in der Ferienwohnung</h2>
+            
+            <div class="info-box">
+                <h4>Tipps für begrenzte Küchenausstattung</h4>
+                <ul>
+                    <li><strong>Eine gute Pfanne reicht:</strong> Die meisten Fischgerichte lassen sich in einer beschichteten Pfanne zubereiten.</li>
+                    <li><strong>Mikrowelle nutzen:</strong> Ideal zum Aufwärmen und für schnelle Soßen.</li>
+                    <li><strong>Alufolie ist dein Freund:</strong> Fisch in Folie im Ofen gegart braucht keine Auflaufform.</li>
+                    <li><strong>Einweg-Grillschalen:</strong> Für Fisch vom Balkon-Grill - kein Spezialgeschirr nötig.</li>
+                    <li><strong>Fertige Soßen:</strong> Remoulade, Cocktailsoße und Senfsoße kaufen spart Zeit und Ausrüstung.</li>
+                </ul>
+            </div>
+            
+            <div class="info-box">
+                <h4>🛒 Einkaufsguide Sylt - Lokale Fischhändler</h4>
+                <div class="shop-list">
+                    <div class="shop-card">
+                        <h5>Gosch Sylt</h5>
+                        <p>📍 List, Westerland, Wenningstedt</p>
+                        <p>Der bekannteste Fischhändler der Insel. Frischer Fisch, Krabben und Räucherspezialitäten.</p>
+                    </div>
+                    <div class="shop-card">
+                        <h5>Fisch-Feinkost Lecker</h5>
+                        <p>📍 Westerland, Friedrichstraße</p>
+                        <p>Traditioneller Fischladen mit großer Auswahl an frischem Fisch und Feinkost.</p>
+                    </div>
+                    <div class="shop-card">
+                        <h5>Sylter Fischräucherei</h5>
+                        <p>📍 Keitum</p>
+                        <p>Hausgeräucherter Fisch nach alter Tradition. Unbedingt probieren!</p>
+                    </div>
+                    <div class="shop-card">
+                        <h5>Fischkutter im Hafen List</h5>
+                        <p>📍 Hafen List</p>
+                        <p>Direkt vom Kutter - frischer geht nicht! Krabben und Fisch der Saison.</p>
+                    </div>
+                    <div class="shop-card">
+                        <h5>EDEKA & REWE</h5>
+                        <p>📍 Westerland, Wenningstedt</p>
+                        <p>Gute Fischtheken mit regionalen Produkten. Praktisch für den Großeinkauf.</p>
+                    </div>
+                    <div class="shop-card">
+                        <h5>Wochenmarkt Westerland</h5>
+                        <p>📍 Mittwoch & Samstag</p>
+                        <p>Frische Nordseekrabben und saisonaler Fisch direkt von den Fischern.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="info-box">
+                <h4>❄️ Aufbewahrung & Haltbarkeit</h4>
+                <ul>
+                    <li><strong>Frischer Fisch:</strong> Im Kühlschrank max. 1-2 Tage. Auf Eis legen verlängert die Haltbarkeit.</li>
+                    <li><strong>Nordseekrabben:</strong> Am besten am Kauftag verarbeiten. Im Kühlschrank max. 24 Stunden.</li>
+                    <li><strong>Räucherfisch:</strong> Vakuumverpackt bis zu 2 Wochen im Kühlschrank. Geöffnet innerhalb von 2-3 Tagen verzehren.</li>
+                    <li><strong>Matjes:</strong> In der Lake im Kühlschrank bis zu 1 Woche haltbar.</li>
+                    <li><strong>Tiefkühlfisch:</strong> Gute Alternative! Im Gefrierfach der Ferienwohnung mehrere Wochen haltbar.</li>
+                    <li><strong>Fisch einfrieren:</strong> Frischen Fisch sofort einfrieren, hält bis zu 3 Monate.</li>
+                </ul>
+            </div>
+            
+            <div class="info-box">
+                <h4>⏱️ Zeitsparende Zubereitungsmethoden</h4>
+                <ul>
+                    <li><strong>Fisch in der Pfanne:</strong> Schnellste Methode - 3-5 Min pro Seite reichen meist aus.</li>
+                    <li><strong>Fisch im Ofen:</strong> Bei 180-200°C braucht Fischfilet nur 15-20 Min. Ideal wenn man nebenbei andere Sachen erledigt.</li>
+                    <li><strong>Fisch in Alufolie:</strong> Mit Gemüse und Kräutern einpacken, 20 Min backen - fertig ist das komplette Gericht!</li>
+                    <li><strong>Kalte Zubereitungen:</strong> Matjes, Räucherfisch und Krabben brauchen keine Kochzeit - perfekt für heiße Sommertage!</li>
+                    <li><strong>Mise en Place:</strong> Alle Zutaten vorbereiten bevor man anfängt zu kochen - spart Stress.</li>
+                    <li><strong>One-Pot-Gerichte:</strong> Fischpfanne oder -suppe - alles in einem Topf, weniger Abwasch.</li>
+                </ul>
+            </div>
+            
+            <div class="info-box" style="background: linear-gradient(135deg, #e8f4f8, #f5e6d3);">
+                <h4>🌊 Moin und Guten Appetit!</h4>
+                <p style="font-style: italic; margin-top: 0.5rem;">
+                    "Wat de Nordsee uns givt, dat is good!" - Dieses Kochbuch soll Ihnen helfen, 
+                    die Schätze der Nordsee auch in der Ferienwohnung schmackhaft zuzubereiten. 
+                    Ob klassisch norddeutsch oder modern interpretiert - mit frischem Fisch von 
+                    Sylt gelingen alle Gerichte. Wir wünschen viel Spaß beim Kochen und einen 
+                    wunderschönen Urlaub auf unserer Insel!
+                </p>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>🐟 Sylter Fisch-Kochbuch - 30 Traditionelle Rezepte 🐟</p>
+        <p style="margin-top: 0.5rem; opacity: 0.8;">Mit Liebe aus Nordfriesland</p>
+        <p style="margin-top: 1rem; font-size: 0.9rem;">© 2024 BLUM Fisch-Spezialitäten</p>
+    </footer>
+</body>
+</html>
