@@ -12,12 +12,12 @@ export default function Logo({
   className = "",
 }: LogoProps) {
   const sizes = {
-    sm: { width: 80, height: 80, fontSize: "text-xs" },
-    md: { width: 120, height: 120, fontSize: "text-sm" },
-    lg: { width: 160, height: 160, fontSize: "text-base" },
+    sm: { width: 80, height: 80, symbolFontSize: 20, initialFontSize: 14 },
+    md: { width: 120, height: 120, symbolFontSize: 28, initialFontSize: 18 },
+    lg: { width: 160, height: 160, symbolFontSize: 36, initialFontSize: 24 },
   };
 
-  const { width, height, fontSize } = sizes[size];
+  const { width, height, symbolFontSize, initialFontSize } = sizes[size];
 
   return (
     <div className={`flex items-center justify-center ${className}`}>
@@ -53,8 +53,7 @@ export default function Logo({
           fill="#0A2540"
           fontFamily="Georgia, serif"
           fontWeight="bold"
-          className={fontSize}
-          style={{ fontSize: "28px" }}
+          style={{ fontSize: `${symbolFontSize}px` }}
         >
           ⚓
         </text>
@@ -67,7 +66,7 @@ export default function Logo({
           fill="#C9A962"
           fontFamily="Georgia, serif"
           fontWeight="bold"
-          style={{ fontSize: "18px" }}
+          style={{ fontSize: `${initialFontSize}px` }}
         >
           {brandName.charAt(0)}
         </text>
