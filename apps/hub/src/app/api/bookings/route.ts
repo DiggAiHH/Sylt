@@ -68,8 +68,12 @@ export async function POST(request: Request) {
     };
 
     // Calculate total price (mock)
-    const nights = Math.ceil(
-      (booking.checkOut.getTime() - booking.checkIn.getTime()) / (1000 * 60 * 60 * 24)
+    // Ensure minimum 1 night for valid bookings (same-day checkout not allowed)
+    const nights = Math.max(
+      1,
+      Math.round(
+        (booking.checkOut.getTime() - booking.checkIn.getTime()) / (1000 * 60 * 60 * 24)
+      )
     );
     booking.totalPrice = nights * 350; // Mock price
 

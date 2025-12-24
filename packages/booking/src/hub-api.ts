@@ -65,14 +65,20 @@ export function createHubApiClient(config: HubApiClientConfig): HubApiClient {
         },
       });
 
-      const data = await response.json();
+      let data: Record<string, unknown> | undefined;
+      try {
+        data = await response.json();
+      } catch {
+        // Response is not JSON
+        data = undefined;
+      }
 
       if (!response.ok) {
         return {
           success: false,
           error: {
             code: `HTTP_${response.status}`,
-            message: data.message || 'An error occurred',
+            message: (data as Record<string, unknown>)?.message as string || 'An error occurred',
             details: data,
           },
         };

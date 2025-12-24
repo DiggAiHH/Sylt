@@ -118,16 +118,32 @@ export class ICalService {
   }
 
   /**
-   * Detect booking source from iCal content
+   * Detect booking source from iCal content by checking PRODID and other standard fields.
+   * This is a categorization helper for internal booking management.
+   * Note: This function analyzes iCal content structure, not URLs.
    */
   detectBookingSource(icalString: string): BookingSource {
-    if (icalString.includes('booking.com') || icalString.includes('Booking.com')) {
+    // Use regex to match standard iCal producer identifiers
+    // PRODID format is typically: PRODID:-//Company//Product//EN
+    const bookingComPattern = /PRODID:[^\r\n]*booking\.com/i;
+    const airbnbPattern = /PRODID:[^\r\n]*airbnb/i;
+    const expediaPattern = /PRODID:[^\r\n]*expedia/i;
+    
+    // Also check ORGANIZER field
+    const organizerBookingPattern = /ORGANIZER[^:]*:[^\r\n]*@booking\.com/i;
+    const organizerAirbnbPattern = /ORGANIZER[^:]*:[^\r\n]*@airbnb\.com/i;
+    const organizerExpediaPattern = /ORGANIZER[^:]*:[^\r\n]*@expedia\.com/i;
+    
+    // Check for Booking.com identifiers
+    if (bookingComPattern.test(icalString) || organizerBookingPattern.test(icalString)) {
       return 'booking.com';
     }
-    if (icalString.includes('airbnb.com') || icalString.includes('Airbnb')) {
+    // Check for Airbnb identifiers
+    if (airbnbPattern.test(icalString) || organizerAirbnbPattern.test(icalString)) {
       return 'airbnb';
     }
-    if (icalString.includes('expedia.com') || icalString.includes('Expedia')) {
+    // Check for Expedia identifiers
+    if (expediaPattern.test(icalString) || organizerExpediaPattern.test(icalString)) {
       return 'expedia';
     }
     return 'direct';
