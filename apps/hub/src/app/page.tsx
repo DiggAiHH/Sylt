@@ -8,6 +8,8 @@ import {
   Navigation,
   Footer,
   ParallaxSection,
+  Testimonials,
+  Stats,
 } from '@sylt/ui';
 import { colors } from '@sylt/config';
 import Link from 'next/link';
@@ -240,6 +242,48 @@ export default function HomePage() {
         </Container>
       </ParallaxSection>
 
+      {/* Stats Section */}
+      <section className="luxury-section bg-white">
+        <Container>
+          <Stats
+            stats={[
+              { value: '5', label: 'Einzigartige Häuser' },
+              { value: '50', suffix: '+', label: 'Unterkünfte' },
+              { value: '15', label: 'Jahre Erfahrung' },
+              { value: '98', suffix: '%', label: 'Zufriedene Gäste' },
+            ]}
+          />
+        </Container>
+      </section>
+
+      {/* Testimonials Section */}
+      <Testimonials
+        testimonials={[
+          {
+            id: '1',
+            name: 'Familie Schmidt',
+            location: 'Hamburg',
+            text: 'Ein unvergesslicher Urlaub! Das Strandhaus war traumhaft und der Service erstklassig. Wir kommen definitiv wieder.',
+            rating: 5,
+          },
+          {
+            id: '2',
+            name: 'Dr. Michael Weber',
+            location: 'München',
+            text: 'Die perfekte Mischung aus Luxus und nordischer Gemütlichkeit. Das Long Island House hat alle Erwartungen übertroffen.',
+            rating: 5,
+          },
+          {
+            id: '3',
+            name: 'Anna & Thomas K.',
+            location: 'Berlin',
+            text: 'Sylt Rooms bietet alles, was man für einen entspannten Kurzurlaub braucht. Besonders das Frühstück war hervorragend!',
+            rating: 5,
+          },
+        ]}
+        subtitle="Erfahrungen und Bewertungen unserer Gäste"
+      />
+
       {/* CTA Section */}
       <section className="luxury-section bg-nordsee-500">
         <Container>
@@ -255,9 +299,11 @@ export default function HomePage() {
               <Button variant="secondary" size="lg">
                 Jetzt buchen
               </Button>
-              <Button variant="ghost" size="lg" className="text-white hover:bg-nordsee-400">
-                Kontakt aufnehmen
-              </Button>
+              <Link href="/contact">
+                <Button variant="ghost" size="lg" className="text-white hover:bg-nordsee-400">
+                  Kontakt aufnehmen
+                </Button>
+              </Link>
             </div>
           </AnimatedSection>
         </Container>

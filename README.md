@@ -112,6 +112,14 @@ Shared UI components with the "Quiet Luxury" design system:
 - `BookingWidget` - Date picker and booking form
 - `PropertyCard` - Property listing cards
 - `AnimatedSection` - Scroll-triggered animations
+- `Testimonials` - Customer testimonials display
+- `ContactForm` - Contact form with validation
+- `ImageCarousel` - Animated image carousel with thumbnails
+- `Skeleton` - Loading skeleton components
+- `Stats` - Statistics display component
+- `FeatureGrid` - Feature grid layout
+- `Badge` - Status and label badges
+- `Accordion` - Expandable FAQ sections
 
 ### @sylt/booking
 Booking utilities and API clients:
@@ -119,6 +127,8 @@ Booking utilities and API clients:
 - `StripeService` - Stripe payment utilities
 - `ICalService` - iCal parsing and generation
 - `AvailabilityService` - Availability management
+- `validateBookingRequest` - Booking validation utilities
+- `formatPrice`, `formatDate` - Formatting helpers
 
 ### @sylt/config
 Design system tokens and configuration:
