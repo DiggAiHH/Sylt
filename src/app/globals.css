@@ -1,66 +1,102 @@
 @import "tailwindcss";
 
 :root {
-  /* Sylt Colors - Premium Design */
+  /* Sylt Colors - Premium Design mit erhöhtem Kontrast für Barrierefreiheit */
   --color-sand: #F5E6D3;
   --color-sand-light: #FAF3EB;
-  --color-sand-dark: #E8D5BC;
-  --color-reetdach: #6B6B6B;
-  --color-reetdach-light: #8A8A8A;
-  --color-reetdach-dark: #4A4A4A;
-  --color-nordsee: #2C5F7C;
-  --color-nordsee-light: #3A7A9E;
-  --color-nordsee-dark: #1E4356;
+  --color-sand-dark: #D4C4A8;
+  --color-reetdach: #4A4A4A; /* Dunkler für besseren Kontrast */
+  --color-reetdach-light: #6B6B6B;
+  --color-reetdach-dark: #2D2D2D;
+  --color-nordsee: #1E4F6B; /* Dunkler für WCAG AA Konformität */
+  --color-nordsee-light: #2C5F7C;
+  --color-nordsee-dark: #153A4F;
   --color-white: #FFFFFF;
-  --color-text: #2D2D2D;
-  --color-text-light: #666666;
+  --color-text: #1A1A1A; /* Sehr dunkel für optimale Lesbarkeit */
+  --color-text-light: #4A4A4A;
   
   --background: var(--color-sand-light);
   --foreground: var(--color-text);
+  
+  /* Senioren-freundliche Schriftgrößen */
+  --font-size-base: 18px;
+  --font-size-lg: 20px;
+  --font-size-xl: 24px;
+  --line-height-relaxed: 1.8;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   
-  /* Sylt Theme Colors */
+  /* Sylt Theme Colors mit erhöhtem Kontrast */
   --color-sand: #F5E6D3;
   --color-sand-light: #FAF3EB;
-  --color-sand-dark: #E8D5BC;
-  --color-reetdach: #6B6B6B;
-  --color-reetdach-light: #8A8A8A;
-  --color-reetdach-dark: #4A4A4A;
-  --color-nordsee: #2C5F7C;
-  --color-nordsee-light: #3A7A9E;
-  --color-nordsee-dark: #1E4356;
+  --color-sand-dark: #D4C4A8;
+  --color-reetdach: #4A4A4A;
+  --color-reetdach-light: #6B6B6B;
+  --color-reetdach-dark: #2D2D2D;
+  --color-nordsee: #1E4F6B;
+  --color-nordsee-light: #2C5F7C;
+  --color-nordsee-dark: #153A4F;
 }
 
 html {
   scroll-behavior: smooth;
+  /* Basis-Schriftgröße erhöht für bessere Lesbarkeit */
+  font-size: var(--font-size-base);
+}
+
+/* Respektiere Nutzer-Präferenz für reduzierte Bewegung */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
+  /* Systemschriften für optimale Lesbarkeit */
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  /* Erhöhte Zeilenhöhe für bessere Lesbarkeit */
+  line-height: var(--line-height-relaxed);
+  /* Leicht erhöhter Buchstabenabstand */
+  letter-spacing: 0.01em;
 }
 
-/* Premium Typography */
+/* Premium Typography mit besserer Lesbarkeit */
 h1, h2, h3, h4, h5, h6 {
-  font-weight: 300;
+  font-weight: 400; /* Etwas schwerer für bessere Lesbarkeit */
   letter-spacing: 0.02em;
+  line-height: 1.3;
 }
 
-/* Smooth transitions */
+/* Größere, gut lesbare Links und Buttons */
 a, button {
-  transition: all 0.2s ease-in-out;
+  /* Langsamere Übergänge für Senioren */
+  transition: all 0.3s ease-in-out;
+  /* Mindestgröße für Touch-Targets (WCAG 2.5.5) */
+  min-height: 44px;
 }
 
-/* Custom animations */
+/* Interaktive Elemente mit deutlichem Hover-Effekt */
+a:hover, button:hover {
+  /* Deutlicher Farbwechsel */
+  opacity: 0.85;
+}
+
+/* Custom animations - langsamer für Senioren */
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(10px); /* Weniger Bewegung */
   }
   to {
     opacity: 1;
@@ -69,7 +105,7 @@ a, button {
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.6s ease-out forwards;
+  animation: fadeIn 0.8s ease-out forwards; /* Langsamer */
 }
 
 /* Wave decoration */
@@ -83,13 +119,13 @@ a, button {
   bottom: -30px;
   left: 50%;
   transform: translateX(-50%);
-  width: 60px;
-  height: 4px;
+  width: 80px; /* Breiter für bessere Sichtbarkeit */
+  height: 5px;
   background: linear-gradient(90deg, transparent, var(--color-nordsee), transparent);
-  border-radius: 2px;
+  border-radius: 3px;
 }
 
-/* Loading bar animation */
+/* Loading bar animation - langsamer */
 @keyframes loadingBar {
   0% {
     transform: translateX(-100%);
@@ -103,27 +139,70 @@ a, button {
 }
 
 .animate-loading-bar {
-  animation: loadingBar 1.5s ease-in-out infinite;
+  animation: loadingBar 2.5s ease-in-out infinite; /* Langsamer */
 }
 
-/* Focus visible for accessibility */
+/* Sehr deutlicher Fokus-Indikator für Accessibility */
 :focus-visible {
-  outline: 2px solid var(--color-nordsee);
-  outline-offset: 2px;
+  outline: 3px solid var(--color-nordsee);
+  outline-offset: 3px;
+  border-radius: 4px;
 }
 
-/* Skip link for accessibility */
+/* Skip link für Accessibility - größer */
 .skip-link {
   position: absolute;
   top: -100%;
   left: 0;
   background: var(--color-nordsee);
   color: white;
-  padding: 0.5rem 1rem;
+  padding: 1rem 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 500;
   z-index: 100;
   transition: top 0.3s;
+  border-radius: 0 0 8px 0;
 }
 
 .skip-link:focus {
   top: 0;
+}
+
+/* Senioren-freundliche Utility-Klassen */
+
+/* Große, gut lesbare Texte */
+.text-readable {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  letter-spacing: 0.01em;
+}
+
+/* Extra großer Text für wichtige Informationen */
+.text-prominent {
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+/* Große Klick-Bereiche für Buttons */
+.touch-target {
+  min-height: 48px;
+  min-width: 48px;
+  padding: 12px 24px;
+}
+
+/* Hochkontrast-Modus Support */
+@media (prefers-contrast: high) {
+  :root {
+    --color-nordsee: #0A3A52;
+    --color-reetdach: #1A1A1A;
+    --color-text: #000000;
+  }
+}
+
+/* Große Bildschirme: noch größere Schrift */
+@media (min-width: 1024px) {
+  html {
+    font-size: 19px;
+  }
 }
