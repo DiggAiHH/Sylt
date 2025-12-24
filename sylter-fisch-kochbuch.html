@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sylter Fisch-Kochbuch mit 30 traditionellen Rezepten">
+    <title>Sylter Fisch-Kochbuch - 30 Traditionelle Rezepte</title>
+    <style>
+        :root {
+            --primary-color: #1a4a6e;
+            --secondary-color: #2980b9;
+            --accent-color: #e74c3c;
+            --background-color: #f5f5dc;
+            --card-background: #ffffff;
+            --text-color: #2c3e50;
+            --border-color: #bdc3c7;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --border-radius: 8px;
+            --spacing-unit: 1rem;
+            --max-width: 1200px;
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { font-size: 16px; scroll-behavior: smooth; }
+        body { font-family: Georgia, serif; line-height: 1.7; color: var(--text-color); background: linear-gradient(135deg, var(--background-color) 0%, #e8e4c9 100%); min-height: 100vh; }
+        .skip-link { position: absolute; top: -40px; left: 0; background: var(--primary-color); color: white; padding: 8px; z-index: 100; }
+        .skip-link:focus { top: 0; }
+        header { background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%); color: white; padding: 3rem 1rem; text-align: center; }
+        header h1 { font-size: clamp(1.8rem, 5vw, 3rem); margin-bottom: 0.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        header p { font-size: 1.2rem; opacity: 0.9; max-width: 600px; margin: 0 auto; }
+        nav { background: var(--primary-color); padding: 1rem; position: sticky; top: 0; z-index: 50; box-shadow: var(--shadow); }
+        nav ul { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; max-width: var(--max-width); margin: 0 auto; }
+        nav a { color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: var(--border-radius); transition: background-color 0.3s; font-size: 0.9rem; }
+        nav a:hover, nav a:focus { background: rgba(255,255,255,0.2); }
+        main { max-width: var(--max-width); margin: 0 auto; padding: 2rem; }
+        section { margin-bottom: 3rem; }
+        section > h2 { font-size: 1.8rem; color: var(--primary-color); border-bottom: 3px solid var(--secondary-color); padding-bottom: 0.5rem; margin-bottom: 1.5rem; }
+        .recipe-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
+        .recipe-card { background: var(--card-background); border-radius: var(--border-radius); box-shadow: var(--shadow); overflow: hidden; transition: transform 0.3s; display: flex; flex-direction: column; }
+        .recipe-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
+        .recipe-header { background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white; padding: 1rem; }
+        .recipe-header h3 { font-size: 1.2rem; margin-bottom: 0.25rem; }
+        .recipe-meta { display: flex; gap: 1rem; font-size: 0.85rem; opacity: 0.9; }
+        .recipe-body { padding: 1rem; flex-grow: 1; display: flex; flex-direction: column; }
+        .recipe-body h4 { color: var(--primary-color); font-size: 1rem; margin: 0.75rem 0 0.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.25rem; }
+        .recipe-body h4:first-child { margin-top: 0; }
+        .recipe-body ul, .recipe-body ol { margin-left: 1.5rem; margin-bottom: 0.5rem; }
+        .recipe-body li { margin-bottom: 0.25rem; font-size: 0.95rem; }
+        .recipe-tip { background: #fff3cd; border-left: 4px solid #ffc107; padding: 0.75rem; margin-top: auto; font-size: 0.9rem; border-radius: 0 8px 8px 0; }
+        .recipe-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
+        .tag { background: var(--secondary-color); color: white; padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.75rem; }
+        .tag.ferienwohnung { background: #27ae60; }
+        .tag.schnell { background: #e67e22; }
+        .tag.familie { background: #9b59b6; }
+        .info-section { background: var(--card-background); border-radius: var(--border-radius); box-shadow: var(--shadow); padding: 1.5rem; margin-bottom: 1.5rem; }
+        .info-section h3 { color: var(--primary-color); font-size: 1.3rem; margin-bottom: 1rem; }
+        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
+        .info-item { background: var(--background-color); padding: 1rem; border-radius: var(--border-radius); border-left: 4px solid var(--secondary-color); }
+        .info-item h4 { color: var(--primary-color); margin-bottom: 0.5rem; }
+        .info-item ul { margin-left: 1.25rem; }
+        .info-item li { margin-bottom: 0.35rem; }
+        .dealer-list { list-style: none; }
+        .dealer-list li { padding: 0.75rem; background: var(--background-color); margin-bottom: 0.5rem; border-radius: var(--border-radius); border-left: 4px solid var(--accent-color); }
+        .dealer-list strong { color: var(--primary-color); display: block; margin-bottom: 0.25rem; }
+        footer { background: var(--primary-color); color: white; text-align: center; padding: 2rem; margin-top: 2rem; }
+        footer p { opacity: 0.9; margin-bottom: 0.5rem; }
+        @media print {
+            body { background: white; font-size: 11pt; }
+            nav, .skip-link { display: none; }
+            header { background: none; color: var(--primary-color); border-bottom: 2px solid var(--primary-color); padding: 1rem 0; }
+            header h1 { text-shadow: none; }
+            .recipe-grid { display: block; }
+            .recipe-card { break-inside: avoid; margin-bottom: 1.5rem; box-shadow: none; border: 1px solid var(--border-color); }
+            .recipe-card:hover { transform: none; }
+            .info-section { box-shadow: none; border: 1px solid var(--border-color); }
+            footer { background: none; color: var(--text-color); border-top: 1px solid var(--border-color); }
+        }
+        @media (max-width: 768px) {
+            html { font-size: 14px; }
+            nav ul { flex-direction: column; align-items: center; }
+            .recipe-grid { grid-template-columns: 1fr; }
+            main { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
+    <header role="banner">
+        <h1>🐟 Sylter Fisch-Kochbuch</h1>
+        <p>30 traditionelle Rezepte aus der Nordsee-Küche – perfekt für die Ferienwohnung und den heimischen Herd</p>
+    </header>
+    <nav role="navigation" aria-label="Hauptnavigation">
+        <ul>
+            <li><a href="#klassiker">Klassiker</a></li>
+            <li><a href="#matjes">Matjes</a></li>
+            <li><a href="#krabben">Krabben</a></li>
+            <li><a href="#raeucherfisch">Räucherfisch</a></li>
+            <li><a href="#schnelle-gerichte">Schnelle Gerichte</a></li>
+            <li><a href="#suppen">Suppen</a></li>
+            <li><a href="#tapas">Nordsee-Tapas</a></li>
+            <li><a href="#ferienwohnung">Ferienküche</a></li>
+        </ul>
+    </nav>
+    <main id="main-content" role="main">
+
+        <section id="klassiker" aria-labelledby="klassiker-title">
+            <h2 id="klassiker-title">🍽️ Sylter Klassiker</h2>
+            <div class="recipe-grid">
+                <article class="recipe-card">
+                    <div class="recipe-header">
+                        <h3>Scholle Finkenwerder Art</h3>
+                        <div class="recipe-meta">
+                            <span>⏱️ 35 Min.</span>
+                            <span>👥 4 Portionen</span>
+                        </div>
+                    </div>
+                    <div class="recipe-body">
+                        <h4>Zutaten</h4>
+                        <ul>
+                            <li>4 Schollen (je ca. 300g), küchenfertig</li>
+                            <li>200g durchwachsener Speck</li>
+                            <li>2 Zwiebeln</li>
+                            <li>4 EL Mehl</li>
+                            <li>100g Butter</li>
+                            <li>Salz, Pfeffer, Zitronensaft</li>
+                        </ul>
+                        <h4>Zubereitung</h4>
+                        <ol>
+                            <li>Schollen waschen, trocken tupfen, salzen und in Mehl wenden.</li>
+                            <li>Speck würfeln und in einer großen Pfanne knusprig braten.</li>
+                            <li>Zwiebeln in Ringe schneiden und im Speckfett goldbraun braten.</li>
+                            <li>Schollen in Butter von beiden Seiten ca. 4-5 Min. goldbraun braten.</li>
+                            <li>Mit Speck und Zwiebeln anrichten, mit Zitrone servieren.</li>
+                        </ol>
+                        <div class="recipe-tip">Frische Schollen erkennen Sie an klaren Augen und festem Fleisch.</div>
+                        <div class="recipe-tags">
+                            <span class="tag familie">Familienrezept</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="recipe-card">
+                    <div class="recipe-header">
+                        <h3>Sylter Fischbrötchen</h3>
+                        <div class="recipe-meta">
+                            <span>⏱️ 15 Min.</span>
+                            <span>👥 4 Portionen</span>
+                        </div>
+                    </div>
+                    <div class="recipe-body">
+                        <h4>Zutaten</h4>
+                        <ul>
+                            <li>4 frische Brötchen</li>
+                            <li>4 Bismarckheringe oder Matjesfilets</li>
+                            <li>1 kleine rote Zwiebel</li>
+                            <li>4 Salatblätter</li>
+                            <li>Remouladensauce</li>
+                            <li>Optional: Gewürzgurken</li>
+                        </ul>
+                        <h4>Zubereitung</h4>
+                        <ol>
+                            <li>Brötchen aufschneiden und mit Remoulade bestreichen.</li>
+                            <li>Salatblätter waschen und auf die Brötchen legen.</li>
+                            <li>Fisch darauf anrichten.</li>
+                            <li>Zwiebeln in feine Ringe schneiden und drauflegen.</li>
+                            <li>Nach Belieben mit Gurken garnieren.</li>
+                        </ol>
+                        <div class="recipe-tags">
+                            <span class="tag schnell">Schnell</span>
+                            <span class="tag ferienwohnung">Ferienwohnung</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="recipe-card">
+                    <div class="recipe-header">
+                        <h3>Labskaus</h3>
+                        <div class="recipe-meta">
+                            <span>⏱️ 45 Min.</span>
+                            <span>👥 4 Portionen</span>
+                        </div>
+                    </div>
+                    <div class="recipe-body">
+                        <h4>Zutaten</h4>
+                        <ul>
+                            <li>500g Corned Beef oder Pökelfleisch</li>
+                            <li>500g Kartoffeln</li>
+                            <li>2 Zwiebeln</li>
+                            <li>200g Rote Bete (gekocht)</li>
+                            <li>4 Rollmöpse</li>
+                            <li>4 Spiegeleier</li>
+                            <li>Gewürzgurken</li>
+                        </ul>
+                        <h4>Zubereitung</h4>
+                        <ol>
+                            <li>Kartoffeln kochen und stampfen.</li>
+                            <li>Zwiebeln würfeln und glasig dünsten.</li>
+                            <li>Corned Beef klein hacken und mit Kartoffeln vermengen.</li>
+                            <li>Rote Bete würfeln und unterheben.</li>
+                            <li>Mit Spiegelei, Rollmops und Gurken servieren.</li>
+                        </ol>
+                        <div class="recipe-tip">Labskaus war früher das Essen der Seeleute auf langen Fahrten.</div>
+                        <div class="recipe-tags">
+                            <span class="tag familie">Familienrezept</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="recipe-card">
+                    <div class="recipe-header">
+                        <h3>Sylter Pannfisch</h3>
+                        <div class="recipe-meta">
+                            <span>⏱️ 40 Min.</span>
+                            <span>👥 4 Portionen</span>
+                        </div>
+                    </div>
+                    <div class="recipe-body">
+                        <h4>Zutaten</h4>
+                        <ul>
+                            <li>600g gemischte Fischfilets (Lachs, Kabeljau)</li>
+                            <li>500g festkochende Kartoffeln</li>
+                            <li>2 Zwiebeln</li>
+                            <li>200g durchwachsener Speck</li>
+                            <li>Senfsauce</li>
+                            <li>Butter, Salz, Pfeffer</li>
+                        </ul>
+                        <h4>Zubereitung</h4>
+                        <ol>
+                            <li>Kartoffeln kochen, pellen und in Scheiben schneiden.</li>
+                            <li>Speck knusprig braten, Zwiebeln darin anschwitzen.</li>
+                            <li>Fisch würfeln und kurz anbraten.</li>
+                            <li>Kartoffeln hinzufügen und alles zusammen braten.</li>
+                            <li>Mit Senfsauce servieren.</li>
+                        </ol>
+                        <div class="recipe-tags">
+                            <span class="tag familie">Familienrezept</span>
+                            <span class="tag ferienwohnung">Ferienwohnung</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="recipe-card">
+                    <div class="recipe-header">
+                        <h3>Gebratene Nordseekrabben</h3>
+                        <div class="recipe-meta">
+                            <span>⏱️ 20 Min.</span>
+                            <span>👥 2 Portionen</span>
+                        </div>
+                    </div>
+                    <div class="recipe-body">
+                        <h4>Zutaten</h4>
+                        <ul>
+                            <li>200g frische Nordseekrabben (gepult)</li>
+                            <li>2 EL Butter</li>
+                            <li>1 Knoblauchzehe</li>
+                            <li>Frischer Dill</li>
+                            <li>Weißbrot zum Dippen</li>
+                            <li>Zitrone</li>
+                        </ul>
+                        <h4>Zubereitung</h4>
+                        <ol>
+                            <li>Butter in einer Pfanne erhitzen.</li>
+                            <li>Knoblauch fein hacken und kurz anschwitzen.</li>
+                            <li>Krabben hinzufügen und 2-3 Min. schwenken.</li>
+                            <li>Mit Dill bestreuen und mit Zitrone servieren.</li>
+                            <li>Warmes Weißbrot dazu reichen.</li>
+                        </ol>
+                        <div class="recipe-tags">
+                            <span class="tag schnell">Schnell</span>
+                            <span class="tag ferienwohnung">Ferienwohnung</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="matjes" aria-labelledby="matjes-title">
+            <h2 id="matjes-title">🐟 Matjes-Variationen</h2>
+            <div class="recipe-grid">
+                <article class="recipe-card">
+                    <div class="recipe-header">
+                        <h3>Matjes Hausfrauenart</h3>
+                        <div class="recipe-meta">
+                            <span>⏱️ 20 Min.</span>
+                            <span>👥 4 Portionen</span>
+                        </div>
+                    </div>
+                    <div class="recipe-body">
+                        <h4>Zutaten</h4>
+                        <ul>
+                            <li>8 Matjesfilets</li>
+                            <li>2 säuerliche Äpfel</li>
+                            <li>2 Zwiebeln</li>
+                            <li>200g Saure Sahne</li>
+                            <li>100g Mayonnaise</li>
+                            <li>Schnittlauch, Salz, Pfeffer</li>
+                        </ul>
+                        <h4>Zubereitung</h4>
+                        <ol>
+                            <li>Matjesfilets wässern und trocken tupfen.</li>
+                            <li>Äpfel und Zwiebeln in kleine Würfel schneiden.</li>
+                            <li>Saure Sahne und Mayonnaise verrühren.</li>
+                            <li>Äpfel und Zwiebeln unterheben.</li>
+                            <li>Matjes anrichten, Sauce darübergeben, mit Schnittlauch garnieren.</li>
+                        </ol>
+                        <div class="recipe-tags">
+                            <span class="tag ferienwohnung">Ferienwohnung</span>
+                            <span class="tag schnell">Schnell</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="recipe-card">
+                    <div class="recipe-header">
+                        <h3>Matjessalat Sylter Art</h3>
+                        <div class="recipe-meta">
+                            <span>⏱️ 25 Min.</span>
+                            <span>👥 4 Portionen</span>
+                        </div>
+                    </div>
+                    <div class="recipe-body">
+                        <h4>Zutaten</h4>
+                        <ul>
+                            <li>6 Matjesfilets</li>
+                            <li>4 festkochende Kartoffeln (gekocht)</li>
+                            <li>2 Gewürzgurken</li>
+                            <li>1 rote Zwiebel</li>
+                            <li>200g Joghurt</li>
+                            <li>2 EL Senf, Dill</li>
+                        </ul>
+                        <h4>Zubereitung</h4>
+                        <ol>
+                            <li>Matjes in mundgerechte Stücke schneiden.</li>
+                            <li>Kartoffeln und Gurken würfeln.</li>
+                            <li>Zwiebel fein hacken.</li>
+                            <li>Joghurt mit Senf und Dill verrühren.</li>
+                            <li>Alles vermengen und kalt stellen.</li>
+                        </ol>
+                        <div class="recipe-tags">
+                            <span class="tag ferienwohnung">Ferienwohnung</span>
+                            <span class="tag familie">Familienrezept</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="recipe-card">
+                    <div class="recipe-header">
+                        <h3>Matjes mit Pellkartoffeln</h3>
+                        <div class="recipe-meta">
+                            <span>⏱️ 30 Min.</span>
+                            <span>👥 4 Portionen</span>
+                        </div>
+                    </div>
+                    <div class="recipe-body">
+                        <h4>Zutaten</h4>
+                        <ul>
+                            <li>8 Matjesfilets</li>
+                            <li>1 kg kleine Kartoffeln</li>
+                            <li>200g grüne Bohnen</li>
+                            <li>150g Speck</li>
+                            <li>Frische Butter</li>
+                            <li>Petersilie</li>
+                        </ul>
+                        <h4>Zubereitung</h4>
+                        <ol>
+                            <li>Kartoffeln mit Schale kochen.</li>
+                            <li>Bohnen bissfest garen.</li>
+                            <li>Speck knusprig braten.</li>
+                            <li>Alles zusammen anrichten.</li>
+                            <li>Butter und Petersilie dazu reichen.</li>
+                        </ol>
+                        <div class="recipe-tags">
+                            <span class="tag familie">Familienrezept</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="recipe-card">
+                    <div class="recipe-header">
+                        <h3>Matjes-Stulle</h3>
+                        <div class="recipe-meta">
+                            <span>⏱️ 10 Min.</span>
+                            <span>👥 2 Portionen</span>
+                        </div>
+                    </div>
+                    <div class="recipe-body">
+                        <h4>Zutaten</h4>
+                        <ul>
+                            <li>4 Matjesfilets</li>
+                            <li>4 Scheiben Schwarzbrot</li>
+                            <li>Butter</li>
+                            <li>1 Ei (hartgekocht)</li>
+                            <li>Zwiebel, Schnittlauch</li>
+                            <li>Kapern</li>
+                        </ul>
+                        <h4>Zubereitung</h4>
+                        <ol>
+                            <li>Schwarzbrot mit Butter bestreichen.</li>
+                            <li>Matjes darauf anrichten.</li>
+                            <li>Ei in Scheiben schneiden und auflegen.</li>
+                            <li>Mit Zwiebelringen und Kapern garnieren.</li>
+                            <li>Mit Schnittlauch bestreuen.</li>
+                        </ol>
+                        <div class="recipe-tags">
+                            <span class="tag schnell">Schnell</span>
+                            <span class="tag ferienwohnung">Ferienwohnung</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="recipe-card">
+                    <div class="recipe-header">
+                        <h3>Matjes-Wrap</h3>
+                        <div class="recipe-meta">
+                            <span>⏱️ 15 Min.</span>
+                            <span>👥 4 Portionen</span>
+                        </div>
+                    </div>
+                    <div class="recipe-body">
+                        <h4>Zutaten</h4>
+                        <ul>
+                            <li>6 Matjesfilets</li>
+                            <li>4 große Wraps</li>
+                            <li>200g Frischkäse</li>
+                            <li>1 Salatgurke</li>
+                            <li>Rucola</li>
+                            <li>Zitronensaft, Pfeffer</li>
+                        </ul>
+                        <h4>Zubereitung</h4>
+                        <ol>
+                            <li>Frischkäse mit Zitronensaft und Pfeffer verrühren.</li>
+                            <li>Wraps damit bestreichen.</li>
+                            <li>Gurke in Streifen schneiden.</li>
+                            <li>Rucola, Gurke und Matjes darauf verteilen.</li>
+                            <li>Fest einrollen und diagonal halbieren.</li>
+                        </ol>
+                        <div class="recipe-tags">
+                            <span class="tag schnell">Schnell</span>
+                            <span class="tag ferienwohnung">Ferienwohnung</span>
+                            <span class="tag familie">Familienrezept</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="krabben" aria-labelledby="krabben-title">
+            <h2 id="krabben-title">🦐 Krabben-Gerichte</h2>
+            <div class="recipe-grid">
+                <article class="recipe-card">
+                    <div class="recipe-header">
+                        <h3>Sylter Krabbenbrötchen</h3>
+                        <div class="recipe-meta">
+                            <span>⏱️ 10 Min.</span>
+                            <span>👥 4 Portionen</span>
+                        </div>
+                    </div>
+                    <div class="recipe-body">
+                        <h4>Zutaten</h4>
+                        <ul>
+                            <li>200g frische Nordseekrabben</li>
+                            <li>4 Brötchen</li>
+                            <li>Butter</li>
+                            <li>Zitronensaft</li>
+                            <li>Frischer Dill</li>
+                            <li>Salz, weißer Pfeffer</li>
+                        </ul>
+                        <h4>Zubereitung</h4>
+                        <ol>
+                            <li>Brötchen aufschneiden und mit Butter bestreichen.</li>
+                            <li>Krabben mit etwas Zitronensaft beträufeln.</li>
+                            <li>Großzügig auf die Brötchenhälften verteilen.</li>
+                            <li>Mit Dill garnieren.</li>
+                            <li>Sofort servieren.</li>
+                        </ol>
+                        <div class="recipe-tags">
+                            <span class="tag schnell">Schnell</span>
+                            <span class="tag ferienwohnung">Ferienwohnung</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="recipe-card">
+                    <div class="recipe-header">
+                        <h3>Krabben-Rührei</h3>
+                        <div class="recipe-meta">
+                            <span>⏱️ 15 Min.</span>
+                            <span>👥 2 Portionen</span>
+                        </div>
+                    </div>
+                    <div class="recipe-body">
+                        <h4>Zutaten</h4>
+                        <ul>
+                            <li>100g Nordseekrabben</li>
+                            <li>4 Eier</li>
+                            <li>2 EL Butter</li>
+                            <li>2 EL Sahne</li>
+                            <li>Schnittlauch</li>
+                            <li>Toast</li>
+                        </ul>
+                        <h4>Zubereitung</h4>
+                        <ol>
+                            <li>Eier mit Sahne verquirlen.</li>
+                            <li>Butter in einer Pfanne erhitzen.</li>
+                            <li>Eier hineingeben und langsam stocken lassen.</li>
+                            <li>Krabben unterheben.</li>
+                            <li>Mit Schnittlauch bestreuen und auf Toast servieren.</li>
+                        </ol>
+                        <div class="recipe-tags">
+                            <span class="tag schnell">Schnell</span>
+                            <span class="tag ferienwohnung">Ferienwohnung</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="recipe-card">
+                    <div class="recipe-header">
+                        <h3>Krabbensalat</h3>
+                        <div class="recipe-meta">
+                            <span>⏱️ 20 Min.</span>
+                            <span>👥 4 Portionen</span>
+                        </div>
+                    </div>
+                    <div class="recipe-body">
+                        <h4>Zutaten</h4>
+                        <ul>
+                            <li>300g Nordseekrabben</li>
+                            <li>1 Kopf Eisbergsalat</li>
+                            <li>2 Tomaten</li>
+                            <li>1 Avocado</li>
+                            <li>100g Joghurt-Dressing</li>
+                            <li>Dill, Zitrone</li>
+                        </ul>
+                        <h4>Zubereitung</h4>
+                        <ol>
+                            <li>Salat waschen und in mundgerechte Stücke zupfen.</li>
+                            <li>Tomaten und Avocado würfeln.</li>
+                            <li>Alles in einer Schüssel vermengen.</li>
+                            <li>Krabben darauf verteilen.</li>
+                            <li>Mit Dressing beträufeln und mit Dill garnieren.</li>
+                        </ol>
+                        <div class="recipe-tags">
+                            <span class="tag schnell">Schnell</span>
+                            <span class="tag ferienwohnung">Ferienwohnung</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="recipe-card">
+                    <div class="recipe-header">
+                        <h3>Krabben-Cocktail</h3>
+                        <div class="recipe-meta">
+                            <span>⏱️ 15 Min.</span>
+                            <span>👥 4 Portionen</span>
+                        </div>
+                    </div>
+                    <div class="recipe-body">
+                        <h4>Zutaten</h4>
+                        <ul>
+                            <li>250g Nordseekrabben</li>
+                            <li>150g Mayonnaise</li>
+                            <li>2 EL Tomatenketchup</li>
+                            <li>1 TL Cognac (optional)</li>
+                            <li>Zitronensaft</li>
+                            <li>Eisbergsalat, Zitronenscheiben</li>
+                        </ul>
+                        <h4>Zubereitung</h4>
+                        <ol>
+                            <li>Cocktailsauce aus Mayonnaise, Ketchup und Cognac rühren.</li>
+                            <li>Mit Zitronensaft abschmecken.</li>
+                            <li>Salatblätter in Gläser verteilen.</li>
+                            <li>Krabben darauf geben.</li>
+                            <li>Mit Sauce beträufeln und mit Zitrone garnieren.</li>
+                        </ol>
+                        <div class="recipe-tags">
+                            <span class="tag schnell">Schnell</span>
+                            <span class="tag ferienwohnung">Ferienwohnung</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="raeucherfisch" aria-labelledby="raeucherfisch-title">
+            <h2 id="raeucherfisch-title">🔥 Räucherfisch-Spezialitäten</h2>
+            <div class="recipe-grid">
+                <article class="recipe-card">
+                    <div class="recipe-header">
+                        <h3>Räucherlachs-Teller</h3>
+                        <div class="recipe-meta">
+                            <span>⏱️ 10 Min.</span>
+                            <span>👥 4 Portionen</span>
+                        </div>
+                    </div>
+                    <div class="recipe-body">
+                        <h4>Zutaten</h4>
+                        <ul>
+                            <li>300g Räucherlachs</li>
+                            <li>200g Frischkäse</li>
+                            <li>Kapern</li>
+                            <li>Rote Zwiebel</li>
+                            <li>Zitrone</li>
+                            <li>Pumpernickel oder Schwarzbrot</li>
+                        </ul>
+                        <h4>Zubereitung</h4>
+                        <ol>
+                            <li>Räucherlachs auf Tellern anrichten.</li>
+                            <li>Frischkäse daneben setzen.</li>
+                            <li>Zwiebeln in feine Ringe schneiden.</li>
+                            <li>Mit Kapern und Zwiebelringen garnieren.</li>
+                            <li>Mit Zitronenspalten und Brot servieren.</li>
+                        </ol>
+                        <div class="recipe-tags">
+                            <span class="tag schnell">Schnell</span>
+                            <span class="tag ferienwohnung">Ferienwohnung</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="recipe-card">
+                    <div class="recipe-header">
+                        <h3>Räucheraal auf Schwarzbrot</h3>
+                        <div class="recipe-meta">
+                            <span>⏱️ 10 Min.</span>
+                            <span>👥 4 Portionen</span>
+                        </div>
+                    </div>
+                    <div class="recipe-body">
+                        <h4>Zutaten</h4>
+                        <ul>
+                            <li>250g Räucheraal</li>
+                            <li>4 Scheiben Schwarzbrot</li>
+                            <li>Butter</li>
+                            <li>Meerrettich</li>
+                            <li>Dill</li>
+                            <li>Zitrone</li>
+                        </ul>
+                        <h4>Zubereitung</h4>
+                        <ol>
+                            <li>Schwarzbrot mit Butter bestreichen.</li>
+                            <li>Räucheraal vom Gräten lösen und in Stücke teilen.</li>
+                            <li>Auf das Brot legen.</li>
+                            <li>Mit etwas Meerrettich garnieren.</li>
+                            <li>Mit Dill und Zitrone servieren.</li>
+                        </ol>
+                        <div class="recipe-tags">
+                            <span class="tag schnell">Schnell</span>
+                            <span class="tag ferienwohnung">Ferienwohnung</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="recipe-card">
+                    <div class="recipe-header">
+                        <h3>Räucherforellen-Mousse</h3>
+                        <div class="recipe-meta">
+                            <span>⏱️ 20 Min.</span>
+                            <span>👥 6 Portionen</span>
+                        </div>
+                    </div>
+                    <div class="recipe-body">
+                        <h4>Zutaten</h4>
+                        <ul>
+                            <li>2 Räucherforellen</li>
+                            <li>200g Frischkäse</li>
+                            <li>100g Schmand</li>
+                            <li>Zitronensaft</li>
+                            <li>Meerrettich</li>
+                            <li>Dill, Salz, Pfeffer</li>
+                        </ul>
+                        <h4>Zubereitung</h4>
+                        <ol>
+                            <li>Forellen von Haut und Gräten befreien.</li>
+                            <li>Fisch mit einer Gabel fein zerpflücken.</li>
+                            <li>Frischkäse und Schmand unterrühren.</li>
+                            <li>Mit Zitronensaft, Meerrettich und Gewürzen abschmecken.</li>
+                            <li>Mit Dill garnieren, kalt servieren.</li>
+                        </ol>
+                        <div class="recipe-tags">
+                            <span class="tag ferienwohnung">Ferienwohnung</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="recipe-card">
+                    <div class="recipe-header">
+                        <h3>Bückling mit Bratkartoffeln</h3>
+                        <div class="recipe-meta">
+                            <span>⏱️ 35 Min.</span>
+                            <span>👥 2 Portionen</span>
+                        </div>
+                    </div>
+                    <div class="recipe-body">
+                        <h4>Zutaten</h4>
+                        <ul>
+                            <li>2 Bücklinge</li>
+                            <li>500g Kartoffeln (vom Vortag)</li>
+                            <li>1 Zwiebel</li>
+                            <li>Speck</li>
+                            <li>Butter</li>
+                            <li>Schnittlauch</li>
+                        </ul>
+                        <h4>Zubereitung</h4>
+                        <ol>
+                            <li>Kartoffeln in Scheiben schneiden.</li>
+                            <li>Speck und Zwiebeln würfeln.</li>
+                            <li>In Butter knusprig braten.</li>
+                            <li>Kartoffeln hinzufügen und goldbraun braten.</li>
+                            <li>Bücklinge dazu servieren.</li>
+                        </ol>
+                        <div class="recipe-tags">
+                            <span class="tag familie">Familienrezept</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="schnelle-gerichte" aria-labelledby="schnelle-title">
+            <h2 id="schnelle-title">⚡ Schnelle Fischgerichte</h2>
+            <div class="recipe-grid">
+                <article class="recipe-card">
+                    <div class="recipe-header">
+                        <h3>Schnelle Fischpfanne</h3>
+                        <div class="recipe-meta">
+                            <span>⏱️ 25 Min.</span>
+                            <span>👥 4 Portionen</span>
+                        </div>
+                    </div>
+                    <div class="recipe-body">
+                        <h4>Zutaten</h4>
+                        <ul>
+                            <li>500g Fischfilet (Kabeljau oder Seelachs)</li>
+                            <li>400g Tiefkühl-Gemüse</li>
+                            <li>200ml Sahne</li>
+                            <li>1 Zwiebel</li>
+                            <li>2 EL Öl</li>
+                            <li>Dill, Salz, Pfeffer, Zitrone</li>
+                        </ul>
+                        <h4>Zubereitung</h4>
+                        <ol>
+                            <li>Fisch in mundgerechte Stücke schneiden.</li>
+                            <li>Zwiebel würfeln und in Öl anschwitzen.</li>
+                            <li>Gemüse hinzufügen und 5 Min. braten.</li>
+                            <li>Fisch dazugeben und mit Sahne ablöschen.</li>
+                            <li>10 Min. köcheln, mit Dill bestreuen.</li>
+                        </ol>
+                        <div class="recipe-tags">
+                            <span class="tag schnell">Schnell</span>
+                            <span class="tag ferienwohnung">Ferienwohnung</span>
+                            <span class="tag familie">Familienrezept</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="recipe-card">
+                    <div class="recipe-header">
+                        <h3>Fisch in Senfsauce</h3>
+                        <div class="recipe-meta">
+                            <span>⏱️ 20 Min.</span>
+                            <span>👥 4 Portionen</span>
+                        </div>
+                    </div>
+                    <div class="recipe-body">
+                        <h4>Zutaten</h4>
+                        <ul>
+                            <li>4 Fischfilets (je 150g)</li>
+                            <li>200ml Sahne</li>
+                            <li>2 EL Senf</li>
+                            <li>1 EL Honig</li>
+                            <li>Butter</li>
+                            <li>Dill, Salz</li>
+                        </ul>
+                        <h4>Zubereitung</h4>
+                        <ol>
+                            <li>Fisch salzen und in Butter von beiden Seiten anbraten.</li>
+                            <li>Fisch herausnehmen und warm stellen.</li>
+                            <li>Sahne, Senf und Honig in die Pfanne geben.</li>
+                            <li>Sauce einköcheln lassen.</li>
+                            <li>Fisch wieder einlegen, mit Dill bestreuen.</li>
+                        </ol>
+                        <div class="recipe-tags">
+                            <span class="tag schnell">Schnell</span>
+                            <span class="tag ferienwohnung">Ferienwohnung</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="recipe-card">
+                    <div class="recipe-header">
+                        <h3>Backfisch mit Kartoffelsalat</h3>
+                        <div class="recipe-meta">
+                            <span>⏱️ 30 Min.</span>
+                            <span>👥 4 Portionen</span>
+                        </div>
+                    </div>
+                    <div class="recipe-body">
+                        <h4>Zutaten</h4>
+                        <ul>
+                            <li>600g Fischfilet</li>
+                            <li>200g Mehl</li>
+                            <li>200ml Bier</li>
+                            <li>1 Ei</li>
+                            <li>Öl zum Frittieren</li>
+                            <li>Fertig-Kartoffelsalat</li>
+                        </ul>
+                        <h4>Zubereitung</h4>
+                        <ol>
+                            <li>Aus Mehl, Bier und Ei einen Teig rühren.</li>
+                            <li>Fisch in Stücke schneiden und salzen.</li>
+                            <li>Fisch durch den Teig ziehen.</li>
+                            <li>In heißem Öl goldbraun frittieren.</li>
+                            <li>Mit Kartoffelsalat und Remoulade servieren.</li>
+                        </ol>
+                        <div class="recipe-tags">
+                            <span class="tag familie">Familienrezept</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="recipe-card">
+                    <div class="recipe-header">
+                        <h3>Fisch-Burger Sylter Art</h3>
+                        <div class="recipe-meta">
+                            <span>⏱️ 20 Min.</span>
+                            <span>👥 4 Portionen</span>
+                        </div>
+                    </div>
+                    <div class="recipe-body">
+                        <h4>Zutaten</h4>
+                        <ul>
+                            <li>4 panierte Fischfilets</li>
+                            <li>4 Burger-Brötchen</li>
+                            <li>Eisbergsalat</li>
+                            <li>Tomaten</li>
+                            <li>Remouladensauce</li>
+                            <li>Gurken</li>
+                        </ul>
+                        <h4>Zubereitung</h4>
+                        <ol>
+                            <li>Fischfilets nach Packungsanweisung braten.</li>
+                            <li>Brötchen aufschneiden und toasten.</li>
+                            <li>Mit Remoulade bestreichen.</li>
+                            <li>Salat, Fisch, Tomaten und Gurken schichten.</li>
+                            <li>Deckel drauf und sofort servieren.</li>
+                        </ol>
+                        <div class="recipe-tags">
+                            <span class="tag schnell">Schnell</span>
+                            <span class="tag familie">Familienrezept</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="suppen" aria-labelledby="suppen-title">
+            <h2 id="suppen-title">🍲 Fischsuppen für Gruppen</h2>
+            <div class="recipe-grid">
+                <article class="recipe-card">
+                    <div class="recipe-header">
+                        <h3>Sylter Fischsuppe</h3>
+                        <div class="recipe-meta">
+                            <span>⏱️ 45 Min.</span>
+                            <span>👥 8 Portionen</span>
+                        </div>
+                    </div>
+                    <div class="recipe-body">
+                        <h4>Zutaten</h4>
+                        <ul>
+                            <li>800g gemischte Fischfilets</li>
+                            <li>500g Kartoffeln</li>
+                            <li>2 Möhren</li>
+                            <li>1 Lauch</li>
+                            <li>1,5l Fischfond</li>
+                            <li>200ml Sahne, Dill</li>
+                        </ul>
+                        <h4>Zubereitung</h4>
+                        <ol>
+                            <li>Gemüse in Stücke schneiden.</li>
+                            <li>In Fond weich kochen (ca. 15 Min.).</li>
+                            <li>Fisch in Würfel schneiden und zugeben.</li>
+                            <li>10 Min. ziehen lassen.</li>
+                            <li>Sahne einrühren, mit Dill servieren.</li>
+                        </ol>
+                        <div class="recipe-tags">
+                            <span class="tag familie">Familienrezept</span>
+                            <span class="tag ferienwohnung">Ferienwohnung</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="recipe-card">
+                    <div class="recipe-header">
+                        <h3>Krabbensuppe</h3>
+                        <div class="recipe-meta">
+                            <span>⏱️ 30 Min.</span>
+                            <span>👥 6 Portionen</span>
+                        </div>
+                    </div>
+                    <div class="recipe-body">
+                        <h4>Zutaten</h4>
+                        <ul>
+                            <li>300g Nordseekrabben</li>
+                            <li>1l Gemüsebrühe</li>
+                            <li>200ml Sahne</li>
+                            <li>2 EL Butter</li>
+                            <li>2 EL Mehl</li>
+                            <li>Weißwein, Dill, Muskat</li>
+                        </ul>
+                        <h4>Zubereitung</h4>
+                        <ol>
+                            <li>Butter schmelzen und Mehl anschwitzen.</li>
+                            <li>Mit Brühe und Wein ablöschen.</li>
+                            <li>15 Min. köcheln lassen.</li>
+                            <li>Sahne einrühren.</li>
+                            <li>Krabben zugeben, mit Dill garnieren.</li>
+                        </ol>
+                        <div class="recipe-tags">
+                            <span class="tag ferienwohnung">Ferienwohnung</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="recipe-card">
+                    <div class="recipe-header">
+                        <h3>Nordsee-Eintopf</h3>
+                        <div class="recipe-meta">
+                            <span>⏱️ 50 Min.</span>
+                            <span>👥 8 Portionen</span>
+                        </div>
+                    </div>
+                    <div class="recipe-body">
+                        <h4>Zutaten</h4>
+                        <ul>
+                            <li>600g Fischfilet</li>
+                            <li>200g Krabben</li>
+                            <li>1kg Kartoffeln</li>
+                            <li>400g Erbsen (TK)</li>
+                            <li>1 Dose Tomaten</li>
+                            <li>1l Fischfond, Kräuter</li>
+                        </ul>
+                        <h4>Zubereitung</h4>
+                        <ol>
+                            <li>Kartoffeln würfeln und in Fond weich kochen.</li>
+                            <li>Tomaten und Erbsen zugeben.</li>
+                            <li>Fisch in Stücke schneiden und einlegen.</li>
+                            <li>15 Min. ziehen lassen.</li>
+                            <li>Krabben zugeben und sofort servieren.</li>
+                        </ol>
+                        <div class="recipe-tags">
+                            <span class="tag familie">Familienrezept</span>
+                            <span class="tag ferienwohnung">Ferienwohnung</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="recipe-card">
+                    <div class="recipe-header">
+                        <h3>Räucherfisch-Suppe</h3>
+                        <div class="recipe-meta">
+                            <span>⏱️ 35 Min.</span>
+                            <span>👥 6 Portionen</span>
+                        </div>
+                    </div>
+                    <div class="recipe-body">
+                        <h4>Zutaten</h4>
+                        <ul>
+                            <li>400g Räucherlachs oder Räucherforelle</li>
+                            <li>1l Gemüsebrühe</li>
+                            <li>300g Sahne</li>
+                            <li>2 Lauchstangen</li>
+                            <li>200g Kartoffeln</li>
+                            <li>Dill, weißer Pfeffer</li>
+                        </ul>
+                        <h4>Zubereitung</h4>
+                        <ol>
+                            <li>Lauch in Ringe, Kartoffeln würfeln.</li>
+                            <li>In Brühe weich kochen.</li>
+                            <li>Sahne einrühren.</li>
+                            <li>Räucherfisch in Stücke zupfen.</li>
+                            <li>Kurz vor Servieren unterheben.</li>
+                        </ol>
+                        <div class="recipe-tags">
+                            <span class="tag ferienwohnung">Ferienwohnung</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="tapas" aria-labelledby="tapas-title">
+            <h2 id="tapas-title">🍢 Nordsee-Tapas</h2>
+            <div class="recipe-grid">
+                <article class="recipe-card">
+                    <div class="recipe-header">
+                        <h3>Krabben-Crostini</h3>
+                        <div class="recipe-meta">
+                            <span>⏱️ 15 Min.</span>
+                            <span>👥 8 Stück</span>
+                        </div>
+                    </div>
+                    <div class="recipe-body">
+                        <h4>Zutaten</h4>
+                        <ul>
+                            <li>150g Nordseekrabben</li>
+                            <li>8 Scheiben Baguette</li>
+                            <li>100g Frischkäse</li>
+                            <li>Zitronenzeste</li>
+                            <li>Dill</li>
+                            <li>Olivenöl</li>
+                        </ul>
+                        <h4>Zubereitung</h4>
+                        <ol>
+                            <li>Baguettescheiben mit Olivenöl beträufeln und toasten.</li>
+                            <li>Mit Frischkäse bestreichen.</li>
+                            <li>Krabben darauf verteilen.</li>
+                            <li>Mit Zitronenzeste und Dill garnieren.</li>
+                            <li>Sofort servieren.</li>
+                        </ol>
+                        <div class="recipe-tags">
+                            <span class="tag schnell">Schnell</span>
+                            <span class="tag ferienwohnung">Ferienwohnung</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="recipe-card">
+                    <div class="recipe-header">
+                        <h3>Matjes-Häppchen</h3>
+                        <div class="recipe-meta">
+                            <span>⏱️ 15 Min.</span>
+                            <span>👥 12 Stück</span>
+                        </div>
+                    </div>
+                    <div class="recipe-body">
+                        <h4>Zutaten</h4>
+                        <ul>
+                            <li>4 Matjesfilets</li>
+                            <li>12 Pumpernickel-Taler</li>
+                            <li>150g Schmand</li>
+                            <li>1 grüner Apfel</li>
+                            <li>Schnittlauch</li>
+                            <li>Rote Zwiebel</li>
+                        </ul>
+                        <h4>Zubereitung</h4>
+                        <ol>
+                            <li>Pumpernickel-Taler mit Schmand bestreichen.</li>
+                            <li>Matjes in kleine Stücke schneiden.</li>
+                            <li>Apfel in dünne Scheiben schneiden.</li>
+                            <li>Alles anrichten und mit Schnittlauch garnieren.</li>
+                            <li>Mit feinen Zwiebelringen toppen.</li>
+                        </ol>
+                        <div class="recipe-tags">
+                            <span class="tag schnell">Schnell</span>
+                            <span class="tag ferienwohnung">Ferienwohnung</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="recipe-card">
+                    <div class="recipe-header">
+                        <h3>Räucherlachs-Röllchen</h3>
+                        <div class="recipe-meta">
+                            <span>⏱️ 20 Min.</span>
+                            <span>👥 16 Stück</span>
+                        </div>
+                    </div>
+                    <div class="recipe-body">
+                        <h4>Zutaten</h4>
+                        <ul>
+                            <li>200g Räucherlachs</li>
+                            <li>150g Frischkäse</li>
+                            <li>2 EL Meerrettich</li>
+                            <li>Dill</li>
+                            <li>Schwarzer Pfeffer</li>
+                            <li>Zahnstocher</li>
+                        </ul>
+                        <h4>Zubereitung</h4>
+                        <ol>
+                            <li>Frischkäse mit Meerrettich und Dill verrühren.</li>
+                            <li>Lachsscheiben ausbreiten.</li>
+                            <li>Mit der Creme bestreichen.</li>
+                            <li>Aufrollen und mit Zahnstochern fixieren.</li>
+                            <li>In 2 cm Stücke schneiden.</li>
+                        </ol>
+                        <div class="recipe-tags">
+                            <span class="tag schnell">Schnell</span>
+                            <span class="tag ferienwohnung">Ferienwohnung</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="recipe-card">
+                    <div class="recipe-header">
+                        <h3>Sylter Fisch-Platte</h3>
+                        <div class="recipe-meta">
+                            <span>⏱️ 25 Min.</span>
+                            <span>👥 8 Portionen</span>
+                        </div>
+                    </div>
+                    <div class="recipe-body">
+                        <h4>Zutaten</h4>
+                        <ul>
+                            <li>100g Räucherlachs</li>
+                            <li>100g Räucheraal</li>
+                            <li>150g Nordseekrabben</li>
+                            <li>4 Matjesfilets</li>
+                            <li>Verschiedene Brote</li>
+                            <li>Butter, Zitrone, Dill, Zwiebeln</li>
+                        </ul>
+                        <h4>Zubereitung</h4>
+                        <ol>
+                            <li>Eine große Platte mit Salatblättern auslegen.</li>
+                            <li>Alle Fischsorten dekorativ anordnen.</li>
+                            <li>Zwiebeln in Ringe schneiden.</li>
+                            <li>Mit Zitronenspalten und Dill garnieren.</li>
+                            <li>Brote und Butter dazu reichen.</li>
+                        </ol>
+                        <div class="recipe-tags">
+                            <span class="tag ferienwohnung">Ferienwohnung</span>
+                            <span class="tag familie">Familienrezept</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="ferienwohnung" aria-labelledby="ferienwohnung-title">
+            <h2 id="ferienwohnung-title">🏠 Kochen in der Ferienwohnung</h2>
+            
+            <div class="info-section">
+                <h3>🍳 Tipps für begrenzte Küchenausstattung</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <h4>Grundausstattung checken</h4>
+                        <ul>
+                            <li>Vor der Anreise beim Vermieter nach Küchenausstattung fragen</li>
+                            <li>Scharfes Messer und Schneidebrett sind essentiell</li>
+                            <li>Eine gute beschichtete Pfanne reicht für die meisten Rezepte</li>
+                            <li>Sieb und Rührschüssel nicht vergessen zu prüfen</li>
+                        </ul>
+                    </div>
+                    <div class="info-item">
+                        <h4>Mitbringen lohnt sich</h4>
+                        <ul>
+                            <li>Ein gutes Küchenmesser (Ferienwohnungs-Messer sind oft stumpf)</li>
+                            <li>Lieblingsgewürze in kleinen Behältern</li>
+                            <li>Zitronenpresse</li>
+                            <li>Stabmixer für Suppen und Saucen</li>
+                        </ul>
+                    </div>
+                    <div class="info-item">
+                        <h4>One-Pot-Rezepte bevorzugen</h4>
+                        <ul>
+                            <li>Weniger Geschirr = weniger Abwasch</li>
+                            <li>Fischpfannen und Eintöpfe sind ideal</li>
+                            <li>Suppen in großen Mengen kochen</li>
+                            <li>Kalte Gerichte brauchen oft gar kein Kochen</li>
+                        </ul>
+                    </div>
+                    <div class="info-item">
+                        <h4>Notfall-Lösungen</h4>
+                        <ul>
+                            <li>Alufolie ersetzt fehlendes Backpapier</li>
+                            <li>Tasse als Messbecher nutzen</li>
+                            <li>Gabel zum Verrühren statt Schneebesen</li>
+                            <li>Topfdeckel als provisorischer Spritzschutz</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h3>🐟 Einkaufsguide Sylt - Lokale Fischhändler</h3>
+                <ul class="dealer-list">
+                    <li>
+                        <strong>Gosch Sylt</strong>
+                        Deutschlands bekannteste Fischbude - mehrere Standorte auf Sylt. Frischer Fisch, Krabben und fertige Fischgerichte zum Mitnehmen.
+                    </li>
+                    <li>
+                        <strong>Fisch-Feinkost Lornsen</strong>
+                        Westerland, Strandstraße - Traditionelles Familienunternehmen mit breiter Auswahl an frischem und geräuchertem Fisch.
+                    </li>
+                    <li>
+                        <strong>Fischhalle List</strong>
+                        Am Hafen List - Hier direkt vom Kutter kaufen. Besonders frische Krabben und Nordseefische.
+                    </li>
+                    <li>
+                        <strong>Fischmarkt Westerland</strong>
+                        Samstags auf dem Rathausplatz - Frischer Fisch und regionale Spezialitäten direkt vom Erzeuger.
+                    </li>
+                    <li>
+                        <strong>Supermärkte (EDEKA, REWE)</strong>
+                        Gute Basisauswahl an frischem und geräuchertem Fisch. Praktisch für den schnellen Einkauf.
+                    </li>
+                </ul>
+                <p style="margin-top: 1rem; font-style: italic;">
+                    💡 <strong>Tipp:</strong> Kaufen Sie Krabben immer ungepult - sie sind günstiger und schmecken frischer. Das Pulen am Abend ist eine schöne Urlaubsbeschäftigung!
+                </p>
+            </div>
+
+            <div class="info-section">
+                <h3>❄️ Aufbewahrung &amp; Haltbarkeit</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <h4>Frischer Fisch</h4>
+                        <ul>
+                            <li>Im Kühlschrank: 1-2 Tage (auf Eis legen)</li>
+                            <li>Am besten am Kauftag verarbeiten</li>
+                            <li>Geruch prüfen: Frischer Fisch riecht nach Meer, nicht "fischig"</li>
+                            <li>In Frischhaltefolie einwickeln</li>
+                        </ul>
+                    </div>
+                    <div class="info-item">
+                        <h4>Krabben</h4>
+                        <ul>
+                            <li>Gepulte Krabben: 2-3 Tage im Kühlschrank</li>
+                            <li>Ungepulte Krabben halten länger</li>
+                            <li>Nicht einfrieren - Textur leidet</li>
+                            <li>In verschlossenem Behälter aufbewahren</li>
+                        </ul>
+                    </div>
+                    <div class="info-item">
+                        <h4>Räucherfisch</h4>
+                        <ul>
+                            <li>Vakuumverpackt: bis zu 2 Wochen</li>
+                            <li>Angebrochen: 3-4 Tage</li>
+                            <li>Kalt und dunkel lagern</li>
+                        </ul>
+                    </div>
+                    <div class="info-item">
+                        <h4>Matjes</h4>
+                        <ul>
+                            <li>In Marinade: 1 Woche</li>
+                            <li>Immer gekühlt aufbewahren</li>
+                            <li>Filets komplett mit Flüssigkeit bedecken</li>
+                            <li>Nicht einfrieren</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h3>⏰ Zeitsparende Zubereitungsmethoden</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <h4>Morgens vorbereiten</h4>
+                        <ul>
+                            <li>Marinaden ansetzen</li>
+                            <li>Gemüse schneiden und kühlen</li>
+                            <li>Saucen vorbereiten</li>
+                        </ul>
+                    </div>
+                    <div class="info-item">
+                        <h4>Clevere Helfer nutzen</h4>
+                        <ul>
+                            <li>Fertig-Kartoffelsalat als Beilage</li>
+                            <li>Tiefkühl-Gemüse spart Schnippelzeit</li>
+                            <li>Fertige Dips und Saucen</li>
+                            <li>Vorgekochte Kartoffeln vom Vortag</li>
+                        </ul>
+                    </div>
+                    <div class="info-item">
+                        <h4>Die Pfannen-Methode</h4>
+                        <ul>
+                            <li>Ein Gericht, eine Pfanne</li>
+                            <li>Fisch gart in 5-10 Minuten</li>
+                            <li>Sauce in derselben Pfanne</li>
+                        </ul>
+                    </div>
+                    <div class="info-item">
+                        <h4>Kalte Gerichte priorisieren</h4>
+                        <ul>
+                            <li>Matjes-Gerichte brauchen keinen Herd</li>
+                            <li>Räucherfisch nur anrichten</li>
+                            <li>Krabbensalat ist in 10 Min. fertig</li>
+                            <li>Fischbrötchen = null Kochzeit</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer role="contentinfo">
+        <p>🐟 Sylter Fisch-Kochbuch - 30 traditionelle Rezepte aus der Nordsee-Küche</p>
+        <p>Mit Liebe zusammengestellt für Ihren Urlaub auf Deutschlands schönster Insel</p>
+        <p style="font-size: 0.85rem; margin-top: 1rem;">Moin und guten Appetit! 🌊</p>
+    </footer>
+</body>
+</html>
