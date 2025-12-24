@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { cn } from '../utils/cn';
 import { Button } from './Button';
@@ -20,6 +20,16 @@ export interface ContactFormData {
   propertyInterest?: string;
 }
 
+/**
+ * Accessible Contact Form Component
+ * 
+ * Features for elderly users:
+ * - Large form fields with 48px minimum height
+ * - Clear labels with sufficient contrast
+ * - Error messages announced to screen readers
+ * - Large checkbox with visible focus ring
+ * - Reduced motion support
+ */
 export function ContactForm({
   className,
   onSubmit,
@@ -36,6 +46,17 @@ export function ContactForm({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [reducedMotion, setReducedMotion] = useState(false);
+
+  // Check for reduced motion preference
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setReducedMotion(mediaQuery.matches);
+    
+    const handler = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
+    mediaQuery.addEventListener('change', handler);
+    return () => mediaQuery.removeEventListener('change', handler);
+  }, []);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -69,49 +90,66 @@ export function ContactForm({
     }
   };
 
+  // Enhanced input styles for elderly users
   const inputClasses = cn(
-    'w-full px-4 py-3 border border-sand-300 rounded-lg',
-    'font-body text-charcoal placeholder:text-reetdach-400',
-    'focus:border-nordsee-500 focus:ring-2 focus:ring-nordsee-500/20 focus:outline-none',
-    'transition-all duration-200'
+    // Base styles with larger size
+    'w-full min-h-[52px] px-5 py-4',
+    // Border with better contrast
+    'border-2 border-reetdach-300 rounded-lg',
+    // Typography - larger text
+    'font-body text-lg text-charcoal',
+    // Placeholder with sufficient contrast
+    'placeholder:text-reetdach-500',
+    // Focus states with thick ring
+    'focus:border-nordsee-600 focus:ring-4 focus:ring-nordsee-200 focus:outline-none',
+    // Transition (respect reduced motion)
+    reducedMotion ? '' : 'transition-all duration-200'
+  );
+
+  // Label styles - larger and more visible
+  const labelClasses = cn(
+    'block font-body text-base font-medium text-reetdach-700 mb-3'
   );
 
   if (isSubmitted) {
     return (
       <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
+        initial={reducedMotion ? { opacity: 1 } : { opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         className={cn(
-          'bg-white rounded-lg p-8 text-center',
+          'bg-white rounded-xl p-10 text-center',
           variant === 'sidebar' && 'shadow-card',
           className
         )}
+        role="status"
+        aria-live="polite"
       >
-        <div className="w-16 h-16 bg-nordsee-100 rounded-full flex items-center justify-center mx-auto mb-6">
+        <div className="w-20 h-20 bg-nordsee-100 rounded-full flex items-center justify-center mx-auto mb-8">
           <svg
-            className="w-8 h-8 text-nordsee-500"
+            className="w-10 h-10 text-nordsee-600"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
+            aria-hidden="true"
           >
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
-              strokeWidth={2}
+              strokeWidth={2.5}
               d="M5 13l4 4L19 7"
             />
           </svg>
         </div>
-        <h3 className="font-heading text-2xl text-charcoal mb-2">
+        <h3 className="font-heading text-3xl text-charcoal mb-4">
           Vielen Dank!
         </h3>
-        <p className="font-body text-reetdach-500">
+        <p className="font-body text-lg text-reetdach-600 leading-relaxed mb-8">
           Wir haben Ihre Nachricht erhalten und werden uns in Kürze bei Ihnen melden.
         </p>
         <Button
           onClick={() => setIsSubmitted(false)}
-          variant="ghost"
-          className="mt-6"
+          variant="outline"
+          size="lg"
         >
           Neue Nachricht senden
         </Button>
@@ -123,21 +161,31 @@ export function ContactForm({
     <form
       onSubmit={handleSubmit}
       className={cn(
-        'space-y-6',
-        variant === 'sidebar' && 'bg-white rounded-lg p-6 shadow-card',
+        'space-y-8',
+        variant === 'sidebar' && 'bg-white rounded-xl p-8 shadow-card',
         className
       )}
+      noValidate
     >
       {error && (
-        <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-red-600 font-body text-sm">
+        <div 
+          role="alert"
+          aria-live="assertive"
+          className={cn(
+            'bg-red-50 border-2 border-red-300 rounded-lg',
+            'p-5 text-red-800 font-body text-lg'
+          )}
+        >
+          <span className="font-medium">Fehler: </span>
           {error}
         </div>
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div>
-          <label htmlFor="name" className="block font-body text-sm text-reetdach-500 mb-2">
-            Name *
+          <label htmlFor="name" className={labelClasses}>
+            Name <span className="text-red-600" aria-hidden="true">*</span>
+            <span className="sr-only">(Pflichtfeld)</span>
           </label>
           <input
             type="text"
@@ -146,13 +194,16 @@ export function ContactForm({
             value={formData.name}
             onChange={handleChange}
             required
+            aria-required="true"
             className={inputClasses}
-            placeholder="Ihr Name"
+            placeholder="Ihr vollständiger Name"
+            autoComplete="name"
           />
         </div>
         <div>
-          <label htmlFor="email" className="block font-body text-sm text-reetdach-500 mb-2">
-            E-Mail *
+          <label htmlFor="email" className={labelClasses}>
+            E-Mail <span className="text-red-600" aria-hidden="true">*</span>
+            <span className="sr-only">(Pflichtfeld)</span>
           </label>
           <input
             type="email"
@@ -161,17 +212,19 @@ export function ContactForm({
             value={formData.email}
             onChange={handleChange}
             required
+            aria-required="true"
             className={inputClasses}
             placeholder="ihre@email.de"
+            autoComplete="email"
           />
         </div>
       </div>
 
       {variant !== 'minimal' && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div>
-            <label htmlFor="phone" className="block font-body text-sm text-reetdach-500 mb-2">
-              Telefon
+            <label htmlFor="phone" className={labelClasses}>
+              Telefon <span className="text-reetdach-400">(optional)</span>
             </label>
             <input
               type="tel"
@@ -181,11 +234,12 @@ export function ContactForm({
               onChange={handleChange}
               className={inputClasses}
               placeholder="+49 123 456789"
+              autoComplete="tel"
             />
           </div>
           <div>
-            <label htmlFor="propertyInterest" className="block font-body text-sm text-reetdach-500 mb-2">
-              Interesse an
+            <label htmlFor="propertyInterest" className={labelClasses}>
+              Interesse an <span className="text-reetdach-400">(optional)</span>
             </label>
             <select
               id="propertyInterest"
@@ -207,8 +261,9 @@ export function ContactForm({
       )}
 
       <div>
-        <label htmlFor="subject" className="block font-body text-sm text-reetdach-500 mb-2">
-          Betreff *
+        <label htmlFor="subject" className={labelClasses}>
+          Betreff <span className="text-red-600" aria-hidden="true">*</span>
+          <span className="sr-only">(Pflichtfeld)</span>
         </label>
         <input
           type="text"
@@ -217,14 +272,16 @@ export function ContactForm({
           value={formData.subject}
           onChange={handleChange}
           required
+          aria-required="true"
           className={inputClasses}
           placeholder="Wie können wir Ihnen helfen?"
         />
       </div>
 
       <div>
-        <label htmlFor="message" className="block font-body text-sm text-reetdach-500 mb-2">
-          Nachricht *
+        <label htmlFor="message" className={labelClasses}>
+          Nachricht <span className="text-red-600" aria-hidden="true">*</span>
+          <span className="sr-only">(Pflichtfeld)</span>
         </label>
         <textarea
           id="message"
@@ -232,32 +289,67 @@ export function ContactForm({
           value={formData.message}
           onChange={handleChange}
           required
-          rows={5}
-          className={cn(inputClasses, 'resize-none')}
+          aria-required="true"
+          rows={6}
+          className={cn(inputClasses, 'min-h-[180px] resize-y')}
           placeholder="Ihre Nachricht an uns..."
         />
       </div>
 
-      <div className="flex items-start gap-3">
-        <input
-          type="checkbox"
-          id="privacy"
-          required
-          aria-describedby="privacy-description"
-          className="mt-1 w-4 h-4 border-sand-300 rounded text-nordsee-500 focus:ring-2 focus:ring-nordsee-500 focus:ring-offset-2"
-        />
-        <label htmlFor="privacy" id="privacy-description" className="font-body text-sm text-reetdach-500">
+      {/* Privacy checkbox with large touch target */}
+      <div className="flex items-start gap-4">
+        <div className="flex-shrink-0 pt-1">
+          <input
+            type="checkbox"
+            id="privacy"
+            required
+            aria-required="true"
+            aria-describedby="privacy-description"
+            className={cn(
+              // Large checkbox for elderly users
+              'w-6 h-6',
+              // Border and colors
+              'border-2 border-reetdach-400 rounded',
+              'text-nordsee-600',
+              // Focus ring
+              'focus:ring-4 focus:ring-nordsee-200 focus:ring-offset-2',
+              // Cursor
+              'cursor-pointer'
+            )}
+          />
+        </div>
+        <label 
+          htmlFor="privacy" 
+          id="privacy-description" 
+          className="font-body text-base text-reetdach-700 leading-relaxed cursor-pointer"
+        >
           Ich habe die{' '}
-          <a href="/datenschutz" className="text-nordsee-500 hover:underline focus:outline-none focus:ring-2 focus:ring-nordsee-500 focus:ring-offset-1 rounded">
+          <a 
+            href="/datenschutz" 
+            className={cn(
+              'text-nordsee-600 font-medium underline underline-offset-2',
+              'hover:text-nordsee-800',
+              'focus:outline-none focus:ring-4 focus:ring-nordsee-200 rounded'
+            )}
+          >
             Datenschutzerklärung
           </a>{' '}
-          gelesen und stimme der Verarbeitung meiner Daten zu. *
+          gelesen und stimme der Verarbeitung meiner Daten zu.{' '}
+          <span className="text-red-600" aria-hidden="true">*</span>
+          <span className="sr-only">(Pflichtfeld)</span>
         </label>
       </div>
 
-      <Button type="submit" isLoading={isSubmitting} className="w-full md:w-auto">
-        Nachricht senden
-      </Button>
+      <div className="pt-4">
+        <Button 
+          type="submit" 
+          isLoading={isSubmitting} 
+          size="lg"
+          className="w-full md:w-auto min-w-[200px]"
+        >
+          Nachricht senden
+        </Button>
+      </div>
     </form>
   );
 }

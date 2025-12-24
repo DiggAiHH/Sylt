@@ -6,6 +6,9 @@
 // Re-export SEO utilities
 export * from './seo';
 
+// Re-export Accessibility utilities
+export * from './a11y';
+
 // Sylt Color Palette
 export const colors = {
   // Primary Colors

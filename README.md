@@ -202,6 +202,44 @@ Shared TypeScript types:
 - Auto-generated Open Graph images with branding
 - Consistent social card appearance across all shares
 
+## ♿ Accessibility Features (WCAG 2.1 AA)
+
+### Senior-Friendly Design
+This platform is optimized for elderly users with:
+- **Large Touch Targets**: Minimum 44x44px (48px recommended)
+- **Readable Typography**: 18px base font size with 1.6 line height
+- **High Contrast Colors**: Text meets WCAG AA contrast ratios (4.5:1)
+- **Clear Focus Indicators**: Thick, visible focus rings (4px) for keyboard navigation
+- **Reduced Motion Support**: Respects `prefers-reduced-motion` preference
+- **Font Scaling**: User-adjustable font sizes (100%, 115%, 130%)
+
+### Accessibility Components (@sylt/ui)
+- `SkipLink` - Skip to main content for keyboard users
+- `SkipLinksGroup` - Multiple skip links for complex pages
+- `AccessibilityControls` - Floating widget for font size adjustment
+- `AccessibilityProvider` - Context provider for accessibility settings
+- `useAccessibility` - Hook to access/modify accessibility settings
+- `useReducedMotion` - Hook to detect reduced motion preference
+
+### Accessibility Configuration (@sylt/config)
+- `a11yFontSizes` - Optimized font size scales (default/large)
+- `touchTargets` - Minimum touch target sizes
+- `focusStyles` - Focus ring configuration
+- `highContrastColors` - Enhanced contrast color palette
+- `ariaLabels` - Centralized ARIA labels (German)
+- `errorMessages` - Clear, actionable error messages
+
+### Implemented Features
+- ✅ Skip Links for keyboard navigation
+- ✅ ARIA landmarks and labels (German)
+- ✅ Focus-visible styling (not :focus)
+- ✅ Reduced motion support
+- ✅ Font scaling controls
+- ✅ High contrast mode
+- ✅ Large form fields (52px height)
+- ✅ Screen reader friendly error messages
+- ✅ Semantic HTML with proper heading hierarchy
+
 ## 🌐 Environment Variables
 
 Create a `.env.local` file in each app:

@@ -7,7 +7,7 @@ export { Gallery } from './components/Gallery';
 export { ParallaxSection } from './components/ParallaxSection';
 export { Navigation } from './components/Navigation';
 export { Footer } from './components/Footer';
-export { Typography, Heading, Text } from './components/Typography';
+export { Typography, Heading, Text, HighlightedText, FormText } from './components/Typography';
 export { AnimatedSection } from './components/AnimatedSection';
 export { PropertyCard } from './components/PropertyCard';
 export { BookingWidget } from './components/BookingWidget';
@@ -26,11 +26,16 @@ export { Accordion } from './components/Accordion';
 export { JsonLd, MultipleJsonLd } from './components/JsonLd';
 export { OptimizedImage, HeroImage } from './components/OptimizedImage';
 
+// Accessibility Components
+export { SkipLink, SkipLinksGroup } from './components/SkipLink';
+export { AccessibilityControls } from './components/AccessibilityControls';
+
 // Error Handling
 export { ErrorBoundary, withErrorBoundary, AsyncBoundary } from './components/ErrorBoundary';
 
 // Hooks
 export { useFetch, useLazyFetch, useDebounce } from './hooks';
+export { AccessibilityProvider, useAccessibility, useReducedMotion } from './hooks';
 
 // Utilities
 export { cn } from './utils/cn';

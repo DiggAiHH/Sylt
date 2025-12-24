@@ -117,7 +117,9 @@ export const metadata: Metadata = {
 
 /**
  * Viewport configuration
- * Optimized for mobile devices and theme consistency
+ * Optimized for mobile devices, accessibility, and theme consistency
+ * - Maximum scale 5 allows users to zoom for accessibility
+ * - User-scalable not restricted for WCAG compliance
  */
 export const viewport: Viewport = {
   width: 'device-width',
@@ -240,7 +242,20 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        {/* Skip Link for keyboard/screen reader navigation */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[9999] focus:block focus:px-6 focus:py-4 focus:bg-nordsee-600 focus:text-white focus:font-body focus:text-lg focus:font-medium focus:rounded-lg focus:shadow-luxury focus:outline-none focus:ring-4 focus:ring-nordsee-300"
+        >
+          Zum Hauptinhalt springen
+        </a>
+        
+        {/* Main content wrapper with landmark role */}
+        <main id="main-content" tabIndex={-1}>
+          {children}
+        </main>
+      </body>
     </html>
   );
 }
