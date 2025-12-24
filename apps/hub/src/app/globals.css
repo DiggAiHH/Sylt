@@ -1,0 +1,184 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================================================
+   ACCESSIBILITY CUSTOM PROPERTIES
+   CSS variables for font scaling - controlled by AccessibilityControls
+   ========================================================================== */
+
+:root {
+  /* Default font scale (1 = 100%) */
+  --a11y-font-scale: 1;
+  
+  /* Focus ring width */
+  --a11y-focus-width: 3px;
+  
+  /* Minimum touch target size */
+  --a11y-touch-target: 44px;
+}
+
+/* ==========================================================================
+   BASE STYLES
+   ========================================================================== */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Respect user preference for reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    @apply font-body bg-cream antialiased;
+    /* Improved text color contrast for accessibility */
+    color: #3D3D3D;
+    /* Base font size slightly larger for readability */
+    font-size: calc(1.125rem * var(--a11y-font-scale));
+    line-height: 1.6;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading text-charcoal;
+  }
+
+  /* Improve focus visibility for all focusable elements */
+  :focus-visible {
+    outline: var(--a11y-focus-width) solid theme('colors.nordsee.500');
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Remove default focus for mouse users */
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  /* Skip link styling */
+  .sr-only:focus {
+    position: fixed !important;
+  }
+}
+
+/* ==========================================================================
+   COMPONENT STYLES
+   ========================================================================== */
+
+@layer components {
+  .luxury-container {
+    @apply max-w-container-xl mx-auto px-6 md:px-8 lg:px-12;
+  }
+
+  .luxury-section {
+    @apply py-section-md md:py-section-lg;
+  }
+
+  .luxury-gradient {
+    background: linear-gradient(135deg, theme('colors.sand.100') 0%, theme('colors.cream') 100%);
+  }
+
+  .luxury-text-gradient {
+    @apply bg-gradient-to-r from-nordsee-600 to-nordsee-400 bg-clip-text text-transparent;
+  }
+
+  /* Accessibility Controls floating button */
+  .a11y-controls-btn {
+    @apply fixed bottom-6 right-6 z-50;
+    @apply w-14 h-14 rounded-full;
+    @apply bg-nordsee-500 text-white shadow-luxury;
+    @apply flex items-center justify-center;
+    @apply focus:outline-none focus:ring-4 focus:ring-nordsee-300 focus:ring-offset-2;
+    @apply hover:bg-nordsee-600 transition-colors;
+  }
+}
+
+/* ==========================================================================
+   UTILITY STYLES
+   ========================================================================== */
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .animate-luxury {
+    animation: luxuryFade 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  /* Font scaling support for a11y - apply to elements that should scale */
+  .a11y-scalable {
+    font-size: calc(1em * var(--a11y-font-scale));
+  }
+
+  /* Large touch target utility */
+  .touch-target {
+    min-width: var(--a11y-touch-target);
+    min-height: var(--a11y-touch-target);
+  }
+
+  /* High contrast mode utilities */
+  .high-contrast .text-reetdach-400,
+  .high-contrast .text-reetdach-500 {
+    color: #3D3D3D;
+  }
+
+  .high-contrast .border-sand-300 {
+    border-color: #666666;
+  }
+
+  /* Reduce motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Also apply reduced motion when class is present */
+  .reduce-motion *,
+  .reduce-motion *::before,
+  .reduce-motion *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ==========================================================================
+   PRINT STYLES
+   Improve readability when printing
+   ========================================================================== */
+
+@media print {
+  body {
+    font-size: 12pt;
+    line-height: 1.5;
+    color: #000;
+    background: #fff;
+  }
+
+  a {
+    text-decoration: underline;
+    color: #000;
+  }
+
+  /* Show URLs after links */
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+  }
+
+  /* Hide non-essential elements */
+  nav,
+  .a11y-controls,
+  button:not([type="submit"]) {
+    display: none !important;
+  }
+}
