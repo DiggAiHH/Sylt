@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+:root {
+  /* Sylt Colors - Premium Design */
+  --color-sand: #F5E6D3;
+  --color-sand-light: #FAF3EB;
+  --color-sand-dark: #E8D5BC;
+  --color-reetdach: #6B6B6B;
+  --color-reetdach-light: #8A8A8A;
+  --color-reetdach-dark: #4A4A4A;
+  --color-nordsee: #2C5F7C;
+  --color-nordsee-light: #3A7A9E;
+  --color-nordsee-dark: #1E4356;
+  --color-white: #FFFFFF;
+  --color-text: #2D2D2D;
+  --color-text-light: #666666;
+  
+  --background: var(--color-sand-light);
+  --foreground: var(--color-text);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  
+  /* Sylt Theme Colors */
+  --color-sand: #F5E6D3;
+  --color-sand-light: #FAF3EB;
+  --color-sand-dark: #E8D5BC;
+  --color-reetdach: #6B6B6B;
+  --color-reetdach-light: #8A8A8A;
+  --color-reetdach-dark: #4A4A4A;
+  --color-nordsee: #2C5F7C;
+  --color-nordsee-light: #3A7A9E;
+  --color-nordsee-dark: #1E4356;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Premium Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 300;
+  letter-spacing: 0.02em;
+}
+
+/* Smooth transitions */
+a, button {
+  transition: all 0.2s ease-in-out;
+}
