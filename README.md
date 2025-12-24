@@ -173,6 +173,35 @@ Shared TypeScript types:
 - **Input Validation**: Comprehensive validation for all API inputs
 - **HTML Sanitization**: XSS prevention utilities
 
+## 🔍 SEO Features
+
+### Comprehensive SEO Implementation
+- **Schema.org Structured Data**: JSON-LD for Organization, Hotel, FAQPage, LocalBusiness, BreadcrumbList
+- **Dynamic Sitemap**: Auto-generated sitemap.xml with proper priorities
+- **Robots.txt**: Configured crawler rules with AI bot blocking
+- **Open Graph**: Full social sharing optimization for Facebook/LinkedIn
+- **Twitter Cards**: Large image cards for Twitter/X sharing
+- **Canonical URLs**: Prevent duplicate content issues
+- **Geographic Targeting**: Geo meta tags for local search
+
+### SEO Utilities (@sylt/config)
+- `generateMetadata` - Unified metadata generator for all pages
+- `generateOrganizationSchema` - Organization JSON-LD
+- `generateHotelSchema` - Hotel/LodgingBusiness JSON-LD
+- `generateFaqSchema` - FAQ rich snippets
+- `generateBreadcrumbSchema` - Breadcrumb navigation
+- `generateLocalBusinessSchema` - Local search optimization
+
+### SEO Components (@sylt/ui)
+- `JsonLd` - Schema.org structured data component
+- `MultipleJsonLd` - Multiple schemas component
+- `OptimizedImage` - Lazy loading with blur placeholder
+- `HeroImage` - Priority loading for LCP optimization
+
+### Dynamic OG Images
+- Auto-generated Open Graph images with branding
+- Consistent social card appearance across all shares
+
 ## 🌐 Environment Variables
 
 Create a `.env.local` file in each app:

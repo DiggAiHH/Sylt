@@ -7,8 +7,29 @@ import {
   Footer,
   AnimatedSection,
   Button,
+  JsonLd,
 } from '@sylt/ui';
+import { generateFaqSchema } from '@sylt/config';
+import { Metadata } from 'next';
 import Link from 'next/link';
+
+/**
+ * FAQ Page SEO Metadata
+ * Optimized for FAQ rich snippets in search results
+ */
+export const metadata: Metadata = {
+  title: 'Häufige Fragen (FAQ)',
+  description:
+    'Antworten auf häufig gestellte Fragen zu BLUM Sylt Hotels: Check-in Zeiten, Stornierungsbedingungen, Haustiere, Zahlungsmethoden und mehr.',
+  alternates: {
+    canonical: 'https://blumsylthotels.de/faq',
+  },
+  openGraph: {
+    title: 'FAQ | BLUM Sylt Hotels',
+    description: 'Finden Sie Antworten auf alle Fragen zu unseren Unterkünften auf Sylt.',
+    url: 'https://blumsylthotels.de/faq',
+  },
+};
 
 // Navigation items
 const navItems = [
@@ -178,9 +199,51 @@ const serviceFAQs = [
   },
 ];
 
+// FAQ data for structured data (plain text versions for SEO)
+const faqSchemaData = [
+  {
+    question: 'Wann kann ich einchecken und auschecken?',
+    answer: 'Check-in ist ab 15:00 Uhr möglich, Check-out bis 11:00 Uhr. Gegen Aufpreis können wir Ihnen einen Early Check-in ab 12:00 Uhr oder Late Check-out bis 14:00 Uhr anbieten – je nach Verfügbarkeit.',
+  },
+  {
+    question: 'Wie sind die Stornierungsbedingungen?',
+    answer: 'Kostenlose Stornierung bis 48 Stunden vor Anreise. 50% Gebühr bei Stornierung innerhalb von 48 Stunden. 100% Gebühr bei Nichterscheinen (No-Show). In der Hochsaison (Juni-August) gelten abweichende Bedingungen.',
+  },
+  {
+    question: 'Sind Haustiere erlaubt?',
+    answer: 'In ausgewählten Unterkünften heißen wir gut erzogene Hunde herzlich willkommen. Bitte geben Sie bei Ihrer Buchung an, ob Sie mit Haustier anreisen. Es wird ein Aufpreis von 25€ pro Nacht berechnet.',
+  },
+  {
+    question: 'Gibt es Parkmöglichkeiten?',
+    answer: 'Die meisten unserer Unterkünfte verfügen über kostenfreie Parkplätze. Bei den Sylt Rooms stehen Ihnen Tiefgaragenstellplätze zur Verfügung (Reservierung empfohlen, 15€/Tag).',
+  },
+  {
+    question: 'Welche Zahlungsmethoden werden akzeptiert?',
+    answer: 'Wir akzeptieren Kreditkarten (Visa, MasterCard, American Express), PayPal, Banküberweisung (bei Buchung 14+ Tage im Voraus) und SEPA-Lastschrift.',
+  },
+  {
+    question: 'Ist eine Anzahlung erforderlich?',
+    answer: 'Bei Buchung wird eine Anzahlung von 30% fällig. Der Restbetrag ist 14 Tage vor Anreise oder bei Check-in zu zahlen.',
+  },
+  {
+    question: 'Ist Frühstück inklusive?',
+    answer: 'In den Sylt Rooms ist ein reichhaltiges Frühstücksbuffet inklusive. Bei den anderen Unterkünften kann Frühstück optional hinzugebucht werden (ab 18€ pro Person).',
+  },
+  {
+    question: 'Gibt es WLAN?',
+    answer: 'Ja, in allen unseren Unterkünften steht Ihnen kostenloses Highspeed-WLAN zur Verfügung.',
+  },
+];
+
 export default function FAQPage() {
+  // Generate FAQ structured data for rich snippets
+  const faqSchema = generateFaqSchema(faqSchemaData);
+
   return (
     <main>
+      {/* FAQ Schema.org Structured Data for rich snippets */}
+      <JsonLd data={faqSchema} id="faq-schema" />
+
       {/* Navigation */}
       <Navigation
         logo={

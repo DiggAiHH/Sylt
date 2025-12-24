@@ -6,7 +6,28 @@ import {
   Navigation,
   Footer,
   AnimatedSection,
+  JsonLd,
 } from '@sylt/ui';
+import { generateLocalBusinessSchema } from '@sylt/config';
+import { Metadata } from 'next';
+
+/**
+ * Contact Page SEO Metadata
+ * Optimized for local search with business information
+ */
+export const metadata: Metadata = {
+  title: 'Kontakt',
+  description:
+    'Kontaktieren Sie BLUM Sylt Hotels: Telefon +49 4651 12345, E-Mail info@blumsylthotels.de. Strandweg 1, 25980 Westerland, Sylt.',
+  alternates: {
+    canonical: 'https://blumsylthotels.de/contact',
+  },
+  openGraph: {
+    title: 'Kontakt | BLUM Sylt Hotels',
+    description: 'Kontaktieren Sie uns für Buchungen und Anfragen zu unseren Unterkünften auf Sylt.',
+    url: 'https://blumsylthotels.de/contact',
+  },
+};
 
 // Navigation items
 const navItems = [
@@ -46,8 +67,14 @@ const footerColumns = [
 ];
 
 export default function ContactPage() {
+  // Generate LocalBusiness schema for local search optimization
+  const localBusinessSchema = generateLocalBusinessSchema();
+
   return (
     <main>
+      {/* LocalBusiness Schema.org Structured Data */}
+      <JsonLd data={localBusinessSchema} id="local-business-schema" />
+
       {/* Navigation */}
       <Navigation
         logo={

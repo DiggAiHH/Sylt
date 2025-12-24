@@ -22,6 +22,10 @@ export { FeatureGrid } from './components/FeatureGrid';
 export { Badge } from './components/Badge';
 export { Accordion } from './components/Accordion';
 
+// SEO Components
+export { JsonLd, MultipleJsonLd } from './components/JsonLd';
+export { OptimizedImage, HeroImage } from './components/OptimizedImage';
+
 // Error Handling
 export { ErrorBoundary, withErrorBoundary, AsyncBoundary } from './components/ErrorBoundary';
 

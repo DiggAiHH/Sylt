@@ -3,6 +3,9 @@
  * "Quiet Luxury" Aesthetic
  */
 
+// Re-export SEO utilities
+export * from './seo';
+
 // Sylt Color Palette
 export const colors = {
   // Primary Colors
