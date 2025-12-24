@@ -1,9 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion } from 'framer-motion';
 import type { Property, Brand } from '@blumsylt/shared';
-import { calculateNights, formatCurrency, isValidEmail, isValidDateRange } from '@blumsylt/shared';
+import { formatCurrency, isValidEmail, isValidDateRange, sanitizeForPlainText } from '@blumsylt/shared';
 
 interface BookingFormProps {
   property: Property;
@@ -12,6 +12,9 @@ interface BookingFormProps {
   initialCheckOut?: string;
   initialGuests?: number;
 }
+
+// Debounce delay for availability check (prevents excessive API calls)
+const AVAILABILITY_CHECK_DELAY_MS = 500;
 
 export default function BookingForm({
   property,
@@ -33,22 +36,56 @@ export default function BookingForm({
     nights?: number;
   } | null>(null);
   const [error, setError] = useState('');
+  
+  // Ref for debounce timer
+  const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
+  // Ref for abort controller to cancel pending requests
+  const abortControllerRef = useRef<AbortController | null>(null);
 
   // Today's date for min date
   const today = new Date().toISOString().split('T')[0];
 
-  // Check availability when dates change
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (debounceTimerRef.current) {
+        clearTimeout(debounceTimerRef.current);
+      }
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
+    };
+  }, []);
+
+  // Debounced availability check to prevent excessive API calls
+  const checkAvailabilityDebounced = useCallback((checkInVal: string, checkOutVal: string) => {
+    // Clear existing timer
+    if (debounceTimerRef.current) {
+      clearTimeout(debounceTimerRef.current);
+    }
+    
+    // Cancel any pending request
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+    }
+    
+    debounceTimerRef.current = setTimeout(() => {
+      performAvailabilityCheck(checkInVal, checkOutVal);
+    }, AVAILABILITY_CHECK_DELAY_MS);
+  }, [property.id]);
+
+  // Check availability when dates change (with debounce)
   useEffect(() => {
     if (checkIn && checkOut) {
-      checkAvailability();
+      checkAvailabilityDebounced(checkIn, checkOut);
+    } else {
+      setAvailability(null);
     }
-  }, [checkIn, checkOut]);
+  }, [checkIn, checkOut, checkAvailabilityDebounced]);
 
-  const checkAvailability = async () => {
-    if (!checkIn || !checkOut) return;
-
-    const checkInDate = new Date(checkIn);
-    const checkOutDate = new Date(checkOut);
+  const performAvailabilityCheck = async (checkInVal: string, checkOutVal: string) => {
+    const checkInDate = new Date(checkInVal);
+    const checkOutDate = new Date(checkOutVal);
 
     if (!isValidDateRange(checkInDate, checkOutDate)) {
       setError('Bitte wählen Sie gültige Daten.');
@@ -58,6 +95,9 @@ export default function BookingForm({
 
     setIsChecking(true);
     setError('');
+    
+    // Create new abort controller for this request
+    abortControllerRef.current = new AbortController();
 
     try {
       const response = await fetch('/api/availability', {
@@ -65,9 +105,10 @@ export default function BookingForm({
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           propertyId: property.id,
-          checkIn,
-          checkOut,
+          checkIn: checkInVal,
+          checkOut: checkOutVal,
         }),
+        signal: abortControllerRef.current.signal,
       });
 
       const data = await response.json();
@@ -81,6 +122,10 @@ export default function BookingForm({
         setError(data.error || 'Fehler bei der Verfügbarkeitsprüfung');
       }
     } catch (err) {
+      // Ignore aborted requests (user changed dates quickly)
+      if (err instanceof Error && err.name === 'AbortError') {
+        return;
+      }
       console.error('Availability check failed:', err);
       setError('Verbindungsfehler. Bitte versuchen Sie es erneut.');
     } finally {
@@ -96,12 +141,15 @@ export default function BookingForm({
       return;
     }
 
-    if (!guestName.trim()) {
-      setError('Bitte geben Sie Ihren Namen ein.');
+    // Validate and sanitize input
+    const sanitizedName = sanitizeForPlainText(guestName);
+    if (sanitizedName.length < 2) {
+      setError('Bitte geben Sie Ihren vollständigen Namen ein.');
       return;
     }
 
-    if (!isValidEmail(guestEmail)) {
+    const trimmedEmail = guestEmail.trim().toLowerCase();
+    if (!isValidEmail(trimmedEmail)) {
       setError('Bitte geben Sie eine gültige E-Mail-Adresse ein.');
       return;
     }
@@ -118,8 +166,8 @@ export default function BookingForm({
           checkIn,
           checkOut,
           guests,
-          guestName,
-          guestEmail,
+          guestName: sanitizedName,
+          guestEmail: trimmedEmail,
         }),
       });
 
