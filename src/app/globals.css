@@ -88,3 +88,42 @@ a, button {
   background: linear-gradient(90deg, transparent, var(--color-nordsee), transparent);
   border-radius: 2px;
 }
+
+/* Loading bar animation */
+@keyframes loadingBar {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-loading-bar {
+  animation: loadingBar 1.5s ease-in-out infinite;
+}
+
+/* Focus visible for accessibility */
+:focus-visible {
+  outline: 2px solid var(--color-nordsee);
+  outline-offset: 2px;
+}
+
+/* Skip link for accessibility */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  background: var(--color-nordsee);
+  color: white;
+  padding: 0.5rem 1rem;
+  z-index: 100;
+  transition: top 0.3s;
+}
+
+.skip-link:focus {
+  top: 0;
+}
