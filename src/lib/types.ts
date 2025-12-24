@@ -51,7 +51,7 @@ export interface LogoSize {
   readonly initialFontSize: number;
 }
 
-/** Structured data for SEO (JSON-LD) */
+/** Structured data for SEO (JSON-LD) - Organization */
 export interface OrganizationSchema {
   readonly "@context": "https://schema.org";
   readonly "@type": "Organization";
@@ -71,4 +71,66 @@ export interface OrganizationSchema {
     readonly addressLocality: string;
     readonly addressCountry: string;
   };
+}
+
+/** Structured data for SEO (JSON-LD) - LocalBusiness */
+export interface LocalBusinessSchema {
+  readonly "@context": "https://schema.org";
+  readonly "@type": "LocalBusiness";
+  readonly name: string;
+  readonly description: string;
+  readonly url: string;
+  readonly telephone: string;
+  readonly email: string;
+  readonly address: {
+    readonly "@type": "PostalAddress";
+    readonly streetAddress: string;
+    readonly postalCode: string;
+    readonly addressLocality: string;
+    readonly addressCountry: string;
+  };
+  readonly geo?: {
+    readonly "@type": "GeoCoordinates";
+    readonly latitude: number;
+    readonly longitude: number;
+  };
+  readonly areaServed?: string;
+  readonly priceRange?: string;
+}
+
+/** Structured data for SEO (JSON-LD) - BreadcrumbList */
+export interface BreadcrumbSchema {
+  readonly "@context": "https://schema.org";
+  readonly "@type": "BreadcrumbList";
+  readonly itemListElement: readonly BreadcrumbItem[];
+}
+
+export interface BreadcrumbItem {
+  readonly "@type": "ListItem";
+  readonly position: number;
+  readonly name: string;
+  readonly item: string;
+}
+
+/** Structured data for SEO (JSON-LD) - WebPage */
+export interface WebPageSchema {
+  readonly "@context": "https://schema.org";
+  readonly "@type": "WebPage";
+  readonly name: string;
+  readonly description: string;
+  readonly url: string;
+  readonly isPartOf: {
+    readonly "@type": "WebSite";
+    readonly name: string;
+    readonly url: string;
+  };
+  readonly breadcrumb?: BreadcrumbSchema;
+}
+
+/** SEO metadata for pages */
+export interface PageSEO {
+  readonly title: string;
+  readonly description: string;
+  readonly keywords: readonly string[];
+  readonly canonicalUrl: string;
 }

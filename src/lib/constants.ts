@@ -4,7 +4,16 @@
  * Ensures consistency across all pages and components
  */
 
-import type { SubBrand, ContactInfo, NavBrand, Feature, OrganizationSchema } from "./types";
+import type { 
+  SubBrand, 
+  ContactInfo, 
+  NavBrand, 
+  Feature, 
+  OrganizationSchema, 
+  LocalBusinessSchema,
+  BreadcrumbSchema,
+  WebPageSchema 
+} from "./types";
 
 /** Primary contact information - used across all pages */
 export const CONTACT: ContactInfo = {
@@ -27,6 +36,12 @@ export const SITE_CONFIG = {
   language: "de",
 } as const;
 
+/** Geographic coordinates for Sylt (for LocalBusiness schema) */
+export const GEO_COORDINATES = {
+  latitude: 54.9079,
+  longitude: 8.3507,
+} as const;
+
 /** Color palette - matches Tailwind config */
 export const COLORS = {
   deepSeaBlue: "#0A2540",
@@ -43,7 +58,7 @@ export const NAV_BRANDS: readonly NavBrand[] = [
   { name: "Long Island House Sylt", href: "/long-island-house-sylt" },
 ] as const;
 
-/** Sub-brands with full details - for homepage cards */
+/** Sub-brands with full details - for homepage cards and SEO */
 export const SUB_BRANDS: readonly SubBrand[] = [
   {
     name: "Fisch Blum Sylt",
@@ -94,7 +109,18 @@ export const FEATURES: readonly Feature[] = [
   },
 ] as const;
 
-/** Generates structured data for SEO (JSON-LD) */
+/** All pages for sitemap generation */
+export const ALL_PAGES = [
+  { path: "/", priority: 1.0, changeFrequency: "weekly" as const },
+  { path: "/fisch-blum-sylt", priority: 0.9, changeFrequency: "monthly" as const },
+  { path: "/blums-seafood-sylt", priority: 0.9, changeFrequency: "monthly" as const },
+  { path: "/sylt-homes-by-blum", priority: 0.9, changeFrequency: "monthly" as const },
+  { path: "/long-island-house-sylt", priority: 0.9, changeFrequency: "monthly" as const },
+  { path: "/impressum", priority: 0.3, changeFrequency: "yearly" as const },
+  { path: "/datenschutz", priority: 0.3, changeFrequency: "yearly" as const },
+] as const;
+
+/** Generates Organization schema for SEO (JSON-LD) */
 export function generateOrganizationSchema(): OrganizationSchema {
   return {
     "@context": "https://schema.org",
@@ -117,7 +143,86 @@ export function generateOrganizationSchema(): OrganizationSchema {
   };
 }
 
+/** Generates LocalBusiness schema for local SEO */
+export function generateLocalBusinessSchema(brandName?: string): LocalBusinessSchema {
+  return {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    name: brandName || SITE_CONFIG.name,
+    description: SITE_CONFIG.description,
+    url: SITE_CONFIG.url,
+    telephone: CONTACT.phone,
+    email: CONTACT.email,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: CONTACT.street,
+      postalCode: CONTACT.zip,
+      addressLocality: CONTACT.city,
+      addressCountry: "DE",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: GEO_COORDINATES.latitude,
+      longitude: GEO_COORDINATES.longitude,
+    },
+    areaServed: "Sylt, Schleswig-Holstein, Deutschland",
+    priceRange: "€€€",
+  };
+}
+
+/** Generates Breadcrumb schema for navigation SEO */
+export function generateBreadcrumbSchema(
+  items: Array<{ name: string; path: string }>
+): BreadcrumbSchema {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem" as const,
+      position: index + 1,
+      name: item.name,
+      item: `${SITE_CONFIG.url}${item.path}`,
+    })),
+  };
+}
+
+/** Generates WebPage schema for page-level SEO */
+export function generateWebPageSchema(
+  pageName: string,
+  pageDescription: string,
+  pagePath: string,
+  breadcrumbs?: Array<{ name: string; path: string }>
+): WebPageSchema {
+  const schema: WebPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: pageName,
+    description: pageDescription,
+    url: `${SITE_CONFIG.url}${pagePath}`,
+    isPartOf: {
+      "@type": "WebSite",
+      name: SITE_CONFIG.name,
+      url: SITE_CONFIG.url,
+    },
+  };
+  
+  // Add breadcrumb if provided
+  if (breadcrumbs && breadcrumbs.length > 0) {
+    return {
+      ...schema,
+      breadcrumb: generateBreadcrumbSchema(breadcrumbs),
+    };
+  }
+  
+  return schema;
+}
+
 /** Format full address for display */
 export function formatFullAddress(): string {
   return `${CONTACT.street}, ${CONTACT.zip} ${CONTACT.city}`;
+}
+
+/** Generate canonical URL for a path */
+export function getCanonicalUrl(path: string): string {
+  return `${SITE_CONFIG.url}${path}`;
 }
