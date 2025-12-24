@@ -1,0 +1,6 @@
+Contact: mailto:security@blum-fisch-sylt.de
+Expires: 2026-12-31T23:59:59.000Z
+Preferred-Languages: de, en
+Canonical: https://blum-fisch-sylt.de/.well-known/security.txt
+Policy: https://blum-fisch-sylt.de/security-policy
+Acknowledgments: https://blum-fisch-sylt.de/security-acknowledgments
