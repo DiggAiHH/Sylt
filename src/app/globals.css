@@ -7,12 +7,51 @@
   --foreground: #0A2540;
   --deep-sea-blue: #0A2540;
   --rich-gold: #C9A962;
+  /* Accessibility: Increased base font size for better readability */
+  font-size: 18px;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: "Georgia", "Times New Roman", serif;
+  /* Improved line height for better readability, especially for older users */
+  line-height: 1.7;
+  /* Smooth scrolling for better UX, respects reduced-motion preference */
+  scroll-behavior: smooth;
+}
+
+/* Respect user's motion preferences - important for users with vestibular disorders */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Enhanced focus styles for keyboard navigation - critical for accessibility */
+*:focus-visible {
+  outline: 3px solid var(--rich-gold);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Larger touch targets for better mobile usability and older users */
+@layer base {
+  /* Ensure minimum touch target size of 48x48px (WCAG 2.5.5 Target Size) */
+  a, button, [role="button"], input, select, textarea {
+    min-height: 48px;
+  }
+  
+  /* Improved text selection for better visibility */
+  ::selection {
+    background-color: var(--rich-gold);
+    color: var(--deep-sea-blue);
+  }
 }
 
 @layer utilities {
@@ -22,6 +61,18 @@ body {
 
   .animate-fade-in {
     animation: fadeIn 0.8s ease-out forwards;
+  }
+  
+  /* Large text utility for important content */
+  .text-senior-friendly {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    letter-spacing: 0.01em;
+  }
+  
+  /* High contrast mode for better visibility */
+  .high-contrast {
+    font-weight: 500;
   }
 }
 
@@ -33,5 +84,19 @@ body {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* Print styles for accessibility */
+@media print {
+  body {
+    font-size: 12pt;
+    line-height: 1.5;
+    color: black;
+    background: white;
+  }
+  
+  a[href]::after {
+    content: " (" attr(href) ")";
   }
 }
