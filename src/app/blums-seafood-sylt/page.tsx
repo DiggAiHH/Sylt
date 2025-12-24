@@ -3,6 +3,7 @@ import Logo from "@/components/Logo";
 import NiceClasses from "@/components/NiceClasses";
 import ContactInfo from "@/components/ContactInfo";
 import StructuredData from "@/components/StructuredData";
+import Breadcrumb from "@/components/Breadcrumb";
 import { getCanonicalUrl } from "@/lib/constants";
 
 // Enhanced SEO metadata
@@ -48,7 +49,7 @@ const niceClasses = [
   },
 ];
 
-// Breadcrumb data for structured data
+// Breadcrumb data for navigation and structured data
 const breadcrumbs = [
   { name: "BLUM", path: "/" },
   { name: "Blum's Seafood Sylt", path: "/blums-seafood-sylt" },
@@ -68,31 +69,37 @@ export default function BlumsSeafoodSylt() {
       <StructuredData type="breadcrumb" breadcrumbs={breadcrumbs} />
       
       <div className="min-h-screen">
-        {/* Hero Section */}
-        <section className="bg-gradient-to-b from-deep-sea-blue to-deep-sea-blue-700 text-white py-16">
-          <div className="max-w-4xl mx-auto px-4 text-center">
-            <Logo brandName="Blum's Seafood Sylt" size="lg" className="mb-6" />
-            <h1 className="text-4xl md:text-5xl font-serif font-bold mb-6">
+        {/* Senior-friendly: Breadcrumb navigation for orientation */}
+        <Breadcrumb items={breadcrumbs} />
+        
+        {/* Hero Section - Senior-friendly: Larger text, better contrast */}
+        <section className="bg-gradient-to-b from-deep-sea-blue to-deep-sea-blue-700 text-white py-20 md:py-24">
+          <div className="max-w-4xl mx-auto px-6 text-center">
+            <Logo brandName="Blum's Seafood Sylt" size="lg" className="mb-8" />
+            {/* Senior-friendly: Very large, readable heading */}
+            <h1 className="text-5xl md:text-6xl font-serif font-bold mb-8">
               Blum&apos;s Seafood Sylt
             </h1>
-            <p className="text-xl text-deep-sea-blue-100 max-w-2xl mx-auto">
+            {/* Senior-friendly: Larger subtitle with better line height */}
+            <p className="text-2xl text-deep-sea-blue-100 max-w-2xl mx-auto leading-relaxed">
               Exquisite Meeresfrüchte von der Nordseeinsel Sylt
             </p>
           </div>
         </section>
 
-        {/* Brand Description */}
-        <section className="py-12 bg-white" aria-labelledby="about-seafood">
-          <div className="max-w-4xl mx-auto px-4">
+        {/* Brand Description - Senior-friendly: Larger text, better spacing */}
+        <section className="py-16 bg-white" aria-labelledby="about-seafood">
+          <div className="max-w-4xl mx-auto px-6">
             <h2 id="about-seafood" className="sr-only">Über Blum&apos;s Seafood Sylt</h2>
-            <div className="prose prose-lg mx-auto">
-              <p className="text-deep-sea-blue-700 text-lg leading-relaxed">
-                Die Marke <strong className="text-deep-sea-blue">Blum&apos;s Seafood Sylt</strong> kennzeichnet 
+            <div className="prose prose-xl mx-auto">
+              {/* Senior-friendly: Larger paragraph text with excellent readability */}
+              <p className="text-deep-sea-blue-700 text-xl md:text-2xl leading-loose">
+                Die Marke <strong className="text-deep-sea-blue font-bold">Blum&apos;s Seafood Sylt</strong> kennzeichnet 
                 exquisite Meeresfrüchte-Spezialitäten in Premium-Qualität. Unter dieser Marke bieten wir 
                 eine erlesene Auswahl an frischen und verarbeiteten Meeresfrüchten, die höchsten 
                 kulinarischen Ansprüchen gerecht werden.
               </p>
-              <p className="text-deep-sea-blue-700 text-lg leading-relaxed mt-4">
+              <p className="text-deep-sea-blue-700 text-xl md:text-2xl leading-loose mt-8">
                 Von delikaten Austern über saftige Garnelen bis hin zu edlem Hummer - 
                 Blum&apos;s Seafood Sylt steht für die beste Auswahl aus den Gewässern der Nordsee 
                 und darüber hinaus.

@@ -3,6 +3,7 @@ import Logo from "@/components/Logo";
 import NiceClasses from "@/components/NiceClasses";
 import ContactInfo from "@/components/ContactInfo";
 import StructuredData from "@/components/StructuredData";
+import Breadcrumb from "@/components/Breadcrumb";
 import { getCanonicalUrl } from "@/lib/constants";
 
 // Enhanced SEO metadata
@@ -48,7 +49,7 @@ const niceClasses = [
   },
 ];
 
-// Breadcrumb data for structured data
+// Breadcrumb data for navigation and structured data
 const breadcrumbs = [
   { name: "BLUM", path: "/" },
   { name: "Long Island House Sylt", path: "/long-island-house-sylt" },
@@ -68,30 +69,36 @@ export default function LongIslandHouseSylt() {
       <StructuredData type="breadcrumb" breadcrumbs={breadcrumbs} />
       
       <div className="min-h-screen">
-        {/* Hero Section */}
-        <section className="bg-gradient-to-b from-deep-sea-blue to-deep-sea-blue-700 text-white py-16">
-          <div className="max-w-4xl mx-auto px-4 text-center">
-            <Logo brandName="Long Island House Sylt" size="lg" className="mb-6" />
-            <h1 className="text-4xl md:text-5xl font-serif font-bold mb-6">
+        {/* Senior-friendly: Breadcrumb navigation for orientation */}
+        <Breadcrumb items={breadcrumbs} />
+        
+        {/* Hero Section - Senior-friendly: Larger text, better contrast */}
+        <section className="bg-gradient-to-b from-deep-sea-blue to-deep-sea-blue-700 text-white py-20 md:py-24">
+          <div className="max-w-4xl mx-auto px-6 text-center">
+            <Logo brandName="Long Island House Sylt" size="lg" className="mb-8" />
+            {/* Senior-friendly: Very large, readable heading */}
+            <h1 className="text-5xl md:text-6xl font-serif font-bold mb-8">
               Long Island House Sylt
             </h1>
-            <p className="text-xl text-deep-sea-blue-100 max-w-2xl mx-auto">
+            {/* Senior-friendly: Larger subtitle with better line height */}
+            <p className="text-2xl text-deep-sea-blue-100 max-w-2xl mx-auto leading-relaxed">
               Exklusives Ferienhaus im amerikanischen Stil auf Sylt
             </p>
           </div>
         </section>
 
-        {/* Brand Description */}
-        <section className="py-12 bg-white" aria-labelledby="about-long-island">
-          <div className="max-w-4xl mx-auto px-4">
+        {/* Brand Description - Senior-friendly: Larger text, better spacing */}
+        <section className="py-16 bg-white" aria-labelledby="about-long-island">
+          <div className="max-w-4xl mx-auto px-6">
             <h2 id="about-long-island" className="sr-only">Über Long Island House Sylt</h2>
-            <div className="prose prose-lg mx-auto">
-              <p className="text-deep-sea-blue-700 text-lg leading-relaxed">
-                Die Marke <strong className="text-deep-sea-blue">Long Island House Sylt</strong> kennzeichnet 
+            <div className="prose prose-xl mx-auto">
+              {/* Senior-friendly: Larger paragraph text with excellent readability */}
+              <p className="text-deep-sea-blue-700 text-xl md:text-2xl leading-loose">
+                Die Marke <strong className="text-deep-sea-blue font-bold">Long Island House Sylt</strong> kennzeichnet 
                 unser exklusives Ferienhaus, das den eleganten Stil amerikanischer Küstenarchitektur 
                 mit dem maritimen Charme der Nordseeinsel Sylt verbindet.
               </p>
-              <p className="text-deep-sea-blue-700 text-lg leading-relaxed mt-4">
+              <p className="text-deep-sea-blue-700 text-xl md:text-2xl leading-loose mt-8">
                 Das Long Island House Sylt bietet anspruchsvollen Gästen eine einzigartige 
                 Unterkunft mit erstklassiger Ausstattung, großzügigen Räumlichkeiten und 
                 einem unvergleichlichen Ambiente. Erleben Sie den Luxus eines amerikanischen 
