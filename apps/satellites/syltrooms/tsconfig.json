@@ -1,0 +1,19 @@
+{
+  "extends": "../../../tsconfig.json",
+  "compilerOptions": {
+    "plugins": [{ "name": "next" }],
+    "paths": {
+      "@/*": ["./src/*"],
+      "@sylt/ui": ["../../../packages/ui/src/index.ts"],
+      "@sylt/ui/*": ["../../../packages/ui/src/*"],
+      "@sylt/booking": ["../../../packages/booking/src/index.ts"],
+      "@sylt/booking/*": ["../../../packages/booking/src/*"],
+      "@sylt/config": ["../../../packages/config/src/index.ts"],
+      "@sylt/config/*": ["../../../packages/config/src/*"],
+      "@sylt/types": ["../../../packages/types/src/index.ts"],
+      "@sylt/types/*": ["../../../packages/types/src/*"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
+}

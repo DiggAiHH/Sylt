@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["dom", "dom.iterable", "ES2020"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "baseUrl": ".",
+    "paths": {
+      "@sylt/ui": ["packages/ui/src/index.ts"],
+      "@sylt/ui/*": ["packages/ui/src/*"],
+      "@sylt/booking": ["packages/booking/src/index.ts"],
+      "@sylt/booking/*": ["packages/booking/src/*"],
+      "@sylt/config": ["packages/config/src/index.ts"],
+      "@sylt/config/*": ["packages/config/src/*"],
+      "@sylt/types": ["packages/types/src/index.ts"],
+      "@sylt/types/*": ["packages/types/src/*"]
+    }
+  },
+  "exclude": ["node_modules"]
+}
