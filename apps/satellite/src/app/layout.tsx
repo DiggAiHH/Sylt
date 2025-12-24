@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
-import { getBrand } from '@blumsylt/shared';
-import type { BrandId } from '@blumsylt/shared';
+import { getBrandConfig } from '@/lib/config';
 import './globals.css';
 
-// Get brand from environment variable - configurable per deployment
-const brandId = (process.env.NEXT_PUBLIC_BRAND_ID || 'syltrooms') as BrandId;
-const brand = getBrand(brandId);
+// Get brand configuration - uses NEXT_PUBLIC_BRAND_ID embedded at build time
+// This is the expected pattern for satellite deployments where each build
+// is configured with a specific brand ID
+const { brand } = getBrandConfig();
 
 export const metadata: Metadata = {
   title: `${brand.name} - ${brand.tagline}`,

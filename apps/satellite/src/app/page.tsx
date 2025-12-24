@@ -2,16 +2,15 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { getBrand, hubConfig } from '@blumsylt/shared';
-import type { BrandId } from '@blumsylt/shared';
 import { HeroVideo, HeroImage, BookingOverlay, Section, Container, Heading, Text, Grid, Card, CardImage, CardContent, Button } from '@blumsylt/ui';
 import { ParallaxSection, ParallaxText } from '@blumsylt/ui';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { getBrandConfig, getHubUrl } from '@/lib/config';
 
-// Get brand from environment variable
-const brandId = (process.env.NEXT_PUBLIC_BRAND_ID || 'syltrooms') as BrandId;
-const brand = getBrand(brandId);
+// Get brand configuration - uses NEXT_PUBLIC_BRAND_ID embedded at build time
+const { brand } = getBrandConfig();
+const hubUrl = getHubUrl();
 
 // Mock featured properties - would come from API in production
 const featuredProperties = [
@@ -311,7 +310,7 @@ export default function SatelliteHomePage() {
           setSelectedProperty(null);
         }}
         brand={brand}
-        hubUrl={hubConfig.baseUrl}
+        hubUrl={hubUrl}
         propertyId={selectedProperty?.id}
         propertyName={selectedProperty?.name}
       />
