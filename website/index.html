@@ -3,30 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="BLUM Fisch-Spezialitäten - Premium Fisch-Feinkost von der Insel Sylt">
-    <meta name="keywords" content="Fisch, Sylt, Nordsee, Feinkost, Meeresfrüchte, Hummer">
+    <meta name="description" content="BLUM Fisch-Spezialitäten - Premium Fisch-Feinkost von der Insel Sylt. Exklusive Meeresfrüchte, Hummer und Sylter Spezialitäten seit 2025.">
+    <meta name="keywords" content="Fisch, Sylt, Nordsee, Feinkost, Meeresfrüchte, Hummer, Sylter Royal Austern, Premium Fisch, Fischspezialitäten">
+    <meta name="author" content="BLUM Fisch-Spezialitäten">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://blum-fisch-sylt.de/">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="BLUM Fisch-Spezialitäten | Premium Fisch-Feinkost aus Sylt">
+    <meta property="og:description" content="Entdecken Sie exklusive Fisch-Spezialitäten von der Insel Sylt. Premium Meeresfrüchte, Hummer und traditionelle Sylter Rezepte.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://blum-fisch-sylt.de/">
+    <meta property="og:image" content="https://blum-fisch-sylt.de/assets/logo/blum-logo.svg">
+    <meta property="og:locale" content="de_DE">
+    <meta property="og:site_name" content="BLUM Fisch-Spezialitäten">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="BLUM Fisch-Spezialitäten | Premium Fisch-Feinkost aus Sylt">
+    <meta name="twitter:description" content="Exklusive Fisch-Spezialitäten von der Insel Sylt">
+    <meta name="twitter:image" content="https://blum-fisch-sylt.de/assets/logo/blum-logo.svg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="../assets/logo/blum-logo.svg">
+    <link rel="apple-touch-icon" href="../assets/logo/blum-logo.svg">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0F2744">
+    
     <title>BLUM Fisch-Spezialitäten | Premium Fisch-Feinkost aus Sylt</title>
     <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Restaurant",
+      "name": "BLUM Fisch-Spezialitäten",
+      "description": "Premium Fisch-Feinkost von der Insel Sylt",
+      "url": "https://blum-fisch-sylt.de",
+      "logo": "https://blum-fisch-sylt.de/assets/logo/blum-logo.svg",
+      "image": "https://blum-fisch-sylt.de/assets/logo/blum-logo.svg",
+      "servesCuisine": ["Seafood", "German", "Maritime"],
+      "priceRange": "€€€",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Sylt",
+        "addressRegion": "Schleswig-Holstein",
+        "addressCountry": "DE"
+      },
+      "foundingDate": "2025",
+      "areaServed": "Sylt"
+    }
+    </script>
 </head>
 <body>
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
     <!-- Navigation -->
-    <nav class="navbar">
+    <nav class="navbar" role="navigation" aria-label="Hauptnavigation">
         <div class="container">
             <div class="nav-logo">
                 <img src="../assets/logo/blum-logo.svg" alt="BLUM Fisch-Spezialitäten Logo" class="logo">
             </div>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="#home" class="nav-link">Home</a></li>
-                <li><a href="#about" class="nav-link">Über uns</a></li>
-                <li><a href="#products" class="nav-link">Sortiment</a></li>
-                <li><a href="#cookbook" class="nav-link">Kochbuch</a></li>
-                <li><a href="#contact" class="nav-link">Kontakt</a></li>
+            <ul class="nav-menu" id="navMenu" role="menubar">
+                <li role="none"><a href="#home" class="nav-link" role="menuitem">Home</a></li>
+                <li role="none"><a href="#about" class="nav-link" role="menuitem">Über uns</a></li>
+                <li role="none"><a href="#products" class="nav-link" role="menuitem">Sortiment</a></li>
+                <li role="none"><a href="#cookbook" class="nav-link" role="menuitem">Kochbuch</a></li>
+                <li role="none"><a href="#contact" class="nav-link" role="menuitem">Kontakt</a></li>
             </ul>
-            <div class="hamburger" id="hamburger">
+            <button class="hamburger" id="hamburger" aria-label="Menü öffnen" aria-expanded="false">
                 <span></span>
                 <span></span>
                 <span></span>
-            </div>
+            </button>
         </div>
     </nav>
 
@@ -45,9 +97,10 @@
     </div>
 
     <!-- Hero Section -->
+    <main id="main-content" role="main">
     <section id="home" class="hero">
-        <div class="hero-overlay"></div>
-        <div class="hero-particles">
+        <div class="hero-overlay" aria-hidden="true"></div>
+        <div class="hero-particles" aria-hidden="true">
             <div class="particle"></div>
             <div class="particle"></div>
             <div class="particle"></div>
@@ -333,9 +386,10 @@
             </div>
         </div>
     </section>
+    </main>
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="footer" role="contentinfo">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">

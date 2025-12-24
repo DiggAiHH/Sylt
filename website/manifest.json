@@ -1,0 +1,23 @@
+{
+  "name": "BLUM Fisch-Spezialitäten",
+  "short_name": "BLUM Fisch",
+  "description": "Premium Fisch-Feinkost von der Insel Sylt",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0F2744",
+  "theme_color": "#0F2744",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "../assets/logo/blum-logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["food", "lifestyle"],
+  "lang": "de-DE",
+  "dir": "ltr",
+  "scope": "/",
+  "prefer_related_applications": false
+}
