@@ -1,0 +1,170 @@
+/* © 2025 BLUM Fisch-Spezialitäten - Print Styles for PDF Export */
+
+@media print {
+    /* Hide navigation and interactive elements */
+    .cookbook-header .back-btn,
+    .navigation-buttons,
+    .print-info,
+    nav,
+    .hamburger {
+        display: none !important;
+    }
+    
+    /* Reset colors for print */
+    * {
+        color: #000 !important;
+        background: white !important;
+    }
+    
+    /* Page setup */
+    @page {
+        margin: 2cm;
+        size: A4;
+    }
+    
+    body {
+        font-size: 11pt;
+        line-height: 1.5;
+    }
+    
+    /* Prevent page breaks inside elements */
+    .recipe-card,
+    .step,
+    .ingredients-section,
+    .feature,
+    .contact-item {
+        page-break-inside: avoid;
+    }
+    
+    /* Headers */
+    h1 {
+        font-size: 24pt;
+        page-break-after: avoid;
+        margin-bottom: 12pt;
+    }
+    
+    h2 {
+        font-size: 18pt;
+        page-break-after: avoid;
+        margin-top: 18pt;
+        margin-bottom: 10pt;
+    }
+    
+    h3 {
+        font-size: 14pt;
+        page-break-after: avoid;
+        margin-top: 12pt;
+        margin-bottom: 8pt;
+    }
+    
+    /* Images */
+    img {
+        max-width: 100%;
+        page-break-inside: avoid;
+    }
+    
+    .recipe-image,
+    .product-image {
+        height: auto !important;
+        min-height: 150px;
+    }
+    
+    /* Recipe layout for print */
+    .recipe-layout {
+        display: block !important;
+    }
+    
+    .ingredients-section {
+        border: 2px solid #000 !important;
+        padding: 15pt;
+        margin-bottom: 20pt;
+        page-break-inside: avoid;
+    }
+    
+    .instructions-section {
+        margin-top: 20pt;
+    }
+    
+    .step {
+        margin-bottom: 15pt;
+        page-break-inside: avoid;
+    }
+    
+    /* Recipe grid for index */
+    .recipe-grid {
+        display: block !important;
+    }
+    
+    .recipe-card {
+        margin-bottom: 20pt;
+        border: 1px solid #000 !important;
+        padding: 10pt;
+    }
+    
+    /* Links */
+    a {
+        text-decoration: none;
+    }
+    
+    a[href^="http"]:after {
+        content: " (" attr(href) ")";
+        font-size: 9pt;
+    }
+    
+    /* Footer */
+    .cookbook-footer,
+    .footer {
+        border-top: 2px solid #000 !important;
+        padding: 15pt 0 !important;
+        margin-top: 30pt;
+    }
+    
+    /* Add page numbers */
+    .page-number:after {
+        content: counter(page);
+    }
+    
+    /* Recipe metadata */
+    .recipe-meta-info {
+        border-top: 1px solid #000 !important;
+        border-bottom: 1px solid #000 !important;
+        padding: 10pt 0 !important;
+        margin: 15pt 0 !important;
+    }
+    
+    .meta-item {
+        margin-right: 20pt;
+    }
+    
+    /* Tags */
+    .tag {
+        border: 1px solid #000 !important;
+        padding: 3pt 8pt !important;
+        margin-right: 5pt;
+        display: inline-block;
+    }
+    
+    /* Tips and notes */
+    .recipe-tips {
+        border: 2px solid #000 !important;
+        padding: 12pt !important;
+        margin: 15pt 0 !important;
+    }
+    
+    /* Copyright notice on each page */
+    @page {
+        @bottom-center {
+            content: "© 2025 BLUM Fisch-Spezialitäten";
+            font-size: 8pt;
+        }
+    }
+    
+    /* Force page breaks */
+    .recipe-content {
+        page-break-before: always;
+    }
+    
+    .recipe-index {
+        page-break-after: always;
+    }
+}
