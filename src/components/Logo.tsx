@@ -6,6 +6,16 @@ interface LogoProps {
   className?: string;
 }
 
+// Brand-specific symbols
+const getBrandSymbol = (brandName: string): string => {
+  const name = brandName.toLowerCase();
+  if (name.includes("fisch")) return "🐟";
+  if (name.includes("seafood")) return "🦐";
+  if (name.includes("homes")) return "🏡";
+  if (name.includes("long island") || name.includes("house")) return "🏠";
+  return "⚓"; // Default anchor for BLUM
+};
+
 export default function Logo({
   brandName,
   size = "md",
@@ -18,6 +28,7 @@ export default function Logo({
   };
 
   const { width, height, symbolFontSize, initialFontSize } = sizes[size];
+  const symbol = getBrandSymbol(brandName);
 
   return (
     <div className={`flex items-center justify-center ${className}`}>
@@ -27,41 +38,51 @@ export default function Logo({
         viewBox="0 0 120 120"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="transition-transform hover:scale-105"
+        className="transition-all duration-300 hover:scale-105 drop-shadow-lg"
         aria-label={`${brandName} Logo`}
       >
-        {/* Outer circle - Deep Sea Blue */}
-        <circle cx="60" cy="60" r="58" stroke="#0A2540" strokeWidth="4" fill="none" />
+        {/* Background circle with gradient effect */}
+        <defs>
+          <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#0A2540" />
+            <stop offset="100%" stopColor="#081E34" />
+          </linearGradient>
+        </defs>
+        
+        {/* Filled background circle */}
+        <circle cx="60" cy="60" r="58" fill="url(#logoGradient)" />
         
         {/* Inner decorative ring - Rich Gold */}
         <circle cx="60" cy="60" r="50" stroke="#C9A962" strokeWidth="2" fill="none" />
         
         {/* Wave pattern at bottom */}
         <path
-          d="M20 75 Q30 65 40 75 Q50 85 60 75 Q70 65 80 75 Q90 85 100 75"
-          stroke="#0A2540"
+          d="M20 80 Q30 70 40 80 Q50 90 60 80 Q70 70 80 80 Q90 90 100 80"
+          stroke="#C9A962"
           strokeWidth="2"
           fill="none"
           strokeLinecap="round"
+          opacity="0.6"
         />
         
-        {/* Anchor or fish symbol placeholder */}
+        {/* Brand symbol */}
         <text
           x="60"
-          y="55"
+          y="58"
           textAnchor="middle"
-          fill="#0A2540"
+          dominantBaseline="middle"
+          fill="#ffffff"
           fontFamily="Georgia, serif"
           fontWeight="bold"
           style={{ fontSize: `${symbolFontSize}px` }}
         >
-          ⚓
+          {symbol}
         </text>
         
-        {/* Brand initial */}
+        {/* Brand initial at top */}
         <text
           x="60"
-          y="40"
+          y="30"
           textAnchor="middle"
           fill="#C9A962"
           fontFamily="Georgia, serif"
