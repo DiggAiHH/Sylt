@@ -1,0 +1,24 @@
+{
+  "name": "blumsylthotels-hub-spoke",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:hub": "npm run dev -w apps/hub",
+    "dev:satellite": "npm run dev -w apps/satellite",
+    "build:hub": "npm run build -w apps/hub",
+    "build:satellite": "npm run build -w apps/satellite",
+    "build": "npm run build -w apps/hub && npm run build -w apps/satellite",
+    "lint": "npm run lint -w apps/hub && npm run lint -w apps/satellite",
+    "type-check": "npm run type-check -w apps/hub && npm run type-check -w apps/satellite"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18.17.0"
+  }
+}
