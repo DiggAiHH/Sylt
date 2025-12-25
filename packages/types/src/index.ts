@@ -216,3 +216,6 @@ export interface HubApi {
   createBooking: (booking: BookingRequest) => Promise<ApiResponse<Booking>>;
   createPaymentIntent: (bookingId: string) => Promise<ApiResponse<PaymentIntent>>;
 }
+
+// Export Recipe Types
+export * from './recipe';
