@@ -136,6 +136,9 @@ function RecipeSteps({ steps }: { steps: RecipeStep[] }) {
 function RecipeTips({ tips }: { tips: string[] }) {
   if (tips.length === 0) return null;
   
+  // Maximum length for a tip label (e.g., "Frische prüfen:")
+  const MAX_LABEL_LENGTH = 30;
+  
   return (
     <div className="bg-rich-gold-50 rounded-2xl p-8 border-2 border-rich-gold">
       <h3 className="text-2xl font-serif text-deep-sea-blue mb-6 flex items-center gap-3">
@@ -147,7 +150,7 @@ function RecipeTips({ tips }: { tips: string[] }) {
         {tips.map((tip, index) => {
           // Parse tip format: "Label: Content" or just "Content"
           const colonIndex = tip.indexOf(':');
-          const hasLabel = colonIndex > 0 && colonIndex < 30; // Reasonable label length
+          const hasLabel = colonIndex > 0 && colonIndex < MAX_LABEL_LENGTH;
           
           if (hasLabel) {
             const label = tip.substring(0, colonIndex);

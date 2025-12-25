@@ -48,6 +48,22 @@ function getCategoryLabel(category: string): string {
 }
 
 /**
+ * Helper function to get category emoji
+ */
+function getCategoryEmoji(category: string): string {
+  const emojis: Record<string, string> = {
+    'vorspeise': '🦪',
+    'suppe': '🍲',
+    'hauptgericht': '🐟',
+    'beilage': '🥔',
+    'dessert': '🍰',
+    'kalte-platte': '🍽️',
+    'snack': '🥨',
+  };
+  return emojis[category] || '🍽️';
+}
+
+/**
  * Recipe Card Component
  * Displays a single recipe in the grid
  */
@@ -62,7 +78,7 @@ function RecipeCard({ recipe }: { recipe: Recipe }) {
       <div className="relative h-64 bg-gray-200">
         {/* Image placeholder - will be replaced with actual images */}
         <div className="absolute inset-0 bg-gradient-to-br from-deep-sea-blue-300 to-rich-gold-200 flex items-center justify-center">
-          <span className="text-6xl">{recipe.category === 'vorspeise' ? '🦪' : recipe.category === 'suppe' ? '🍲' : recipe.category === 'hauptgericht' ? '🐟' : '🍽️'}</span>
+          <span className="text-6xl">{getCategoryEmoji(recipe.category)}</span>
         </div>
       </div>
       
