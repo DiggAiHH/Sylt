@@ -111,6 +111,21 @@ export default function BookingForm({
         signal: abortControllerRef.current.signal,
       });
 
+      // CRITICAL FIX: Check response.ok before parsing JSON
+      if (!response.ok) {
+        const errorText = await response.text();
+        let errorMessage = 'Fehler bei der Verfügbarkeitsprüfung';
+        try {
+          const errorData = JSON.parse(errorText);
+          errorMessage = errorData.error || errorData.message || errorMessage;
+        } catch {
+          errorMessage = `Server-Fehler (${response.status}): ${response.statusText}`;
+        }
+        setError(errorMessage);
+        setAvailability(null);
+        return;
+      }
+
       const data = await response.json();
 
       if (data.success) {
@@ -170,6 +185,20 @@ export default function BookingForm({
           guestEmail: trimmedEmail,
         }),
       });
+
+      // CRITICAL FIX: Check response.ok before parsing JSON
+      if (!response.ok) {
+        const errorText = await response.text();
+        let errorMessage = 'Buchung fehlgeschlagen';
+        try {
+          const errorData = JSON.parse(errorText);
+          errorMessage = errorData.error || errorData.message || errorMessage;
+        } catch {
+          errorMessage = `Server-Fehler (${response.status}). Bitte versuchen Sie es später erneut.`;
+        }
+        setError(errorMessage);
+        return;
+      }
 
       const data = await response.json();
 

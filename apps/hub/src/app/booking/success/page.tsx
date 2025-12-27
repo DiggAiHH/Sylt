@@ -31,16 +31,43 @@ function BookingSuccessContent() {
 
   const fetchBooking = async (id: string) => {
     try {
-      const response = await fetch(`/api/bookings?id=${id}`);
+      // CRITICAL FIX: Add timeout to prevent infinite waiting
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+      
+      const response = await fetch(`/api/bookings?id=${id}`, {
+        signal: controller.signal
+      });
+      clearTimeout(timeoutId);
+      
+      // CRITICAL FIX: Check response.ok before parsing JSON
+      if (!response.ok) {
+        const errorText = await response.text();
+        let errorMessage = 'Buchung konnte nicht gefunden werden.';
+        try {
+          const errorData = JSON.parse(errorText);
+          errorMessage = errorData.error || errorData.message || errorMessage;
+        } catch {
+          errorMessage = `Server-Fehler (${response.status}): ${response.statusText}`;
+        }
+        setError(errorMessage);
+        return;
+      }
+      
       const data = await response.json();
       
       if (data.success && data.data) {
         setBooking(data.data);
       } else {
-        setError('Buchung konnte nicht gefunden werden.');
+        setError(data.error || 'Buchung konnte nicht gefunden werden.');
       }
-    } catch {
-      setError('Fehler beim Laden der Buchungsdetails.');
+    } catch (err) {
+      // CRITICAL FIX: Better error differentiation
+      if (err instanceof Error && err.name === 'AbortError') {
+        setError('Die Anfrage hat zu lange gedauert. Bitte überprüfen Sie Ihre Internetverbindung und versuchen Sie es erneut.');
+      } else {
+        setError('Fehler beim Laden der Buchungsdetails. Bitte laden Sie die Seite neu.');
+      }
     } finally {
       setLoading(false);
     }

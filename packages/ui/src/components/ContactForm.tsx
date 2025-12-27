@@ -70,9 +70,53 @@ export function ContactForm({
     setIsSubmitting(true);
     setError(null);
 
+    // CRITICAL FIX: Add client-side validation before submission
+    // Validate name
+    const trimmedName = formData.name.trim();
+    if (trimmedName.length < 2) {
+      setError('Bitte geben Sie einen gültigen Namen ein (mindestens 2 Zeichen).');
+      setIsSubmitting(false);
+      return;
+    }
+    
+    // Validate email with RFC 5322 compliant regex
+    const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+    const trimmedEmail = formData.email.trim().toLowerCase();
+    if (!emailRegex.test(trimmedEmail) || trimmedEmail.length > 254) {
+      setError('Bitte geben Sie eine gültige E-Mail-Adresse ein.');
+      setIsSubmitting(false);
+      return;
+    }
+    
+    // Validate subject
+    const trimmedSubject = formData.subject.trim();
+    if (trimmedSubject.length < 3) {
+      setError('Bitte geben Sie einen Betreff ein (mindestens 3 Zeichen).');
+      setIsSubmitting(false);
+      return;
+    }
+    
+    // Validate message
+    const trimmedMessage = formData.message.trim();
+    if (trimmedMessage.length < 10) {
+      setError('Bitte geben Sie eine Nachricht ein (mindestens 10 Zeichen).');
+      setIsSubmitting(false);
+      return;
+    }
+    
+    // Sanitize phone number if provided
+    const sanitizedPhone = formData.phone?.trim().replace(/[^0-9+\-\s()]/g, '');
+
     try {
       if (onSubmit) {
-        await onSubmit(formData);
+        await onSubmit({
+          ...formData,
+          name: trimmedName,
+          email: trimmedEmail,
+          phone: sanitizedPhone,
+          subject: trimmedSubject,
+          message: trimmedMessage,
+        });
       }
       setIsSubmitted(true);
       setFormData({
@@ -84,7 +128,10 @@ export function ContactForm({
         propertyInterest: '',
       });
     } catch (err) {
-      setError('Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.');
+      // CRITICAL FIX: Better error message
+      const errorMessage = err instanceof Error ? err.message : 'Ein Fehler ist aufgetreten.';
+      setError(`Fehler beim Senden: ${errorMessage} Bitte versuchen Sie es erneut.`);
+      console.error('Contact form submission error:', err);
     } finally {
       setIsSubmitting(false);
     }

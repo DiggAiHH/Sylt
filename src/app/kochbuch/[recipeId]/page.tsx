@@ -14,11 +14,22 @@ export async function generateStaticParams() {
 
 // Generate metadata for SEO
 export async function generateMetadata({ params }: { params: { recipeId: string } }) {
-  const recipe = getRecipeBySlug(params.recipeId);
+  // Sanitize and validate recipeId
+  const sanitizedRecipeId = params.recipeId?.trim().toLowerCase();
+  
+  if (!sanitizedRecipeId) {
+    return {
+      title: 'Rezept nicht gefunden | BLUM Kochbuch',
+      description: 'Das angeforderte Rezept konnte nicht gefunden werden.',
+    };
+  }
+  
+  const recipe = getRecipeBySlug(sanitizedRecipeId);
   
   if (!recipe) {
     return {
-      title: 'Rezept nicht gefunden',
+      title: 'Rezept nicht gefunden | BLUM Kochbuch',
+      description: 'Das angeforderte Rezept existiert nicht.',
     };
   }
   
@@ -178,9 +189,16 @@ function RecipeTips({ tips }: { tips: string[] }) {
  * Recipe Detail Page
  */
 export default function RecipeDetailPage({ params }: { params: { recipeId: string } }) {
-  const recipe = getRecipeBySlug(params.recipeId);
+  // CRITICAL FIX: Sanitize and validate recipeId to prevent injection
+  const sanitizedRecipeId = params.recipeId?.trim().toLowerCase().replace(/[^a-z0-9-]/g, '');
   
-  // Return 404 if recipe not found
+  if (!sanitizedRecipeId) {
+    notFound();
+  }
+  
+  const recipe = getRecipeBySlug(sanitizedRecipeId);
+  
+  // CRITICAL FIX: Return 404 if recipe not found
   if (!recipe) {
     notFound();
   }

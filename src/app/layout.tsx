@@ -9,6 +9,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SkipLink from "@/components/SkipLink";
 import StructuredData from "@/components/StructuredData";
+import ScrollToTop from "@/components/ScrollToTop";
 import { SITE_CONFIG, CONTACT } from "@/lib/constants";
 
 // Enhanced metadata for SEO and social sharing
@@ -125,6 +126,8 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        {/* CRITICAL FIX: Add ScrollToTop button for better UX */}
+        <ScrollToTop />
       </body>
     </html>
   );

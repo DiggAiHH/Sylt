@@ -57,20 +57,53 @@ export function createHubApiClient(config: HubApiClientConfig): HubApiClient {
     options?: RequestInit
   ): Promise<ApiResponse<T>> {
     try {
+      // CRITICAL FIX: Add timeout to all requests
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+      
       const response = await fetch(`${baseUrl}${endpoint}`, {
         ...options,
         headers: {
           ...headers,
           ...options?.headers,
         },
+        signal: options?.signal || controller.signal,
       });
+      
+      clearTimeout(timeoutId);
 
+      // CRITICAL FIX: Better JSON parsing error handling
       let data: Record<string, unknown> | undefined;
-      try {
-        data = await response.json();
-      } catch {
-        // Response is not JSON
-        data = undefined;
+      const contentType = response.headers.get('content-type');
+      
+      if (contentType && contentType.includes('application/json')) {
+        try {
+          data = await response.json();
+        } catch (jsonError) {
+          // Invalid JSON from server
+          if (!response.ok) {
+            return {
+              success: false,
+              error: {
+                code: `HTTP_${response.status}`,
+                message: `Server error: Invalid JSON response (${response.status})`,
+              },
+            };
+          }
+          data = undefined;
+        }
+      } else {
+        // Non-JSON response
+        const textResponse = await response.text();
+        if (!response.ok) {
+          return {
+            success: false,
+            error: {
+              code: `HTTP_${response.status}`,
+              message: textResponse || response.statusText || 'An error occurred',
+            },
+          };
+        }
       }
 
       if (!response.ok) {
@@ -78,7 +111,7 @@ export function createHubApiClient(config: HubApiClientConfig): HubApiClient {
           success: false,
           error: {
             code: `HTTP_${response.status}`,
-            message: (data as Record<string, unknown>)?.message as string || 'An error occurred',
+            message: (data as Record<string, unknown>)?.message as string || (data as Record<string, unknown>)?.error as string || 'An error occurred',
             details: data,
           },
         };
@@ -89,6 +122,17 @@ export function createHubApiClient(config: HubApiClientConfig): HubApiClient {
         data: data as T,
       };
     } catch (error) {
+      // CRITICAL FIX: Differentiate between network errors and timeouts
+      if (error instanceof Error && error.name === 'AbortError') {
+        return {
+          success: false,
+          error: {
+            code: 'TIMEOUT_ERROR',
+            message: 'Request timed out. Please check your connection and try again.',
+          },
+        };
+      }
+      
       return {
         success: false,
         error: {
