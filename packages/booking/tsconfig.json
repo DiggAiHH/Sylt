@@ -3,5 +3,11 @@
   "compilerOptions": {
     "outDir": "./dist"
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*"],
+  // Override inherited exclude to allow TypeScript to find files in this package
+  // Root tsconfig excludes "packages" which would prevent all files here from being found
+  "exclude": [
+    "node_modules",  // Standard: exclude dependencies
+    "dist"           // Standard: exclude build output to prevent circular references
+  ]
 }
