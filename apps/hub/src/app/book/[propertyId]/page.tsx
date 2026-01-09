@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
-import { getBrand, brands } from '@blumsylt/shared';
-import type { BrandId, Property } from '@blumsylt/shared';
+import Image from 'next/image';
+import { getBrand, brands } from '@sylt/shared';
+import type { BrandId, Property } from '@sylt/shared';
 import BookingForm from './BookingForm';
 
 // Mock property fetch - in production would be from API/database
@@ -79,10 +80,13 @@ export default async function BookPage({ params, searchParams }: BookPageProps) 
           {/* Property Info */}
           <div>
             <div className="rounded-2xl overflow-hidden mb-6 luxury-shadow">
-              <img
+              <Image
                 src={property.images[0].url}
                 alt={property.images[0].alt}
+                width={1200}
+                height={800}
                 className="w-full h-80 object-cover"
+                priority
               />
             </div>
             

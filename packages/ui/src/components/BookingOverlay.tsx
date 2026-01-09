@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect, useRef } from 'react';
-import type { Brand } from '@blumsylt/shared';
+import type { Brand } from '@sylt/shared';
 
 interface BookingOverlayProps {
   isOpen: boolean;

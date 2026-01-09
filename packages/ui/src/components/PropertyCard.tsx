@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -19,6 +19,7 @@ export function PropertyCard({
   variant = 'default',
 }: PropertyCardProps) {
   const primaryImage = property.images.find((img) => img.isPrimary) || property.images[0];
+  const [isFavorite, setIsFavorite] = useState(false);
 
   return (
     <Link href={`/properties/${property.slug}`}>
@@ -48,10 +49,37 @@ export function PropertyCard({
             />
           )}
           {property.featured && (
-            <div className="absolute top-4 left-4 bg-nordsee-500 text-white px-3 py-1 text-sm font-body tracking-wide">
+            <div className="absolute top-4 left-4 bg-nordsee-500 text-white px-3 py-1 text-sm font-body tracking-wide z-10">
               Featured
             </div>
           )}
+
+          {/* Favorite Button - Loveable Micro-interaction */}
+          <button
+            onClick={(e) => {
+              e.preventDefault(); // Prevent link navigation
+              e.stopPropagation();
+              setIsFavorite(!isFavorite);
+            }}
+            className="absolute top-4 right-4 z-20 p-2.5 rounded-full bg-white/90 backdrop-blur-sm hover:bg-white transition-all shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-nordsee-400 group/heart"
+            aria-label={isFavorite ? "Von Favoriten entfernen" : "Zu Favoriten hinzufügen"}
+          >
+            <motion.svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              className={cn(
+                "w-5 h-5 transition-colors duration-300", 
+                isFavorite ? "fill-red-500 text-red-500" : "fill-transparent text-charcoal group-hover/heart:text-red-500"
+              )}
+              stroke="currentColor"
+              strokeWidth="1.5"
+              initial={false}
+              animate={{ scale: isFavorite ? [1, 1.2, 1] : 1 }}
+              transition={{ duration: 0.3 }}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+            </motion.svg>
+          </button>
         </div>
 
         {/* Content */}

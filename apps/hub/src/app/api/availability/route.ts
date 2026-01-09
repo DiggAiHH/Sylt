@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import type { ApiResponse, AvailabilityResponse } from '@blumsylt/shared';
+import type { ApiResponse, AvailabilityResponse } from '@sylt/shared';
 import { availabilityCheckSchema, validateRequest, monthSchema } from '@/lib/validation';
 import { ApiError, ErrorCode, handleError, logError } from '@/lib/errors';
 import { checkRateLimit, getClientIdentifier, getRateLimitHeaders } from '@/lib/rate-limit';

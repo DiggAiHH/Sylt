@@ -1,8 +1,26 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600&display=swap');
+/* DSGVO-konform: Fonts werden via next/font in layout.tsx geladen */
+/* CSS Custom Properties für Schriftarten (von next/font) */
+:root {
+  --font-playfair: 'Playfair Display', Georgia, serif;
+  --font-cormorant: 'Cormorant Garamond', Georgia, serif;
+  --font-inter: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Accessibility: Reduzierte Bewegung respektieren */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
 
 @layer base {
   html {
@@ -15,6 +33,17 @@
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-heading text-charcoal;
+  }
+
+  /* Touch Targets: Mindestens 44x44px für Barrierefreiheit (WCAG 2.5.5) */
+  a, button, [role="button"], input, select, textarea {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Focus Visible für bessere Keyboard-Navigation */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-nordsee-500;
   }
 }
 

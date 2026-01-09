@@ -2,8 +2,9 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { HeroVideo, HeroImage, BookingOverlay, Section, Container, Heading, Text, Grid, Card, CardImage, CardContent, Button } from '@blumsylt/ui';
-import { ParallaxSection, ParallaxText } from '@blumsylt/ui';
+import Image from 'next/image';
+import { HeroVideo, HeroImage, BookingOverlay, Section, Container, Heading, Text, Grid, Card, CardImage, CardContent, Button } from '@sylt/ui';
+import { ParallaxSection, ParallaxText } from '@sylt/ui';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { getBrandConfig, getHubUrl } from '@/lib/config';
@@ -123,9 +124,11 @@ export default function SatelliteHomePage() {
               
               <ParallaxSection speed={0.15}>
                 <div className="rounded-2xl overflow-hidden luxury-shadow-lg">
-                  <img
+                  <Image
                     src="https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?w=800"
                     alt="Sylt Unterkunft"
+                    width={1200}
+                    height={900}
                     className="w-full h-96 object-cover"
                   />
                 </div>
@@ -207,9 +210,11 @@ export default function SatelliteHomePage() {
         {/* Parallax Image Section */}
         <section className="relative h-[60vh] overflow-hidden">
           <ParallaxSection speed={0.3} className="absolute inset-0">
-            <img
+            <Image
               src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1920"
               alt="Sylt Strand"
+              width={1920}
+              height={1280}
               className="w-full h-[120%] object-cover"
             />
           </ParallaxSection>

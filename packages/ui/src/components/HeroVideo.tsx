@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { cn } from '../utils/cn';
 
@@ -39,13 +40,24 @@ export function HeroVideo({
         className
       )}
     >
+      {/* Poster Image (Next.js Optimized) */}
+      {posterSrc && (
+        <Image
+          src={posterSrc}
+          alt={title}
+          fill
+          priority
+          className="absolute inset-0 object-cover -z-10"
+          sizes="100vw"
+        />
+      )}
+
       {/* Video Background */}
       <video
         autoPlay
         muted
         loop
         playsInline
-        poster={posterSrc}
         className="absolute inset-0 w-full h-full object-cover"
       >
         <source src={videoSrc} type="video/mp4" />
@@ -90,24 +102,21 @@ export function HeroVideo({
           </motion.div>
         )}
 
-        {/* Scroll Indicator */}
+        {/* Scroll Indicator - Premium Line Style */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
-          className="absolute bottom-8"
+          transition={{ delay: 1.5, duration: 1 }}
+          className="absolute bottom-8 flex flex-col items-center gap-3"
         >
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center"
-          >
+          <span className="text-white/70 text-[10px] uppercase tracking-[0.2em] font-sans">Entdecken</span>
+          <div className="w-[1px] h-16 bg-white/10 overflow-hidden relative">
             <motion.div
-              animate={{ y: [0, 12, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="w-1.5 h-3 bg-white/50 rounded-full mt-2"
+              animate={{ y: ['-100%', '100%'] }}
+              transition={{ repeat: Infinity, duration: 2, ease: 'linear' }}
+              className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-transparent to-white"
             />
-          </motion.div>
+          </div>
         </motion.div>
       </div>
     </section>

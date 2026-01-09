@@ -1,5 +1,5 @@
 {
-  "name": "@blumsylt/satellite",
+  "name": "@sylt/satellite",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -10,9 +10,9 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@blumsylt/shared": "*",
-    "@blumsylt/ui": "*",
-    "framer-motion": "^10.18.0",
+    "@sylt/shared": "*",
+    "@sylt/ui": "*",
+    "framer-motion": "^11.0.0",
     "next": "14.2.35",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"

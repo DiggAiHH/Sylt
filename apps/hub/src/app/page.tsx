@@ -1,117 +1,132 @@
+import React from 'react';
 import Link from 'next/link';
-import { brands } from '@blumsylt/shared';
+import { brands } from '@sylt/shared';
+import { HeroVideo, AnimatedSection, FeatureGrid, Button } from '@sylt/ui';
+import { GlobalSearch } from '../components/GlobalSearch';
+import { ArrowRight, Star, Shield, Heart } from 'lucide-react';
 
 export default function HubHomePage() {
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen bg-offwhite">
       {/* Hero Section */}
-      <section className="relative h-[60vh] bg-gradient-to-br from-nordsee-900 via-nordsee-700 to-reetdach-800 flex items-center justify-center">
-        <div className="absolute inset-0 bg-black/20" />
-        <div className="relative z-10 text-center px-4">
-          <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl text-white mb-4 tracking-wide">
-            Blum Sylt Hotels
-          </h1>
-          <p className="font-sans text-lg md:text-xl text-white/90 max-w-2xl mx-auto mb-8">
-            Zentrale Buchungsplattform für exklusive Unterkünfte auf Sylt
-          </p>
+      <HeroVideo
+        videoSrc="https://player.vimeo.com/external/434045526.sd.mp4?s=c27eecc69a27dbc4ff2b87d38af1e1e3631796a8&profile_id=165&oauth2_token_id=57447761" // Placeholder: Waves
+        title="Willkommen auf Sylt"
+        subtitle="Entdecken Sie die exklusivsten Unterkünfte der Insel. Von Reetdach-Romantik bis Urban-Chic."
+        overlayOpacity={0.4}
+      >
+        <div className="mt-12 w-full flex justify-center px-4">
+          <GlobalSearch />
         </div>
-      </section>
+      </HeroVideo>
 
-      {/* Brands Grid */}
-      <section className="py-20 md:py-32 bg-sand-50">
+      {/* Brand Grid */}
+      <section className="py-24 bg-sand-50">
         <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-7xl">
-          <div className="text-center mb-16">
-            <h2 className="font-serif text-4xl md:text-5xl text-reetdach-900 mb-4">
-              Unsere Marken
+          <AnimatedSection className="text-center mb-20">
+            <span className="text-nordsee-600 font-medium tracking-widest uppercase text-sm mb-4 block">
+              Unsere Kollektion
+            </span>
+            <h2 className="font-serif text-4xl md:text-5xl text-reetdach-900 mb-6">
+              Für jeden Anspruch das Besondere
             </h2>
-            <p className="text-reetdach-600 max-w-2xl mx-auto">
-              Entdecken Sie unsere exklusive Auswahl an Ferienunterkünften auf der wunderschönen Insel Sylt.
+            <p className="text-reetdach-600 max-w-2xl mx-auto text-lg leading-relaxed">
+              Jede unserer Marken steht für ein einzigartiges Urlaubserlebnis. 
+              Finden Sie Ihr persönliches Zuhause auf Zeit.
             </p>
-          </div>
+          </AnimatedSection>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {Object.values(brands).map((brand) => (
-              <Link
-                key={brand.id}
-                href={`/properties?brand=${brand.id}`}
-                className="group block bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300"
+            {Object.values(brands).map((brand, index) => (
+              <AnimatedSection 
+                key={brand.id} 
+                delay={index * 0.1}
+                className="group relative h-[400px] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500"
               >
-                <div 
-                  className="h-48 flex items-center justify-center"
-                  style={{ backgroundColor: brand.secondaryColor }}
-                >
-                  <h3 
-                    className="font-serif text-2xl md:text-3xl transition-transform group-hover:scale-105"
-                    style={{ color: brand.primaryColor }}
-                  >
-                    {brand.name}
-                  </h3>
-                </div>
-                <div className="p-6">
-                  <p className="text-sm text-reetdach-500 mb-2">{brand.tagline}</p>
-                  <p className="text-reetdach-600">{brand.description}</p>
-                  <div className="mt-4 flex items-center text-nordsee-600 font-medium">
-                    <span>Unterkünfte entdecken</span>
-                    <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
+                <Link href={`/properties?brand=${brand.id}`} className="block h-full w-full">
+                  {/* Background Color/Image Placeholder */}
+                  <div 
+                    className="absolute inset-0 transition-transform duration-700 group-hover:scale-105"
+                    style={{ backgroundColor: brand.secondaryColor }}
+                  />
+                  
+                  {/* Content Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent opacity-60 group-hover:opacity-70 transition-opacity" />
+                  
+                  <div className="absolute inset-0 p-8 flex flex-col justify-end text-white">
+                    <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                      <h3 className="font-serif text-3xl mb-2">{brand.name}</h3>
+                      <p className="text-white/90 mb-6 line-clamp-2 font-light">
+                        {brand.tagline}
+                      </p>
+                      <div className="flex items-center gap-2 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                        Entdecken <ArrowRight className="w-4 h-4" />
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </Link>
+
+                  {/* Logo Placeholder (Top Right) */}
+                  <div className="absolute top-6 right-6 w-12 h-12 bg-white/90 backdrop-blur rounded-full flex items-center justify-center shadow-sm">
+                    <div className="w-8 h-8 rounded-full" style={{ backgroundColor: brand.primaryColor }} />
+                  </div>
+                </Link>
+              </AnimatedSection>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-20 md:py-32 bg-white">
+      {/* Features / Why Us */}
+      <section className="py-24 bg-white">
         <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-7xl">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-nordsee-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <svg className="w-8 h-8 text-nordsee-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                </svg>
-              </div>
-              <h3 className="font-serif text-2xl text-reetdach-900 mb-3">Sichere Zahlung</h3>
-              <p className="text-reetdach-600">Verschlüsselte Zahlungsabwicklung mit Stripe für maximale Sicherheit.</p>
-            </div>
-            
-            <div className="text-center">
-              <div className="w-16 h-16 bg-sand-200 rounded-full flex items-center justify-center mx-auto mb-6">
-                <svg className="w-8 h-8 text-sand-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-              </div>
-              <h3 className="font-serif text-2xl text-reetdach-900 mb-3">Echtzeit-Verfügbarkeit</h3>
-              <p className="text-reetdach-600">Aktuelle Verfügbarkeiten durch automatische Kalender-Synchronisation.</p>
-            </div>
-            
-            <div className="text-center">
-              <div className="w-16 h-16 bg-reetdach-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <svg className="w-8 h-8 text-reetdach-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <h3 className="font-serif text-2xl text-reetdach-900 mb-3">Beste Preisgarantie</h3>
-              <p className="text-reetdach-600">Direktbuchung garantiert den besten verfügbaren Preis.</p>
-            </div>
-          </div>
+          <AnimatedSection className="text-center mb-16">
+            <h2 className="font-serif text-4xl text-reetdach-900 mb-4">
+              Warum Blum Sylt?
+            </h2>
+          </AnimatedSection>
+
+          <FeatureGrid
+            features={[
+              {
+                title: 'Exklusive Auswahl',
+                description: 'Handverlesene Unterkünfte, die höchsten Qualitätsstandards entsprechen.',
+                icon: <Star className="w-6 h-6" />,
+              },
+              {
+                title: 'Persönlicher Service',
+                description: 'Unser Team vor Ort ist 7 Tage die Woche für Sie da.',
+                icon: <Heart className="w-6 h-6" />,
+              },
+              {
+                title: 'Sichere Buchung',
+                description: 'Direkt beim Vermieter buchen – ohne versteckte Gebühren.',
+                icon: <Shield className="w-6 h-6" />,
+              },
+            ]}
+            columns={3}
+          />
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-reetdach-900 text-white py-12">
-        <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-7xl">
-          <div className="text-center">
-            <h4 className="font-serif text-2xl mb-4">Blum Sylt Hotels</h4>
-            <p className="text-reetdach-300 mb-6">Exklusive Unterkünfte auf Deutschlands schönster Insel</p>
-            <p className="text-sm text-reetdach-400">
-              © {new Date().getFullYear()} Blum Sylt Hotels. Alle Rechte vorbehalten.
-            </p>
-          </div>
+      {/* Call to Action */}
+      <section className="py-24 bg-reetdach-900 text-sand-50 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10 bg-[url('/patterns/noise.png')]"></div>
+        <div className="container mx-auto px-4 text-center relative z-10">
+          <h2 className="font-serif text-4xl md:text-5xl mb-6">
+            Bereit für Ihre Auszeit?
+          </h2>
+          <p className="text-xl text-sand-200 mb-10 max-w-2xl mx-auto">
+            Lassen Sie den Alltag hinter sich und genießen Sie die Weite der Nordsee.
+          </p>
+          <Button 
+            variant="primary" 
+            size="lg"
+            className="bg-sand-50 text-reetdach-900 hover:bg-white"
+          >
+            Jetzt Urlaub finden
+          </Button>
         </div>
-      </footer>
+      </section>
     </main>
   );
 }

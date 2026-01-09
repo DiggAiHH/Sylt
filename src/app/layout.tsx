@@ -1,9 +1,11 @@
 /**
  * Root Layout for the BLUM website
  * Contains global navigation, footer, and structured data for SEO
+ * DSGVO-konform: Fonts werden lokal via next/font geladen
  */
 
 import type { Metadata, Viewport } from "next";
+import { Playfair_Display, Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -11,6 +13,30 @@ import SkipLink from "@/components/SkipLink";
 import StructuredData from "@/components/StructuredData";
 import ScrollToTop from "@/components/ScrollToTop";
 import { SITE_CONFIG, CONTACT } from "@/lib/constants";
+
+// DSGVO-konform: Fonts werden lokal via next/font geladen (kein externer Request zur Laufzeit)
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+  style: ["normal", "italic"],
+  display: "swap",
+  variable: "--font-heading",
+});
+
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  display: "swap",
+  variable: "--font-body",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
+  variable: "--font-sans",
+});
 
 // Enhanced metadata for SEO and social sharing
 export const metadata: Metadata = {
@@ -103,14 +129,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang={SITE_CONFIG.language}>
+    <html lang={SITE_CONFIG.language} className={`${playfair.variable} ${cormorant.variable} ${inter.variable}`}>
       <head>
         {/* Organization and LocalBusiness structured data for rich results */}
         <StructuredData type="organization" />
         <StructuredData type="localBusiness" brandName={SITE_CONFIG.name} />
         
-        {/* Preconnect for performance */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        {/* DSGVO-konform: Keine externen Font-Verbindungen nötig */}
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
         
         {/* Geographic meta tags for local SEO */}
@@ -119,7 +144,7 @@ export default function RootLayout({
         <meta name="geo.position" content="54.9079;8.3507" />
         <meta name="ICBM" content="54.9079, 8.3507" />
       </head>
-      <body className="antialiased min-h-screen flex flex-col">
+      <body className="antialiased min-h-screen flex flex-col font-body">
         <SkipLink />
         <Navigation />
         <main id="main-content" className="flex-grow" role="main">

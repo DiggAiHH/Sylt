@@ -8,7 +8,7 @@ import {
   AnimatedSection,
   Button,
   JsonLd,
-} from '@blumsylt/ui';
+} from '@sylt/ui';
 import { generateFaqSchema } from '@sylt/config';
 import { Metadata } from 'next';
 import Link from 'next/link';

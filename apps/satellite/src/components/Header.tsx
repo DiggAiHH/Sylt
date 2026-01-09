@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import type { Brand } from '@blumsylt/shared';
+import type { Brand } from '@sylt/shared';
 
 interface HeaderProps {
   brand: Brand;

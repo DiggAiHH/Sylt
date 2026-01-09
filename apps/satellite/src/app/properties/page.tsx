@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Section, Container, Heading, Text, Grid, Card, CardImage, CardContent, BookingOverlay } from '@blumsylt/ui';
+import { Section, Container, Heading, Text, Grid, Card, CardImage, CardContent, BookingOverlay } from '@sylt/ui';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { getBrandConfig, getHubUrl } from '@/lib/config';

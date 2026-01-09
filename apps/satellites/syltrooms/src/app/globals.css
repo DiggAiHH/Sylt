@@ -1,20 +1,58 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600&display=swap');
+/* DSGVO-konform: Fonts werden via next/font in layout.tsx geladen */
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
+  :root {
+    /* Font-Variablen werden von next/font gesetzt */
+    --font-heading: 'Playfair Display', Georgia, serif;
+    --font-body: 'Cormorant Garamond', Georgia, serif;
+    --font-sans: 'Inter', system-ui, sans-serif;
+  }
+
   html {
     scroll-behavior: smooth;
   }
 
+  /* Respect reduced motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
   body {
     @apply font-body text-reetdach-600 bg-cream antialiased;
+    font-family: var(--font-body);
+    line-height: 1.7;
   }
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-heading text-charcoal;
+    font-family: var(--font-heading);
+    line-height: 1.2;
+  }
+
+  /* WCAG 2.5.5: Minimum touch target 44x44px */
+  a, button, [role="button"], input, select, textarea {
+    min-height: 44px;
+  }
+
+  /* Focus-visible für bessere Tastatur-Navigation */
+  *:focus-visible {
+    outline: 3px solid var(--brand-accent, #3896b5);
+    outline-offset: 2px;
+    border-radius: 4px;
   }
 }
 
@@ -25,5 +63,19 @@
 
   .luxury-section {
     @apply py-section-md md:py-section-lg;
+  }
+  
+  /* Mobile-optimierte Buttons */
+  .btn-luxury {
+    @apply inline-flex items-center justify-center px-6 py-4 rounded-lg font-medium transition-all duration-200;
+    min-height: 56px; /* Größer für Touch */
+  }
+  
+  .btn-luxury:hover {
+    transform: translateY(-1px);
+  }
+  
+  .btn-luxury:active {
+    transform: translateY(0);
   }
 }

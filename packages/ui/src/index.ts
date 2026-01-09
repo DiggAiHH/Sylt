@@ -13,6 +13,10 @@ export { AnimatedSection } from './components/AnimatedSection';
 export { PropertyCard } from './components/PropertyCard';
 export { BookingWidget } from './components/BookingWidget';
 
+// Dachmarken-Navigation (verbindet alle BLUM Marken)
+export { DachmarkenNavigation } from './components/DachmarkenNavigation';
+export { DachmarkenFooter } from './components/DachmarkenFooter';
+
 // New Components
 export { Testimonials } from './components/Testimonials';
 export { ContactForm, type ContactFormData } from './components/ContactForm';
@@ -30,6 +34,10 @@ export { OptimizedImage, HeroImage } from './components/OptimizedImage';
 // Accessibility Components
 export { SkipLink, SkipLinksGroup } from './components/SkipLink';
 export { AccessibilityControls } from './components/AccessibilityControls';
+
+// Toast & Page Transitions
+export { ToastProvider, useToast } from './components/Toast';
+export { PageTransition, PageTransitionOverlay, SlidePageTransition } from './components/PageTransition';
 
 // Error Handling
 export { ErrorBoundary, withErrorBoundary, AsyncBoundary } from './components/ErrorBoundary';

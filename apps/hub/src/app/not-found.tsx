@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Container, Heading, Text, Button } from '@blumsylt/ui';
+import { Container, Heading, Text, Button } from '@sylt/ui';
 
 export default function NotFound() {
   return (

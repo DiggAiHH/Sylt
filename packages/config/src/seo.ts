@@ -385,10 +385,13 @@ export const viewport = {
 /**
  * Generate common link preconnect hints
  * Improves performance for external resources
+ * 
+ * HINWEIS: Google Fonts wurden entfernt (DSGVO-Konformität)
+ * Fonts werden lokal via next/font geladen
  */
 export const preconnectLinks = [
-  { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-  { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossOrigin: 'anonymous' },
+  // DSGVO-konform: Keine Google Fonts preconnect mehr nötig
+  // Fonts werden jetzt lokal via next/font gehostet
   { rel: 'dns-prefetch', href: 'https://www.googletagmanager.com' },
   { rel: 'dns-prefetch', href: 'https://js.stripe.com' },
 ];

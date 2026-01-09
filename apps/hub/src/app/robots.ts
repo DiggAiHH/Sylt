@@ -9,7 +9,7 @@ import { MetadataRoute } from 'next';
  * - Specifies sitemap location
  */
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = 'https://blumsylthotels.de';
+  const baseUrl = 'https://blumaufsylt.de';
 
   return {
     rules: [

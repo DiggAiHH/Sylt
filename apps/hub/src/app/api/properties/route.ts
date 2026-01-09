@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import type { ApiResponse, Property, PaginatedResponse, BrandId } from '@blumsylt/shared';
+import type { ApiResponse, Property, PaginatedResponse, BrandId } from '@sylt/shared';
 
 // Mock properties data - in production, this would come from a CMS/database
 const mockProperties: Property[] = [

@@ -1,5 +1,30 @@
 import type { Metadata, Viewport } from 'next';
+import { Playfair_Display, Cormorant_Garamond, Inter } from 'next/font/google';
 import './globals.css';
+
+// DSGVO-konform: Fonts werden lokal via next/font geladen (kein externer Request)
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800', '900'],
+  style: ['normal', 'italic'],
+  display: 'swap',
+  variable: '--font-heading',
+});
+
+const cormorant = Cormorant_Garamond({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  style: ['normal', 'italic'],
+  display: 'swap',
+  variable: '--font-body',
+});
+
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  display: 'swap',
+  variable: '--font-sans',
+});
 
 /**
  * Sylt Rooms SEO Metadata
@@ -75,10 +100,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="de" dir="ltr">
+    <html lang="de" dir="ltr" className={`${playfair.variable} ${cormorant.variable} ${inter.variable}`}>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* DSGVO-konform: Keine externen Font-Verbindungen nötig - next/font lädt lokal */}
 
         {/* Structured Data: Hotel */}
         <script
@@ -124,7 +148,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="antialiased">{children}</body>
+      <body className="antialiased font-body">{children}</body>
     </html>
   );
 }
