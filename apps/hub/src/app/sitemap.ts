@@ -7,7 +7,7 @@ import { MetadataRoute } from 'next';
  * In production, this would fetch actual properties from the database.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://blumsylthotels.de';
+  const baseUrl = 'https://blumaufsylt.de';
 
   // Static pages with their update frequencies and priorities
   const staticPages: MetadataRoute.Sitemap = [

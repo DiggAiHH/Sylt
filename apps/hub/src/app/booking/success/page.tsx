@@ -4,7 +4,7 @@ import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import type { Booking } from '@blumsylt/shared';
+import type { Booking } from '@sylt/shared';
 
 /**
  * Booking Success Page

@@ -1,5 +1,27 @@
 import type { Metadata, Viewport } from 'next';
+import { Playfair_Display, Cormorant_Garamond, Inter } from 'next/font/google';
 import './globals.css';
+
+// DSGVO-konforme Schriftarten via next/font (lokal gehostet)
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-playfair',
+  weight: ['400', '500', '600', '700'],
+});
+
+const cormorant = Cormorant_Garamond({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-cormorant',
+  weight: ['300', '400', '500', '600'],
+});
+
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+});
 
 /**
  * Auster Appartements SEO Metadata
@@ -54,10 +76,9 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="de" dir="ltr">
+    <html lang="de" dir="ltr" className={`${playfair.variable} ${cormorant.variable} ${inter.variable}`}>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* DSGVO-konform: Keine externen Font-Verbindungen */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -74,7 +95,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
       </head>
-      <body className="antialiased">{children}</body>
+      <body className="antialiased font-body">{children}</body>
     </html>
   );
 }

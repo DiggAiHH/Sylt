@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { randomBytes } from 'crypto';
-import type { ApiResponse, Booking } from '@blumsylt/shared';
+import type { ApiResponse, Booking } from '@sylt/shared';
 import { bookingRequestSchema, bookingIdSchema, validateRequest } from '@/lib/validation';
 import { ApiError, ErrorCode, handleError, logError } from '@/lib/errors';
 import { checkRateLimit, getClientIdentifier, getRateLimitHeaders } from '@/lib/rate-limit';

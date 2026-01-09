@@ -2,8 +2,8 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion } from 'framer-motion';
-import type { Property, Brand } from '@blumsylt/shared';
-import { formatCurrency, isValidEmail, isValidDateRange, sanitizeForPlainText } from '@blumsylt/shared';
+import type { Property, Brand } from '@sylt/shared';
+import { formatCurrency, isValidEmail, isValidDateRange, sanitizeForPlainText } from '@sylt/shared';
 
 interface BookingFormProps {
   property: Property;
@@ -58,32 +58,7 @@ export default function BookingForm({
   }, []);
 
   // Debounced availability check to prevent excessive API calls
-  const checkAvailabilityDebounced = useCallback((checkInVal: string, checkOutVal: string) => {
-    // Clear existing timer
-    if (debounceTimerRef.current) {
-      clearTimeout(debounceTimerRef.current);
-    }
-    
-    // Cancel any pending request
-    if (abortControllerRef.current) {
-      abortControllerRef.current.abort();
-    }
-    
-    debounceTimerRef.current = setTimeout(() => {
-      performAvailabilityCheck(checkInVal, checkOutVal);
-    }, AVAILABILITY_CHECK_DELAY_MS);
-  }, [property.id]);
-
-  // Check availability when dates change (with debounce)
-  useEffect(() => {
-    if (checkIn && checkOut) {
-      checkAvailabilityDebounced(checkIn, checkOut);
-    } else {
-      setAvailability(null);
-    }
-  }, [checkIn, checkOut, checkAvailabilityDebounced]);
-
-  const performAvailabilityCheck = async (checkInVal: string, checkOutVal: string) => {
+  const performAvailabilityCheck = useCallback(async (checkInVal: string, checkOutVal: string) => {
     const checkInDate = new Date(checkInVal);
     const checkOutDate = new Date(checkOutVal);
 
@@ -146,7 +121,32 @@ export default function BookingForm({
     } finally {
       setIsChecking(false);
     }
-  };
+  }, [property.id]);
+
+  const checkAvailabilityDebounced = useCallback((checkInVal: string, checkOutVal: string) => {
+    // Clear existing timer
+    if (debounceTimerRef.current) {
+      clearTimeout(debounceTimerRef.current);
+    }
+    
+    // Cancel any pending request
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+    }
+    
+    debounceTimerRef.current = setTimeout(() => {
+      performAvailabilityCheck(checkInVal, checkOutVal);
+    }, AVAILABILITY_CHECK_DELAY_MS);
+  }, [performAvailabilityCheck]);
+
+  // Check availability when dates change (with debounce)
+  useEffect(() => {
+    if (checkIn && checkOut) {
+      checkAvailabilityDebounced(checkIn, checkOut);
+    } else {
+      setAvailability(null);
+    }
+  }, [checkIn, checkOut, checkAvailabilityDebounced]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

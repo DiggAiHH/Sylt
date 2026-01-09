@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import type { Brand } from '@blumsylt/shared';
+import type { Brand } from '@sylt/shared';
 
 interface FooterProps {
   brand: Brand;

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../utils/cn';
@@ -33,6 +33,19 @@ export function Gallery({
     4: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4',
   };
 
+  // Close on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setSelectedImage(null);
+      }
+    };
+    if (selectedImage) {
+      window.addEventListener('keydown', handleKeyDown);
+    }
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedImage]);
+
   return (
     <>
       <div
@@ -41,16 +54,19 @@ export function Gallery({
           columnClasses[columns],
           className
         )}
+        role="list"
       >
         {images.map((image, index) => (
-          <motion.div
+          <motion.button
             key={image.url}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
             viewport={{ once: true }}
-            className="relative aspect-[4/3] overflow-hidden rounded-lg cursor-pointer group"
+            className="relative aspect-[4/3] overflow-hidden rounded-lg cursor-pointer group w-full focus:outline-none focus:ring-4 focus:ring-nordsee-200"
             onClick={() => setSelectedImage(image)}
+            aria-label={`Bild vergrößern: ${image.alt}`}
+            role="listitem"
           >
             <Image
               src={image.url}
@@ -60,7 +76,7 @@ export function Gallery({
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
             <div className="absolute inset-0 bg-charcoal/0 group-hover:bg-charcoal/20 transition-colors duration-300" />
-          </motion.div>
+          </motion.button>
         ))}
       </div>
 
@@ -73,6 +89,9 @@ export function Gallery({
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 flex items-center justify-center bg-charcoal/90 p-4"
             onClick={() => setSelectedImage(null)}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Bildansicht"
           >
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
@@ -80,6 +99,7 @@ export function Gallery({
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
               className="relative max-w-5xl max-h-[90vh] w-full"
+              onClick={(e) => e.stopPropagation()}
             >
               <Image
                 src={selectedImage.url}
@@ -87,10 +107,12 @@ export function Gallery({
                 width={selectedImage.width}
                 height={selectedImage.height}
                 className="object-contain w-full h-full rounded-lg"
+                priority
               />
               <button
                 onClick={() => setSelectedImage(null)}
-                className="absolute top-4 right-4 text-white text-2xl w-10 h-10 rounded-full bg-charcoal/50 hover:bg-charcoal/70 transition-colors flex items-center justify-center"
+                className="absolute top-4 right-4 text-white text-2xl w-10 h-10 rounded-full bg-charcoal/50 hover:bg-charcoal/70 transition-colors flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-white"
+                aria-label="Schließen"
               >
                 ×
               </button>

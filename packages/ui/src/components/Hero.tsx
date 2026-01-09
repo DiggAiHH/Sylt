@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
+import Image from 'next/image';
 
 interface HeroVideoProps {
   src: string;
@@ -38,27 +39,30 @@ export function HeroVideo({
     <section className={`relative h-screen w-full overflow-hidden ${className}`}>
       {/* Video Background */}
       <div className="absolute inset-0">
+        {/* Poster fallback (Next.js Optimized) */}
+        {poster && (
+          <Image
+            src={poster}
+            alt={title || 'Video background'}
+            fill
+            priority
+            className={`object-cover -z-10 transition-opacity duration-1000 ${isLoaded ? 'opacity-0' : 'opacity-100'}`}
+            sizes="100vw"
+          />
+        )}
+        
         <video
           ref={videoRef}
           className={`w-full h-full object-cover transition-opacity duration-1000 ${
             isLoaded ? 'opacity-100' : 'opacity-0'
           }`}
           src={src}
-          poster={poster}
           autoPlay
           muted
           loop
           playsInline
           onLoadedData={() => setIsLoaded(true)}
         />
-        
-        {/* Poster fallback while loading */}
-        {poster && !isLoaded && (
-          <div 
-            className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(${poster})` }}
-          />
-        )}
         
         {/* Gradient Overlay */}
         <div 
@@ -148,14 +152,21 @@ export function HeroImage({
     <section className={`relative h-screen w-full overflow-hidden ${className}`}>
       {/* Image Background */}
       <div className="absolute inset-0">
-        <motion.img
+        <motion.div
           initial={{ scale: 1.1 }}
           animate={{ scale: 1 }}
           transition={{ duration: 1.5, ease: 'easeOut' }}
-          src={src}
-          alt={alt}
-          className="w-full h-full object-cover"
-        />
+          className="w-full h-full relative"
+        >
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            priority
+            className="object-cover"
+            sizes="100vw"
+          />
+        </motion.div>
         
         {/* Gradient Overlay */}
         <div 

@@ -1,5 +1,5 @@
-import { getBrand as getSharedBrand, hubConfig } from '@blumsylt/shared';
-import type { BrandId, Brand } from '@blumsylt/shared';
+import { getBrand as getSharedBrand, hubConfig } from '@sylt/shared';
+import type { BrandId, Brand } from '@sylt/shared';
 
 /**
  * Get the brand configuration for the current satellite deployment.

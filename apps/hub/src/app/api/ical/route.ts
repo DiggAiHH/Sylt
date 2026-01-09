@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import type { ApiResponse, ICalEvent } from '@blumsylt/shared';
+import type { ApiResponse, ICalEvent } from '@sylt/shared';
 
 // Helper to parse iCal data (simplified)
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

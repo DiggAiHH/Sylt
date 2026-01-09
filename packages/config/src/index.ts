@@ -9,6 +9,9 @@ export * from './seo';
 // Re-export Accessibility utilities
 export * from './a11y';
 
+// Re-export DSGVO-konforme Fonts
+export * from './fonts';
+
 // Sylt Color Palette
 export const colors = {
   // Primary Colors

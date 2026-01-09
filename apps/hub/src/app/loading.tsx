@@ -1,4 +1,4 @@
-import { Container, Text } from '@blumsylt/ui';
+import { Container, Text } from '@sylt/ui';
 
 export default function Loading() {
   return (

@@ -1,6 +1,29 @@
 import type { Metadata } from 'next';
+import { Playfair_Display, Cormorant_Garamond, Inter } from 'next/font/google';
 import { getBrandConfig } from '@/lib/config';
 import './globals.css';
+
+// DSGVO-konform: Fonts werden lokal via next/font geladen
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+  variable: '--font-heading',
+});
+
+const cormorant = Cormorant_Garamond({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+  variable: '--font-body',
+});
+
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  display: 'swap',
+  variable: '--font-sans',
+});
 
 // Get brand configuration - uses NEXT_PUBLIC_BRAND_ID embedded at build time
 // This is the expected pattern for satellite deployments where each build
@@ -19,15 +42,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="de">
+    <html lang="de" className={`${playfair.variable} ${cormorant.variable} ${inter.variable}`}>
       <head>
-        {/* Google Fonts - loaded via link for better compatibility */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link 
-          href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" 
-          rel="stylesheet"
-        />
+        {/* DSGVO-konform: Keine externen Font-Verbindungen nötig */}
         <style>{`
           :root {
             --brand-primary: ${brand.primaryColor};
@@ -36,7 +53,7 @@ export default function RootLayout({
           }
         `}</style>
       </head>
-      <body className="antialiased bg-offwhite text-reetdach-900">
+      <body className="antialiased bg-offwhite text-reetdach-900 font-body">
         {children}
       </body>
     </html>

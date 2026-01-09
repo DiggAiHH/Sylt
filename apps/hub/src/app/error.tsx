@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { Container, Heading, Text, Button } from '@blumsylt/ui';
+import { Container, Heading, Text, Button } from '@sylt/ui';
 
 export default function Error({
   error,

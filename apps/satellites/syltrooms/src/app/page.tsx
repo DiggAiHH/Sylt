@@ -5,14 +5,27 @@ import {
   AnimatedSection,
   Heading,
   Text,
-  Navigation,
-  Footer,
-  Gallery,
-  BookingWidget,
+  DachmarkenNavigation,
+  DachmarkenFooter,
   Card,
+  PropertyCard,
+  GallerySkeleton,
+  Skeleton,
 } from '@sylt/ui';
 import { satelliteConfigs } from '@sylt/config';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
+import type { Property } from '@sylt/types';
+
+const Gallery = dynamic(() => import('@sylt/ui').then((mod) => mod.Gallery), {
+  loading: () => <GallerySkeleton />,
+  ssr: false,
+});
+
+const BookingWidget = dynamic(() => import('@sylt/ui').then((mod) => mod.BookingWidget), {
+  loading: () => <Skeleton className="h-[400px] w-full rounded-xl bg-sand-100" />,
+  ssr: false,
+});
 
 const config = satelliteConfigs.syltrooms;
 
@@ -25,7 +38,7 @@ const rooms = [
     size: 45,
     capacity: 2,
     price: 350,
-    image: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800',
+    image: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&q=80&auto=format',
   },
   {
     id: 2,
@@ -34,7 +47,7 @@ const rooms = [
     size: 32,
     capacity: 2,
     price: 280,
-    image: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800',
+    image: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800&q=80&auto=format',
   },
   {
     id: 3,
@@ -43,7 +56,7 @@ const rooms = [
     size: 55,
     capacity: 4,
     price: 450,
-    image: 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800',
+    image: 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&q=80&auto=format',
   },
   {
     id: 4,
@@ -52,7 +65,7 @@ const rooms = [
     size: 28,
     capacity: 2,
     price: 220,
-    image: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=800',
+    image: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=800&q=80&auto=format',
   },
   {
     id: 5,
@@ -61,66 +74,26 @@ const rooms = [
     size: 75,
     capacity: 4,
     price: 650,
-    image: 'https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=800',
+    image: 'https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=800&q=80&auto=format',
   },
 ];
 
 // Gallery images
 const galleryImages = [
-  { url: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800', alt: 'Zimmer 1', width: 800, height: 600 },
-  { url: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800', alt: 'Zimmer 2', width: 800, height: 600 },
-  { url: 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800', alt: 'Zimmer 3', width: 800, height: 600 },
-  { url: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=800', alt: 'Zimmer 4', width: 800, height: 600 },
-  { url: 'https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=800', alt: 'Zimmer 5', width: 800, height: 600 },
-  { url: 'https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=800', alt: 'Badezimmer', width: 800, height: 600 },
-];
-
-// Navigation items
-const navItems = [
-  { label: 'Zimmer', href: '#zimmer' },
-  { label: 'Galerie', href: '#galerie' },
-  { label: 'Lage', href: '#lage' },
-  { label: 'Kontakt', href: '#kontakt' },
-];
-
-// Footer columns
-const footerColumns = [
-  {
-    title: 'Sylt Rooms',
-    links: [
-      { label: 'Unsere Zimmer', href: '#zimmer' },
-      { label: 'Preise', href: '#preise' },
-      { label: 'Ausstattung', href: '#ausstattung' },
-    ],
-  },
-  {
-    title: 'BLUM Hotels',
-    links: [
-      { label: 'blumsylthotels.de', href: 'https://blumsylthotels.de' },
-      { label: 'Alle Unterkünfte', href: 'https://blumsylthotels.de/properties' },
-    ],
-  },
-  {
-    title: 'Rechtliches',
-    links: [
-      { label: 'Impressum', href: '/impressum' },
-      { label: 'Datenschutz', href: '/datenschutz' },
-      { label: 'AGB', href: '/agb' },
-    ],
-  },
+  { url: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&q=80&auto=format', alt: 'Zimmer 1', width: 800, height: 600 },
+  { url: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800&q=80&auto=format', alt: 'Zimmer 2', width: 800, height: 600 },
+  { url: 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&q=80&auto=format', alt: 'Zimmer 3', width: 800, height: 600 },
+  { url: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=800&q=80&auto=format', alt: 'Zimmer 4', width: 800, height: 600 },
+  { url: 'https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=800&q=80&auto=format', alt: 'Zimmer 5', width: 800, height: 600 },
+  { url: 'https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=800&q=80&auto=format', alt: 'Badezimmer', width: 800, height: 600 },
 ];
 
 export default function SyltroomsPage() {
   return (
     <main>
       {/* Navigation */}
-      <Navigation
-        logo={
-          <span className="font-heading text-2xl text-white">
-            SYLT<span className="text-sand-400">ROOMS</span>
-          </span>
-        }
-        items={navItems}
+      <DachmarkenNavigation
+        currentBrand="Sylt Rooms"
         transparent={true}
       />
 
@@ -197,42 +170,51 @@ export default function SyltroomsPage() {
           </AnimatedSection>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {rooms.map((room, index) => (
-              <AnimatedSection
-                key={room.id}
-                animation="slideUp"
-                delay={index * 0.1}
-              >
-                <Card variant="elevated" className="overflow-hidden">
-                  <div
-                    className="aspect-[4/3] bg-cover bg-center"
-                    style={{ backgroundImage: `url(${room.image})` }}
-                  />
-                  <div className="p-6">
-                    <h3 className="font-heading text-xl text-charcoal mb-2">
-                      {room.name}
-                    </h3>
-                    <p className="font-body text-reetdach-500 text-sm mb-4">
-                      {room.description}
-                    </p>
-                    <div className="flex items-center gap-4 text-sm text-reetdach-400 mb-4">
-                      <span>{room.size} m²</span>
-                      <span>•</span>
-                      <span>bis zu {room.capacity} Gäste</span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <span className="font-heading text-2xl text-charcoal">
-                          €{room.price}
-                        </span>
-                        <span className="text-sm text-reetdach-400"> / Nacht</span>
-                      </div>
-                      <Button size="sm">Buchen</Button>
-                    </div>
-                  </div>
-                </Card>
-              </AnimatedSection>
-            ))}
+            {rooms.map((room, index) => {
+              // Transform simple room data to full Property object for the card
+              const roomProperty: Property = {
+                id: room.id.toString(),
+                name: room.name,
+                slug: `room-${room.id}`,
+                type: 'hotel-room',
+                description: room.description,
+                shortDescription: room.description,
+                images: [{
+                  url: room.image,
+                  alt: room.name,
+                  width: 800,
+                  height: 600,
+                  isPrimary: true
+                }],
+                amenities: [
+                  { id: '1', name: `${room.size} m²`, icon: 'maximize', category: 'comfort' },
+                  { id: '2', name: `bis ${room.capacity} Gäste`, icon: 'users', category: 'comfort' }
+                ],
+                location: {
+                  address: 'Sylt Rooms',
+                  city: 'Westerland',
+                  postalCode: '25980',
+                  country: 'Germany',
+                  latitude: 0,
+                  longitude: 0,
+                  distanceToBeach: '200m'
+                },
+                rooms: [],
+                priceRange: { min: room.price, max: room.price, currency: 'EUR' },
+                featured: false,
+                active: true
+              };
+
+              return (
+                <AnimatedSection
+                  key={room.id}
+                  animation="slideUp"
+                  delay={index * 0.1}
+                >
+                  <PropertyCard property={roomProperty} />
+                </AnimatedSection>
+              );
+            })}
           </div>
         </Container>
       </section>
@@ -249,7 +231,9 @@ export default function SyltroomsPage() {
             </Heading>
           </AnimatedSection>
 
-          <Gallery images={galleryImages} columns={3} />
+          <AnimatedSection animation="fadeIn" delay={0.2}>
+            <Gallery images={galleryImages} columns={3} />
+          </AnimatedSection>
         </Container>
       </section>
 
@@ -298,15 +282,7 @@ export default function SyltroomsPage() {
       </section>
 
       {/* Footer */}
-      <Footer
-        logo={
-          <span className="font-heading text-2xl text-white">
-            SYLT<span className="text-sand-400">ROOMS</span>
-          </span>
-        }
-        columns={footerColumns}
-        copyright="© 2024 Sylt Rooms - Ein BLUM Sylt Hotel"
-      />
+      <DachmarkenFooter />
     </main>
   );
 }
