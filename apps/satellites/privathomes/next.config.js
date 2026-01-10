@@ -2,22 +2,19 @@
 const nextConfig = {
   transpilePackages: ['@sylt/ui', '@sylt/booking', '@sylt/config', '@sylt/types'],
   images: {
-    domains: ['images.unsplash.com', 'localhost'],
+    domains: ['images.unsplash.com'],
     remotePatterns: [
       {
         protocol: 'https',
         hostname: '**.unsplash.com',
       },
+      {
+        protocol: 'https',
+        hostname: '**.netlify.app',
+      },
     ],
   },
-  async rewrites() {
-    return [
-      {
-        source: '/api/:path*',
-        destination: 'http://localhost:3000/api/:path*', // Proxy to Hub
-      },
-    ];
-  },
+  // API-Proxying wird über netlify.toml [[redirects]] gehandhabt
 };
 
 module.exports = nextConfig;

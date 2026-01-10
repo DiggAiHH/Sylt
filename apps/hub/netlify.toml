@@ -1,0 +1,36 @@
+# Netlify Configuration for Hub (Central Booking Engine)
+# WICHTIG: In Netlify UI Base Directory auf ROOT ("/") setzen!
+
+[build]
+  command = "npm install && npm run build:hub"
+  publish = "apps/hub/.next"
+
+[build.environment]
+  NODE_VERSION = "18.17.0"
+  NPM_FLAGS = "--legacy-peer-deps"
+  NEXT_TELEMETRY_DISABLED = "1"
+
+# Next.js Essential Plugin - REQUIRED for App Router
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+# Production Environment Variables (set in Netlify UI)
+# NEXT_PUBLIC_HUB_URL = https://sylt-hub.netlify.app
+# NEXT_PUBLIC_API_URL = https://sylt-hub.netlify.app/api
+# STRIPE_SECRET_KEY = sk_live_...
+# STRIPE_WEBHOOK_SECRET = whsec_...
+# NEXT_PUBLIC_STRIPE_PUBLIC_KEY = pk_live_...
+
+# Headers for CORS
+[[headers]]
+  for = "/api/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"
+    Access-Control-Allow-Headers = "Content-Type, Authorization, X-Request-ID"
+
+# Redirects
+[[redirects]]
+  from = "/health"
+  to = "/api/health"
+  status = 200

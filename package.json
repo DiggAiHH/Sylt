@@ -16,7 +16,13 @@
     "dev:satellite": "npm run dev -w apps/satellite",
     "build:hub": "npm run build -w apps/hub",
     "build:satellite": "npm run build -w apps/satellite",
+    "build:syltrooms": "npm run build -w apps/satellites/syltrooms",
+    "build:privathomes": "npm run build -w apps/satellites/privathomes",
+    "build:longislandhouse": "npm run build -w apps/satellites/longislandhouse",
+    "build:auster": "npm run build -w apps/satellites/auster-appartements",
+    "build:beachhome": "npm run build -w apps/satellites/beach-home",
     "build:all": "npm run build -w apps/hub && npm run build -w apps/satellite",
+    "build:all-satellites": "npm run build:syltrooms && npm run build:privathomes && npm run build:longislandhouse && npm run build:auster && npm run build:beachhome",
     "lint:all": "npm run lint -w apps/hub && npm run lint -w apps/satellite",
     "type-check": "tsc --noEmit"
   },
@@ -26,6 +32,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@netlify/plugin-nextjs": "^5.0.0",
     "@playwright/test": "^1.57.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",

@@ -1,0 +1,84 @@
+# Root Netlify Configuration - BLUM Sylt Monorepo
+# This file documents how to deploy each site from this repository
+#
+# IMPORTANT: Each app needs to be deployed as a SEPARATE Netlify site
+# Do NOT use this file directly - use the netlify.toml in each app folder
+#
+# ============================================================================
+# DEPLOYMENT GUIDE
+# ============================================================================
+#
+# Step 1: Create 9 Netlify Sites (one per project)
+# Step 2: Connect each site to this GitHub repository
+# Step 3: Configure build settings as shown below
+# Step 4: Set environment variables in Netlify UI
+#
+# ============================================================================
+# SITE CONFIGURATIONS
+# ============================================================================
+#
+# 1. HUB (Central Booking Engine)
+#    Netlify Site Name: sylt-hub
+#    Base Directory: / (root)
+#    Build Command: npm install && npm run build:hub
+#    Publish Directory: apps/hub/.next
+#    Config File: apps/hub/netlify.toml
+#
+# 2. SYLT ROOMS
+#    Netlify Site Name: sylt-rooms
+#    Build Command: npm install && npm run build:syltrooms
+#    Publish Directory: apps/satellites/syltrooms/.next
+#    Config File: apps/satellites/syltrooms/netlify.toml
+#
+# 3. PRIVAT HOMES
+#    Netlify Site Name: sylt-privathomes
+#    Build Command: npm install && npm run build:privathomes
+#    Publish Directory: apps/satellites/privathomes/.next
+#    Config File: apps/satellites/privathomes/netlify.toml
+#
+# 4. LONG ISLAND HOUSE
+#    Netlify Site Name: sylt-longisland
+#    Build Command: npm install && npm run build:longislandhouse
+#    Publish Directory: apps/satellites/longislandhouse/.next
+#    Config File: apps/satellites/longislandhouse/netlify.toml
+#
+# 5. AUSTER APPARTEMENTS
+#    Netlify Site Name: sylt-auster
+#    Build Command: npm install && npm run build:auster
+#    Publish Directory: apps/satellites/auster-appartements/.next
+#    Config File: apps/satellites/auster-appartements/netlify.toml
+#
+# 6. BEACH HOME
+#    Netlify Site Name: sylt-beachhome
+#    Build Command: npm install && npm run build:beachhome
+#    Publish Directory: apps/satellites/beach-home/.next
+#    Config File: apps/satellites/beach-home/netlify.toml
+#
+# 7. WEBSITE (Static)
+#    Netlify Site Name: sylt-website
+#    Base Directory: website
+#    Build Command: (none - static)
+#    Publish Directory: website
+#    Config File: website/netlify.toml
+#
+# 8. KOCHBUCH (Static)
+#    Netlify Site Name: sylt-kochbuch
+#    Base Directory: kochbuch
+#    Build Command: (none - static)
+#    Publish Directory: kochbuch
+#    Config File: kochbuch/netlify.toml
+#
+# ============================================================================
+# ENVIRONMENT VARIABLES (Set in Netlify UI)
+# ============================================================================
+#
+# HUB requires:
+#   NEXT_PUBLIC_HUB_URL = https://sylt-hub.netlify.app
+#   STRIPE_SECRET_KEY = sk_live_...
+#   STRIPE_WEBHOOK_SECRET = whsec_...
+#   NEXT_PUBLIC_STRIPE_PUBLIC_KEY = pk_live_...
+#
+# ALL SATELLITES require:
+#   NEXT_PUBLIC_HUB_URL = https://sylt-hub.netlify.app
+#
+# ============================================================================
